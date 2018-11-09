@@ -22,5 +22,5 @@
 
 <style lang="scss">
 @import "./assets/Niurons";
-  
+@import "./assets/Icons";
 </style>

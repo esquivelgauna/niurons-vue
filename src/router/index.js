@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Buefy from 'buefy' 
+
 import NiuronsNavBar from '@/components/NiuronsNavBar'
 import Landing from '@/components/Landing'
 import Login from '@/components/Login'

@@ -11,16 +11,9 @@
       </a>
     </div>
     <div id="navbarBasicExample" class="navbar-menu">
-      
-
       <div class="navbar-end">
         <div class="navbar-item">
-          <div class="buttons">
-            <router-link :to=" {name: 'Login'} " class=" button  is-primary is-outlined "> <strong>Iniciar Sesion</strong>
-            </router-link>
-            <router-link :to=" {name: 'Register'} " class=" button is-primary  is-outlined "> <strong>Registrarse</strong>
-            </router-link>
-          </div>
+          <login-modal></login-modal>
         </div>
       </div>
     </div>
@@ -28,8 +21,12 @@
 </template>
 
 <script>
+import LoginModal from '@/components/modals/LoginModal'
   export default {
     name: 'NiuronsNavBar',
+    components: {
+      'login-modal': LoginModal
+    },
     data() {
       return {
         title: ' Barra de navegacion ',

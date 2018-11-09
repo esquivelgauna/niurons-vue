@@ -1,0 +1,217 @@
+/* SVG FILE LOAD  */
+
+.niu-icon {
+	display: inline-block;
+	cursor: pointer;
+	background: url('./assets/svg/icons-niurons.svg');
+	background-repeat: no-repeat;
+}
+
+.niu-xs {
+	zoom: .2 !important;
+}
+
+.niu-bg-white {
+	background-color: white;
+	border-radius: 50%;
+}
+
+.niu-ico-sm {
+	zoom: .5;
+}
+
+.niu-ico-md {
+	zoom: .8;
+}
+
+.niu-ico-lg {
+	zoom: 1;
+}
+
+/* RESPONSIVE */
+
+/* Size XS  */
+
+@media (max-width: 575px) {
+	.niu-icon {
+		zoom: .6;
+	}
+}
+
+/* Size SM  */
+
+@media (min-width: 576px) {
+	.niu-icon {
+		zoom: .7;
+	}
+}
+
+/* Size md  */
+
+@media (min-width: 768px) {
+	.niu-icon {
+		zoom: .8;
+	}
+}
+
+/* Size XL  */
+
+@media (min-width: 1200px) {
+	.niu-icon {
+		zoom: .8;
+	}
+}
+
+
+
+
+/* Icons */
+
+/* NAV VAR TOP */
+
+.icon-nav-var-top {
+	zoom: .15 !important;
+	vertical-align: middle;
+}
+
+.icon-bell-niu {
+	background-position: -300px -550px;
+	width: 200px;
+	height: 200px;
+}
+
+.icon-necktie-niu {
+	background-position: -550px -550px;
+	width: 200px;
+	height: 200px;
+}
+
+.icon-blog-niu {
+	background-position: -800px -550px;
+	width: 200px;
+	height: 200px;
+}
+
+.icon-msg-niu {
+	background-position: -1050px -550px;
+	width: 200px;
+	height: 200px;
+}
+
+/* Icons services  */
+
+.service_diseno {
+	background-position: -1550px -50px;
+	width: 200px;
+	height: 200px;
+}
+
+.service_capacitacion {
+	background-position: -1800px -50px;
+	width: 200px;
+	height: 200px;
+}
+
+.service_video {
+	background-position: -300px -50px;
+	width: 200px;
+	height: 200px;
+}
+
+.service_negocios {
+	background-position: -2300px -50px;
+	width: 200px;
+	height: 200px;
+
+}
+
+.service_publicidad {
+	background-position: -50px -50px;
+	width: 200px;
+	height: 200px;
+}
+
+.service_marketing {
+	background-position: -800px -50px;
+	width: 200px;
+	height: 200px;
+}
+
+.service_programacion {
+	background-position: -1300px -50px;
+	width: 200px;
+	height: 200px;
+}
+
+.service_audio {
+	background-position: -1050px -50px;
+	width: 200px;
+	height: 200px;
+}
+
+.service_traduccion {
+	background-position: -2050px -50px;
+	width: 200px;
+	height: 200px;
+}
+
+.service_vida {
+	background-position: -550px -50px;
+	width: 200px;
+	height: 200px;
+}
+
+/* General Icons  */
+
+.icon-niurons {
+	background-position: -50px -800px;
+	width: 200px;
+	height: 200px;
+}
+ 
+/* Notification icons  */
+
+.icon_notify_order {
+	background-position: -50px -300px;
+	width: 200px;
+	height: 200px;
+}
+
+.icon_notify_purchase {
+	background-position: -1050px -300px;
+	width: 200px;
+	height: 200px;
+}
+
+.icon_notify_sale {
+	background-position: -800px -300px;
+	width: 200px;
+	height: 200px;
+}
+
+.icon_notify_work {
+	background-position: -300px -300px;
+	width: 200px;
+	height: 200px;
+}
+
+/*Counter*/
+
+.p-relative {
+	position: relative !important;
+}
+
+.niu-counter {
+	position: absolute;
+	right: -5%;
+	top: -5%;
+	background-color: #fe1212;
+	color: #fff;
+	text-align: center;
+	width: 15px;
+	height: 15px;
+	font-size: .7rem !important;
+	zoom: 1 !important;
+	z-index: 2;
+	border-radius: 50%;
+}
