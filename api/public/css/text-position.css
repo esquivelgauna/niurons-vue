@@ -1,0 +1,88 @@
+/* Size XS  */
+
+@media (max-width: 575px) {
+    .text-xs-center {
+        text-align: center;
+    }
+
+    .text-xs-left {
+        text-align: left;
+
+    }
+
+    .text-xs-right {
+        text-align: right;
+
+    }
+
+    .text-xs-justify {
+        text-align: justify;
+    }
+}
+
+/* Size SM  */
+
+@media (min-width: 576px) {
+    .text-sm-center {
+        text-align: center;
+    }
+
+    .text-sm-left {
+        text-align: left;
+
+    }
+
+    .text-sm-right {
+        text-align: right;
+
+    }
+
+    .text-sm-justify {
+        text-align: justify;
+    }
+}
+
+
+/* Size md  */
+
+@media ( min-width: 768px) {
+    .text-md-center {
+        text-align: center;
+    }
+
+    .text-md-left {
+        text-align: left;
+
+    }
+
+    .text-md-right {
+        text-align: right;
+
+    }
+
+    .text-md-justify {
+        text-align: justify;
+    }
+}
+
+/* Size XL  */
+
+@media (min-width: 1200px) {
+    .text-xl-center {
+        text-align: center;
+    }
+
+    .text-xl-left {
+        text-align: left;
+
+    }
+
+    .text-xl-right {
+        text-align: right;
+
+    }
+
+    .text-xl-justify {
+        text-align: justify;
+    }
+}

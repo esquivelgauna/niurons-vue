@@ -17,11 +17,12 @@
         </div>
       </div>
     </div>
+    {{ categories }}
   </nav>
 </template>
 
 <script>
-import LoginModal from '@/components/modals/LoginModal'
+  import LoginModal from '@/components/modals/LoginModal'
   export default {
     name: 'NiuronsNavBar',
     components: {
@@ -30,7 +31,24 @@ import LoginModal from '@/components/modals/LoginModal'
     data() {
       return {
         title: ' Barra de navegacion ',
+        categories: {}
       }
+    },
+    methods: {
+      getCategrories: function () {
+        this.$http.get('Categories').then(response => {
+          console.log('OK API', response);
+          this.categories = response.body;
+
+        }, response => {
+          // error callback
+          console.log('Error:', response);
+        });
+      }
+    },
+
+    beforeMount() {
+      this.getCategrories();
     }
   }
 

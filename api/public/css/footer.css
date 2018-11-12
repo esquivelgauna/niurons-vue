@@ -1,0 +1,553 @@
+.clrTitulo{
+	color: #007bff;
+}
+.extra{
+	color: #737477;
+}
+
+.extra a{
+	color: #737477;
+}
+
+.indexTitulo{
+    border-bottom: 2px solid #eee;
+}
+
+.indexTitulo:hover a{
+	color: #fff !important;
+}
+
+ .hover1:hover {
+	color:#fff !important;
+	background-color: #33b5e5 !important;
+}
+
+ .hover2:hover{
+	color:#fff !important;
+	background-color: #ff4444 !important;
+}
+ .hover3:hover{
+	color:#fff !important;
+	background-color: #FF8800 !important;
+} 
+.hover4:hover{
+	color:#fff !important;
+	background-color: #4285F4 !important;
+}
+.hover5:hover{
+	color:#fff !important;
+	background-color: #ffb300 !important;
+}
+.hover6:hover{
+	color:#fff !important;
+	background-color: #2BBBAD !important;
+	
+}
+.hover7:hover{
+	color:#fff !important;
+	background-color: #0091ea !important;
+}
+.hover8:hover{
+	color:#fff !important;
+	background-color: #3F729B !important;
+}
+.hover9:hover{
+	color:#fff !important;
+	background-color: #aa66cc !important;
+	}
+.hover10:hover{
+	color: #fff !important;
+	background-color: rgba(3, 169, 244, 0.7) !important;
+}
+.hover11:hover{
+	color: #fff !important;
+	background-color: rgba(244, 67, 54, 0.7) !important;
+}
+.hover12:hover{
+	color: #fff !important;
+	background-color: rgba(233, 30, 99, 0.7)  !important;
+}
+.hover13:hover{
+	color: #fff !important;
+	background-color: rgba(156, 39, 176, 0.7) !important;
+}
+.hover14:hover{
+	color: #fff !important;
+	background-color: rgba(63, 81, 181, 0.7) !important;
+}
+.hover15:hover{
+	color: #fff !important;
+	background-color: rgba(0, 188, 212, 0.7)  !important;
+}
+.hover16:hover{
+	color: #fff !important;
+	background-color: rgba(0, 150, 136, 0.7) !important;
+}
+.hover17:hover{
+	color: #fff !important;
+	background-color: rgba(255, 152, 0, 0.7) !important;
+}
+.hover18:hover{
+	color: #fff !important;
+	background-color: rgba(0, 200, 100, 0.7) !important;
+}
+.hover19:hover{
+	color: #fff !important;
+	background-color: rgba(244, 67, 54, 0.7) !important;
+}
+.hover20:hover{
+	color: #fff !important;
+	background-color: rgba(3, 169, 244, 0.7) !important;
+}
+.hover21:hover{
+	color: #fff !important;
+	background-color: rgba(244, 67, 54, 0.7) !important;
+}
+.hover22:hover{
+	color: #fff !important;
+	background-color: rgba(0, 188, 212, 0.7)  !important;
+}
+.hover23:hover{
+	color: #fff !important;
+	background-color: rgba(156, 39, 176, 0.7) !important;
+}
+
+.oculto{
+	display: none;
+}
+
+/*Inicio de Estilos de los titulos de terminos y condiciones*/
+.bq-uno .uno-title{
+	color: #33b5e5 !important;
+}
+.uno-title{
+	font-weight: 400;
+    font-size: 1.5rem !important;
+    margin-bottom: 0;
+}
+.bq-uno{
+	border-left: 3px solid #33b5e5 !important;
+}
+.text-uno{
+    color: #33b5e5 !important;
+}
+
+
+.bq-dos .dos-title{
+	color: #ff4444 !important;
+}
+.dos-title{
+	font-weight: 400;
+    font-size: 1.5rem !important;
+    margin-bottom: 0;
+}
+.bq-dos{
+	border-left: 3px solid #ff4444 !important;
+}
+.text-dos{
+    color: #ff4444 !important;
+}
+
+
+.bq-tres .tres-title{
+	color: #FF8800 !important;
+}
+.tres-title{
+	font-weight: 400;
+    font-size: 1.5rem !important;
+    margin-bottom: 0;
+}
+.bq-tres{
+	border-left: 3px solid  #FF8800 !important;;
+}
+.text-tres{
+    color: #FF8800 !important;
+}
+
+
+.bq-cuatro .cuatro-title{
+	color: #4285F4 !important;
+}
+.cuatro-title{
+	font-weight: 400;
+    font-size: 1.5rem !important;
+    margin-bottom: 0;
+}
+.bq-cuatro{
+	border-left: 3px solid #4285F4 !important;
+}
+
+.bq-cinco .cinco-title{
+	color: #ffb300 !important;
+}
+.cinco-title{
+	font-weight: 400;
+    font-size: 1.5rem !important;
+    margin-bottom: 0;
+}
+.bq-cinco{
+	border-left: 3px solid #ffb300 !important;
+}
+.text-cinco{
+    color: #ffb300 !important;
+}
+
+
+.bq-seis .seis-title{
+	color: #2BBBAD !important;
+}
+.seis-title{
+	font-weight: 400;
+    font-size: 1.5rem !important;
+    margin-bottom: 0;
+}
+.bq-seis{
+	border-left: 3px solid #2BBBAD !important;
+}
+
+
+.bq-siete .siete-title{
+	color: #0091ea !important;
+}
+.siete-title{
+	font-weight: 400;
+    font-size: 1.5rem !important;
+    margin-bottom: 0;
+}
+.bq-siete{
+	border-left: 3px solid #0091ea !important;
+}
+.text-siete{
+    color: #0091ea !important;
+}
+
+.bq-ocho .ocho-title{
+	color: #3F729B !important;
+}
+.ocho-title{
+	font-weight: 400;
+    font-size: 1.5rem !important;
+    margin-bottom: 0;
+}
+.bq-ocho{
+	border-left: 3px solid #3F729B !important;
+}
+.text-ocho{
+   	color: #3F729B !important;
+}
+
+.bq-nueve .nueve-title{
+	color: #aa66cc !important;
+}
+.nueve-title{
+	font-weight: 400;
+    font-size: 1.5rem !important;
+    margin-bottom: 0;
+}
+.bq-nueve{
+	border-left: 3px solid #aa66cc !important;
+}
+.text-nueve{
+   	color: #aa66cc !important;
+}
+
+.bq-diez .diez-title{
+	color: rgba(3, 169, 244, 0.7) !important;
+}
+.diez-title{
+	font-weight: 400;
+    font-size: 1.5rem !important;
+    margin-bottom: 0;
+}
+.bq-diez{
+	border-left: 3px solid rgba(3, 169, 244, 0.7) !important;
+}
+.text-diez{
+   	color: rgba(3, 169, 244, 0.7) !important;
+}
+
+.bq-once .once-title{
+	color: rgba(244, 67, 54, 0.7) !important;
+}
+.once-title{
+	font-weight: 400;
+    font-size: 1.5rem !important;
+    margin-bottom: 0;
+}
+.bq-once{
+	border-left: 3px solid rgba(244, 67, 54, 0.7) !important;
+}
+.text-once{
+   	color: rgba(244, 67, 54, 0.7) !important;
+}
+
+.bq-doce .doce-title{
+	color: rgba(233, 30, 99, 0.7)  !important;
+}
+.doce-title{
+	font-weight: 400;
+    font-size: 1.5rem !important;
+    margin-bottom: 0;
+}
+.bq-doce{
+	border-left: 3px solid rgba(233, 30, 99, 0.7)  !important;
+}
+.text-doce{
+   	color: rgba(233, 30, 99, 0.7)  !important;
+}
+
+.bq-trece .trece-title{
+	color: rgba(156, 39, 176, 0.7) !important;
+}
+.trece-title{
+	font-weight: 400;
+    font-size: 1.5rem !important;
+    margin-bottom: 0;
+}
+.bq-trece{
+	border-left: 3px solid rgba(156, 39, 176, 0.7) !important;
+}
+.text-trece{
+   	color: rgba(156, 39, 176, 0.7) !important;
+}
+
+.bq-catorce .catorce-title{
+	color: rgba(63, 81, 181, 0.7) !important;
+}
+.catorce-title{
+	font-weight: 400;
+    font-size: 1.5rem !important;
+    margin-bottom: 0;
+}
+.bq-catorce{
+	border-left: 3px solid rgba(63, 81, 181, 0.7) !important;
+}
+.text-catorce{
+   	color: rgba(63, 81, 181, 0.7) !important;
+}
+
+.bq-quince .quince-title{
+	color: rgba(0, 188, 212, 0.7)  !important;
+}
+.quince-title{
+	font-weight: 400;
+    font-size: 1.5rem !important;
+    margin-bottom: 0;
+}
+.bq-quince{
+	border-left: 3px solid rgba(0, 188, 212, 0.7)  !important;
+}
+
+.bq-diecisies .diecisies-title{
+	color: rgba(0, 150, 136, 0.7) !important;
+}
+.diecisies-title{
+	font-weight: 400;
+    font-size: 1.5rem !important;
+    margin-bottom: 0;
+}
+.bq-diecisies{
+	border-left: 3px solid rgba(0, 150, 136, 0.7) !important;
+}
+
+.bq-diecisiete .diecisiete-title{
+	color: rgba(255, 152, 0, 0.7) !important;
+}
+.diecisiete-title{
+	font-weight: 400;
+    font-size: 1.5rem !important;
+    margin-bottom: 0;
+}
+.bq-diecisiete{
+	border-left: 3px solid rgba(255, 152, 0, 0.7) !important;
+}
+
+.bq-dieciocho .dieciocho-title{
+	color:  rgba(0, 200, 100, 0.7) !important;
+}
+.dieciocho-title{
+	font-weight: 400;
+    font-size: 1.5rem !important;
+    margin-bottom: 0;
+}
+.bq-dieciocho{
+	border-left: 3px solid  rgba(0, 200, 100, 0.7) !important;
+}
+
+.bq-diecinueve .diecinueve-title{
+	color: rgba(244, 67, 54, 0.7) !important;
+}
+.diecinueve-title{
+	font-weight: 400;
+    font-size: 1.5rem !important;
+    margin-bottom: 0;
+}
+.bq-diecinueve{
+	border-left: 3px solid rgba(244, 67, 54, 0.7) !important;
+}
+.text-diecinueve{
+   	color: rgba(244, 67, 54, 0.7) !important;
+}
+
+.bq-veinte .veinte-title{
+	color: rgba(3, 169, 244, 0.7) !important;
+}
+.veinte-title{
+	font-weight: 400;
+    font-size: 1.5rem !important;
+    margin-bottom: 0;
+}
+.bq-veinte{
+	border-left: 3px solid rgba(3, 169, 244, 0.7) !important;
+}
+.text-veinte{
+   	color: rgba(3, 169, 244, 0.7) !important;
+}
+
+.bq-veintiuno .veintiuno-title{
+	color: rgba(244, 67, 54, 0.7) !important;
+}
+.veintiuno-title{
+	font-weight: 400;
+    font-size: 1.5rem !important;
+    margin-bottom: 0;
+}
+.bq-veintiuno{
+	border-left: 3px solid rgba(244, 67, 54, 0.7) !important;
+}
+.text-veintiuno{
+   	color: rgba(244, 67, 54, 0.7) !important;
+}
+
+.bq-veintidos .veintidos-title{
+	color: rgba(0, 188, 212, 0.7)  !important;
+}
+.veintidos-title{
+	font-weight: 400;
+    font-size: 1.5rem !important;
+    margin-bottom: 0;
+}
+.bq-veintidos{
+	border-left: 3px solid rgba(0, 188, 212, 0.7)  !important;
+}
+.text-veintidos{
+   	color: rgba(0, 188, 212, 0.7)  !important;
+}
+
+.bq-veintitres .veintitres-title{
+	color: rgba(156, 39, 176, 0.7) !important;
+}
+.veintitres-title{
+	font-weight: 400;
+    font-size: 1.5rem !important;
+    margin-bottom: 0;
+}
+.bq-veintitres{
+	border-left: 3px solid rgba(156, 39, 176, 0.7) !important;
+}
+
+/*Fin de estilos de los titulos de terminos y condiciones*/
+
+/* Estilos para scroll hasta arriba */
+.back-to-top {
+  background: none;
+  margin: 0;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 70px;
+  height: 70px;
+  z-index: 100;
+  display: none;
+  text-decoration: none;
+}
+
+.back-to-top i {
+  margin-top:  23px;
+  font-size: 40px;
+  color: #000;
+}
+
+/*Inicio de los estilos de la vista mapa del sitio*/
+div.sinBorder > ul,li.list-group-item{
+	border: 0px solid #fff !important;
+}
+/*Fin de los estilos de la vista mapa del sitio*/
+
+.borderLista1{
+	border: 2px solid #33b5e5 !important;
+}
+.borderLista2{
+	border: 2px solid  rgba(0, 188, 212, 0.7)  !important;
+}
+.borderLista3{
+	border: 2px solid #2BBBAD !important;
+}
+.borderLista4{
+	border: 2px solid #4285F4 !important
+}
+
+.textPreguntas{
+	color: #737477;
+}
+
+.hoverPreguntas:hover{
+	background-color: #eee;
+}
+
+
+.ocultar_pregunta{
+	display: none;
+}
+
+.sinPunto{
+	list-style: none;
+}
+
+.fa-arrow-circle-up{
+color: #ff4444 !important;
+}
+
+.fa-arrow-circle-down{
+color: #33b5e5 !important;
+}
+.carousel{
+	height: 420px;
+}
+
+.colorPasos{
+	color: #737477 !important;
+}
+
+/*Estilos de Footer Quienes Somos*/
+.textoOcultar{
+	display: none;
+}
+/*Fin de Estilos de Footer Quienes Somos*/
+
+
+/* .sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1px !important;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+} */
+
+/*@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}*/

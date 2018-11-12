@@ -1,6 +1,6 @@
-<template>
-  <div id="app" class=" hero is-fullheight ">
-    <niurons-nav-var></niurons-nav-var>
+<template >
+  <div id="app" class=" hero is-fullheight" >
+    <niurons-nav-var ></niurons-nav-var>
     <router-view />
     <niurons-footer></niurons-footer>
   </div>
@@ -11,16 +11,23 @@
   import NiuronsFooter from '@/components/NiuronsFooter.vue'
   export default {
     name: 'App',
+    data(){
+      return {
+        categories:{}
+      }
+    },
     components: {
       'niurons-nav-var': NiuronsNavBar,
       'niurons-footer': NiuronsFooter
-    }
+    },
+    
   }
 
 </script>
 
 
 <style lang="scss">
-@import "./assets/Niurons";
-@import "./assets/Icons";
+  @import "./assets/Niurons";
+  @import "./assets/Icons";
+
 </style>

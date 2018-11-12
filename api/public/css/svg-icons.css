@@ -1,0 +1,345 @@
+/* SVG FILE LOAD  */
+
+.niu-icon{
+    display: inline-block;
+    cursor: pointer;
+    background: url('../img/svg/icons-niurons.svg');
+    background-repeat: no-repeat; 
+}
+.niu-xs{
+    zoom: .2;
+}
+.niu-ico-sm{
+    zoom: .5;
+}
+.niu-ico-md{
+    zoom: .8;
+}
+.niu-ico-lg{
+    zoom: 1;
+}
+/* RESPONSIVE */
+
+/* Size XS  */
+@media (max-width: 575px){
+    .niu-icon{
+        zoom: .6;
+    }
+}
+
+/* Size SM  */
+@media (min-width: 576px){
+    .niu-icon{
+        zoom: .7;
+    }
+}
+
+/* Size md  */
+@media ( min-width: 768px){
+    .niu-icon{
+        zoom: .8;
+    }
+}
+
+/* Size XL  */
+@media (min-width: 1200px){
+    .niu-icon{
+        zoom: 1;
+    }
+}
+
+
+
+
+/* Icons */
+
+/* NAV VAR TOP */
+
+.icon-nav-var-top{
+    margin-right: 1rem;
+    zoom:  .15 !important;
+    vertical-align: middle;
+}
+
+.icon-bell{
+    background-position: -300px -550px;
+	width: 200px;
+	height: 200px; 
+}
+.icon-necktie{
+    background-position: -550px -550px;
+	width: 200px;
+	height: 200px;
+}
+.icon-blog {
+    background-position: -800px -550px;
+	width: 200px;
+	height: 200px;
+}
+
+.ico-backg {
+    display: inline-block;
+    background-image: url(../img/svg/iconosazul.svg);
+}
+ 
+
+.ico-backg.profile-ico {
+    background-position: -1123px 0px;
+    width: 138px;
+    height: 134px;
+    zoom: 0.19;
+}
+
+
+.ico-backg.msj-ico {
+    background-position: -984px 0px;
+    width: 138px;
+    height: 134px;
+    zoom: 0.19;
+}
+
+
+
+.collapsible-accordion .ico-backg, 
+
+.collapsible-accordion .diseno {
+    background-position: -139px -2px;
+    width: 135px;
+    height: 135px;
+}
+
+.collapsible-accordion .capacitaciones {
+    background-position: -704px -140px;
+    width: 135px;
+    height: 135px;
+}
+
+.collapsible-accordion .video {
+    background-position: -276px 0px;
+    width: 135px;
+    height: 135px;
+}
+
+.collapsible-accordion .negocios {
+    background-position: -559px -139px;
+    width: 135px;
+    height: 135px;
+}
+
+.collapsible-accordion .publicidad {
+    background-position: -278px -138px;
+    width: 135px;
+    height: 135px;
+}
+
+.collapsible-accordion .marketing {
+    background-position: -699px -5px;
+    width: 135px;
+    height: 135px;
+}
+
+.collapsible-accordion .programacion {
+    background-position: -560px 0px;
+    width: 135px;
+    height: 135px;
+}
+
+.collapsible-accordion .traducciones {
+    background-position: -417px -138px;
+    width: 135px;
+    height: 135px;
+}
+
+.collapsible-accordion .estilodevida {
+    background-position: -138px -139px;
+    width: 135px;
+    height: 135px;
+}
+
+.collapsible-accordion .audio {
+    background-position: -418px -1px;
+    width: 135px;
+    height: 135px;
+}
+
+
+
+.menuSide {
+    background-image: url(../img/svg/iconosgris.svg);
+    background-repeat: no-repeat;
+    display: inline-block;
+    zoom: 0.12;
+}
+
+.icon1-side {
+    background-position: -845px -141px;
+    width: 137px;
+    height: 134px;
+}
+
+.icon2-side {
+    background-position: -985px -140px;
+    width: 136px;
+    height: 134px;
+}
+
+.icon3-side {
+    background-position: -986px 0px;
+    width: 136px;
+    height: 134px;
+}
+
+.icon4-side {
+    background-position: -844px 0px;
+    width: 136px;
+    height: 134px;
+}
+
+.templateImg {
+    background-image: url(../img/svg/iconosazul.svg);
+    background-repeat: no-repeat;
+    display: inline-block;
+    zoom: 0.14;
+}
+
+.category {
+    background-position: 0px 0px;
+    width: 138px;
+    height: 134px;
+    align-items: center !important;
+}
+
+
+/* Icons services  */ 
+.service_diseno {
+    background-position:  -1550px -50px;
+	width: 200px;
+	height: 200px;
+}
+
+.service_capacitacion {
+    background-position: -1800px -50px;
+	width: 200px;
+	height: 200px;
+}
+
+.service_video {
+    background-position: -300px -50px;
+	width: 200px;
+	height: 200px;
+}
+
+.service_negocios {
+    background-position: -1800px -50px;
+	width: 200px;
+	height: 200px;
+}
+
+.service_publicidad {
+    background-position: -50px -50px;
+	width: 200px;
+	height: 200px;
+}
+
+.service_marketing {
+    background-position: -800px -50px;
+	width: 200px;
+	height: 200px;
+}
+
+.service_programacion {
+    background-position: -1300px -50px;
+	width: 200px;
+	height: 200px;
+}
+
+.service_audio {
+    background-position: -1050px -50px;
+	width: 200px;
+	height: 200px;
+}
+
+.service_traduccion {
+    background-position: -2050px -50px;
+	width: 200px;
+	height: 200px;
+}
+
+.service_vida {
+    background-position: -550px -50px;
+	width: 200px;
+	height: 200px;
+}
+
+/* General Icons  */
+
+
+.icon_niurons{
+    background-position: -50px -800px;
+	width: 200px;
+	height: 200px;
+}
+
+.ico_tiemporevision {
+    display: inline-block;
+    background-image: url(../img/iconos/tiempo-y-revision.svg);
+    background-repeat: no-repeat;
+    zoom: 0.05;
+}
+
+.ico_tiempo {
+    background-position: 0px 0px;
+    width: 254px;
+    height: 244px;
+}
+
+.ico_revision {
+    background-position: -246px 0px;
+    width: 254px;
+    height: 244px;
+}
+
+.ico_formulario {
+    display: inline-block;
+    background-image: url(../img/iconos/iconos_formularios.svg);
+    background-repeat: no-repeat;
+    zoom: 0.2;
+}
+
+.ico_ubicacion {
+    background-position: -190px 0px;
+    width: 84px;
+    height: 85px;
+}
+
+.ico_mail {
+    background-position: 0px 0px;
+    width: 84px;
+    height: 85px;
+}
+
+
+/* Notification icons  */
+ 
+.ico_order {
+    background: url(../img/iconos/notify.svg) no-repeat -350px -100px;
+	width: 200px;
+	height: 200px;
+} 
+.ico_purchase {
+	background: url(../img/iconos/notify.svg) no-repeat -100px -100px;
+	width: 200px;
+	height: 200px;
+}
+.ico_sale {
+	background: url(../img/iconos/notify.svg) no-repeat -600px -100px;
+	width: 200px;
+	height: 200px;
+}
+.ico_work {
+	background: url(../img/iconos/notify.svg) no-repeat -100px -350px;
+	width: 200px;
+	height: 200px;
+}
+
+

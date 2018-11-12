@@ -1,0 +1,125 @@
+.cabeceraIndex {
+    background-image: url('../../img/background/banner1.png');
+    /* background-image: url('../../'); */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+/* .cabeceraIndex h1 {
+    font-weight: 500;
+    font-size: 5em;
+}
+
+.cabeceraIndex h3 {
+    font-weight: 500;
+    font-size: 2.3em;
+} */
+
+.cabeceraIndex form {
+    display: block;
+}
+
+.cabeceraIndex form input {
+    width: 40% !important;
+    height: 19px;
+    margin-top: 30px;
+    background-color: white !important;
+}
+
+
+@media (max-width:480px) {
+    .hidden-xs {
+        display: none !important;
+    } 
+    .fondo-correo {
+        width: 98%;
+        margin: auto;
+        border-radius: 30px;
+    }
+    .navbar img.img-fluid {
+        max-width: 100px;
+    }
+    .cabeceraIndex {
+        /*margin-top: 64px;*/
+        /*margin-top: 64px;*/
+        height: 90vh !important ;
+    }
+}
+
+@media (max-width:767px) {
+    .cabeceraIndex form input {
+        width: 90% !important;
+        height: 36px;
+        margin-left: 10px;
+    }
+    .cabeceraIndex form button {
+        margin-left: 10px;
+    }
+   /*  .cabeceraIndex h1 {
+        font-size: 1.9em;
+    }
+    .cabeceraIndex h3 {
+        font-size: 1.9em;
+    }
+    .sectionRegistroIndex h2 {
+        font-size: 1.9em;
+    }
+    .serviciosIndex span {
+        font-size: 1.2em;
+    } */
+    /* .serviciosIndex img {
+        width: 90%;
+    } */
+    .cabeceraIndex {
+        height: 90vh !important ;
+    }
+    .hidden-xs {
+        display: none !important;
+    }
+    .registroIndex .carousel {
+        display: none;
+    }
+    .registroIndex .tablaBlanca {
+        position: relative !important;
+        width: 100%;
+        margin-bottom: 100px;
+    }
+    footer .container {
+        text-align: center;
+    }
+    .sectionContratarIndex .cuadroBack1 {
+        background-size: 100%;
+        zoom: .7;
+    }
+    .sectionContratarIndex .cuadroBack2 {
+        background-size: 100%;
+        zoom: .7;
+    }
+    /*    .sectionContratarIndex .cuadroBack1 h3 {
+        font-size: 1.9em;
+    }*/
+    .sectionContratarIndex .cuadroBack2 h3 {
+        font-size: 1.9em;
+    }
+    .sectionContratarIndex .cuadroBack1 a {
+        font-size: 1.1em;
+    }
+    .sectionContratarIndex .cuadroBack2 a {
+        font-size: 1.1em;
+        margin-top: 0 !important;
+        margin-bottom: 50px;
+    }
+}
+
+
+
+
+.scroll-horizontal .dropdown:hover .menu-category {
+    display: inline-block !important;
+}
+
+.scroll-horizontal .dropdown:hover .btn-menu {
+    color: #007bff !important;
+}
