@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class=" hero is-fullheight">
+  <div id="app" class=" container is-fullheight is-mobile ">
     <niurons-nav-var v-bind:categories="categories"></niurons-nav-var>
     <router-view />
     <niurons-footer></niurons-footer>
@@ -32,7 +32,7 @@
         });
       }
     },
-    mounted() {
+    beforeMount() {
       if (localStorage.getItem('categories')) {
         try {
           this.categories = JSON.parse(localStorage.getItem('categories'));
@@ -55,5 +55,6 @@
   @import "./assets/Niurons";
   @import "./assets/Icons";
   @import "./assets/Images-size";
+
 
 </style>

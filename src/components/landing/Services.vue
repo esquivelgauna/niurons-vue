@@ -36,22 +36,8 @@
 
 <script>
   export default {
-    data() {
-      return {
-        services: []
-      }
-    },
-    mounted() {
-      try {
-        this.services = JSON.parse(localStorage.getItem('categories'));
-      } catch (e) {
-        localStorage.removeItem('categories');
-      }
-    },
+    props:['services'], 
   }
 
 </script>
-
-<style>
-
-</style>
+ 

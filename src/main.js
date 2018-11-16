@@ -10,8 +10,12 @@ import Buefy from 'buefy'
 
 // import { dom } from '@fortawesome/fontawesome-svg-core' 
 // dom.watch()
+window._ = require('lodash');
 
 library.add(fas)
+ 
+
+
 Vue.component('fa-i', FontAwesomeIcon)
 
 Vue.use(Buefy, {  defaultIconPack: 'fas'} ); 

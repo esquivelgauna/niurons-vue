@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="column ">
 
     <div class="columns is-centered" id="Niurons">
       <div class="column is-three-quarters has-text-centered ">
@@ -15,7 +15,7 @@
               </div>
               <div class="control">
                 <a class="button is-info">
-                  <fa-icon icon="search"></fa-icon>
+                  <fa-i icon="search"></fa-i>
                 </a>
               </div>
             </div>
@@ -25,24 +25,26 @@
       </div>
     </div>
 
-    <niu-services></niu-services>
+    <niu-services v-bind:services="this.$parent.categories"  ></niu-services>
 
   </div>
 </template>
 
 <script>
   import Services from '@/components/landing/Services'
+import { throws } from 'assert';
 
-  export default {
+  export default { 
     name: 'Landing',
     components: {
       'niu-services': Services
     },
     data() {
-      return {
+      return { 
         message: 'Hola a todos'
       }
-    }
+    }, 
+     
   }
 
 </script>
