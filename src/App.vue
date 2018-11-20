@@ -9,11 +9,13 @@
 <script>
   import NiuronsNavBar from '@/components/NiuronsNavBar.vue'
   import NiuronsFooter from '@/components/NiuronsFooter.vue'
+  import JWT from 'jsonwebtoken'
   export default {
     name: 'App',
     data() {
       return {
-        categories: {}
+        categories: {},
+        session: {}
       }
     },
     components: {
@@ -33,6 +35,16 @@
       }
     },
     beforeMount() {
+
+      if (localStorage.getItem('token')) {
+        try {
+          this.session = JWT.decode(localStorage.getItem('token'));
+          console.log(this.session);
+        } catch (e) {
+          // localStorage.removeItem('token');
+        }
+      }
+
       if (localStorage.getItem('categories')) {
         try {
           this.categories = JSON.parse(localStorage.getItem('categories'));
@@ -42,7 +54,10 @@
       } else {
         this.getCategrories();
       }
+
+
     },
+
     watch: {
       categories(newCategories) {
         localStorage.setItem('categories', JSON.stringify(newCategories));
@@ -55,6 +70,5 @@
   @import "./assets/Niurons";
   @import "./assets/Icons";
   @import "./assets/Images-size";
-
 
 </style>

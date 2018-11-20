@@ -5,7 +5,7 @@
       <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
           <router-link :to="{ name: 'Landing' }" class="navbar-item">
-            <img src="static/logo-niurons.png " class='img-50'>
+            <img src="assets/img/logo-niurons.png " class='img-50'>
           </router-link>
           <a role="button" class="navbar-burger burger" :class=" { 'is-active': navBar==true } " @click="navBar =  !navBar "
             aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
@@ -16,38 +16,19 @@
         </div>
         <div id="niu-nav-bar" class="navbar-menu animated fadeIn " :class=" { 'is-active': navBar==true } ">
           <div class="navbar-start">
-            <a class="navbar-item" href="https://bulma.io/">
-              Home
-            </a>
-            <div class="navbar-item has-dropdown is-hoverable">
-              <a class="navbar-link" href="https://bulma.io/documentation/overview/start/">
-                Docs
-              </a>
-              <div class="navbar-dropdown is-boxed">
-                <a class="navbar-item" href="https://bulma.io/documentation/overview/start/">
-                  Overview
-                </a>
-                <a class="navbar-item" href="https://bulma.io/documentation/modifiers/syntax/">
-                  Modifiers
-                </a>
-                <a class="navbar-item" href="https://bulma.io/documentation/columns/basics/">
-                  Columns
-                </a>
-                <a class="navbar-item" href="https://bulma.io/documentation/layout/container/">
-                  Layout
-                </a>
-                <a class="navbar-item" href="https://bulma.io/documentation/form/general/">
-                  Form
-                </a>
-                <hr class="navbar-divider">
-                <a class="navbar-item" href="https://bulma.io/documentation/elements/box/">
-                  Elements
-                </a>
-                <a class="navbar-item is-active" href="https://bulma.io/documentation/components/breadcrumb/">
-                  Components
-                </a>
+            <div class="navbar-item">
+              <div class="field has-addons">
+                <div class="control">
+                  <input class="input" type="text" placeholder="Buscar">
+                </div>
+                <div class="control">
+                  <a class="button is-info">
+                    <fa-i icon="search"></fa-i>
+                  </a>
+                </div>
               </div>
             </div>
+
           </div>
 
           <div class="navbar-end">
@@ -82,6 +63,7 @@
     },
     data() {
       return {
+        session: this.$parent.session,
         navBar: false,
         title: ' Barra de navegacion '
       }

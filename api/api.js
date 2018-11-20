@@ -8,9 +8,15 @@ var path = require('path');
 var morgan = require('morgan');
 
 // var cookieParser = require('cookie-parser');
-// var bodyParser = require('body-parser');
+var bodyParser = require('body-parser');
 
 //Middle
+
+app.use( bodyParser.json() );       // to support JSON-encoded bodies
+app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+  extended: true
+})); 
+
 app.use(morgan('dev')); 
 app.use((req, res, next) => {
     res.append('Access-Control-Allow-Origin', ['http://localhost:8081']);

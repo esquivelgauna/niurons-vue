@@ -13,8 +13,7 @@ Vue.use(Router)
 
 export default new Router({
   mode: 'history',
-  routes: [
-    {
+  routes: [{
       path: '/',
       name: 'Landing',
       component: Landing
@@ -45,5 +44,15 @@ export default new Router({
       name: 'TermsAndConditions',
       component: TermsAndConditions
     }
-  ]
+  ],
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition
+    } else {
+      return {
+        x: 0,
+        y: 0
+      }
+    }
+  }
 })
