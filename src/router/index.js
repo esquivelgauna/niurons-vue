@@ -2,6 +2,10 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Resource from 'vue-resource'
 import NiuronsNavBar from '@/components/NiuronsNavBar'
+
+import Profile from '@/components/Profile'
+import ProfileUser from '@/components/ProfileUser'
+
 import Landing from '@/components/landing/NiuLandingIndex'
 import Categories from '@/components/categories/Categories'
 import Categorie from '@/components/categories/Categorie'
@@ -43,7 +47,17 @@ export default new Router({
       path: '/Terminos-y-Condiciones',
       name: 'TermsAndConditions',
       component: TermsAndConditions
-    }
+    },
+    {
+      path: '/Perfil/',
+      name: 'Profile',
+      component: Profile
+    },
+    {
+      path: '/Perfil/:nickname',
+      name: 'ProfileUser',
+      component: ProfileUser
+    },
   ],
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {
