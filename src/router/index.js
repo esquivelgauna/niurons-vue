@@ -12,6 +12,12 @@ import Categorie from '@/components/categories/Categorie'
 import SubCategorie from '@/components/categories/SubCategorie'
 import TermsAndConditions from '@/components/TermsAndConditions'
 
+//Compras y ventas
+import Purchases from '@/components/Purchases'
+import Purchase from '@/components/Purchase'
+import Sales from '@/components/Sales'
+import Sale from '@/components/Sale'
+
 Vue.use(Resource)
 Vue.use(Router)
 
@@ -57,6 +63,26 @@ export default new Router({
       path: '/Perfil/:nickname',
       name: 'ProfileUser',
       component: ProfileUser
+    },
+    {
+      path: '/Compras',
+      name: 'Purchases',
+      component: Purchases
+    },
+    {
+      path: '/Compra/:id',
+      name: 'Purchase',
+      component: Purchase
+    },
+    {
+      path: '/Ventas',
+      name: 'Sales',
+      component: Sales
+    },
+    {
+      path: '/Ventas/:id',
+      name: 'Sale',
+      component: Sale
     },
   ],
   scrollBehavior(to, from, savedPosition) {

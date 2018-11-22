@@ -9,8 +9,8 @@
 
 
               <div class=" is-text " aria-haspopup="true" aria-controls="dropdown-menu-blog">
-                <span> 
-                  <i class="niu-icon icon-nav-var-top icon-blog-niu"> </i> 
+                <span>
+                  <i class="niu-icon icon-nav-var-top icon-blog-niu"> </i>
                 </span>
               </div>
             </div>
@@ -41,8 +41,8 @@
           <div class="dropdown is-right is-hoverable ">
             <div class="dropdown-trigger">
               <div class=" is-text " aria-haspopup="true" aria-controls="dropdown-menu-works">
-                <span> 
-                  <i class="niu-icon icon-nav-var-top icon-necktie-niu"> </i> 
+                <span>
+                  <i class="niu-icon icon-nav-var-top icon-necktie-niu"> </i>
                 </span>
               </div>
             </div>
@@ -69,12 +69,12 @@
           </div>
         </li>
 
-        <li class="column "> 
+        <li class="column ">
           <div class="dropdown  is-right is-hoverable ">
             <div class="dropdown-trigger">
               <div class=" is-text " aria-haspopup="true" aria-controls="dropdown-menu-messages">
-                <span> 
-                  <i class="niu-icon icon-nav-var-top icon-msg-niu"> </i> 
+                <span>
+                  <i class="niu-icon icon-nav-var-top icon-msg-niu"> </i>
                 </span>
               </div>
             </div>
@@ -105,8 +105,8 @@
           <div class="dropdown is-right is-hoverable ">
             <div class="dropdown-trigger">
               <div class=" is-text " aria-haspopup="true" aria-controls="dropdown-menu-notifications">
-                <span> 
-                  <i class="niu-icon icon-nav-var-top icon-bell-niu"> </i> 
+                <span>
+                  <i class="niu-icon icon-nav-var-top icon-bell-niu"> </i>
                 </span>
               </div>
             </div>
@@ -137,45 +137,49 @@
           <div class="dropdown is-right is-hoverable ">
             <div class="dropdown-trigger">
               <div class=" is-text " aria-haspopup="true" aria-controls="dropdown-menu-user">
-                <span> 
-                  <i class="niu-icon icon-nav-var-top icon-bell-niu"> </i> 
+                <span>
+                  <i class="niu-icon icon-nav-var-top icon-bell-niu"> </i>
                 </span>
               </div>
             </div>
             <div class="dropdown-menu" id="dropdown-menu-user" role="menu">
               <div class="dropdown-content has-text-primary">
-                <a href="#" class="dropdown-item">
+
+                <router-link :to="{ name: 'Profile' }" class="dropdown-item">
                   <fa-i icon='user'></fa-i>
-                  <span>Perfil</span> 
-                </a>
-                <a class="dropdown-item">
+                  <span>Perfil</span>
+                </router-link>
+                <router-link :to="{ name: 'Profile' }" class="dropdown-item">
                   <fa-i icon='cogs'></fa-i>
-                  <span>Configuración</span> 
-                </a>
+                  <span>Configuración</span>
+                </router-link>
+
                 <a href="#" class="dropdown-item  ">
                   <fa-i icon='hand-holding-heart'></fa-i>
-                  <span> LYF´s</span> 
+                  <span> LYF´s</span>
                 </a>
                 <a href="#" class="dropdown-item">
                   <fa-i icon='briefcase'></fa-i>
-                  <span> Trabajos</span> 
+                  <span> Trabajos</span>
                 </a>
-                <a href="#" class="dropdown-item">
+                <router-link :to="{ name: 'Purchases' }" class="dropdown-item">
                   <fa-i icon='shopping-cart'></fa-i>
-                  <span> Compras</span> 
-                </a>
-                <a href="#" class="dropdown-item">
+                  <span>Compras</span>
+                </router-link>
+
+                <router-link :to="{ name: 'Sales' }" class="dropdown-item">
                   <fa-i icon='money-bill-wave'></fa-i>
-                  <span> Ventas </span> 
-                </a>
+                  <span>Ventas</span>
+                </router-link>
+ 
                 <a href="#" class="dropdown-item">
                   <fa-i icon='chart-line'></fa-i>
-                  <span> Finanzas </span> 
+                  <span> Finanzas </span>
                 </a>
 
                 <hr class="dropdown-divider">
                 <a href="/" class="dropdown-item" @click="LogOut()">
-                <fa-i icon='share-square'></fa-i>
+                  <fa-i icon='share-square'></fa-i>
                   <span>Salir</span>
                 </a>
               </div>
@@ -208,50 +212,52 @@
 
         </header>
         <section class=" modal-card-body  ">
-          <div class="columns is-centered ">
-            <div class=" column  is-8 ">
-              <div class="field">
-                <p class="control has-icons-left has-icons-right ">
-                  <input class="input" type="email" placeholder="Correo" v-model=" loginData.email ">
-                  <span class="icon is-small is-left has-text-primary ">
-                    <fa-i icon='envelope'> </fa-i>
-                  </span>
-                </p>
-              </div>
-              <div class="field">
-                <p class="control has-icons-left">
-                  <input class="input" type="password" placeholder="Password" v-model=" loginData.password ">
-                  <span class="icon is-small is-left has-text-primary ">
-                    <fa-i icon='key'> </fa-i>
-                  </span>
-                </p>
-              </div>
-              <div class="level">
-
-                <div class="level-rigth">
-                  <a> ¿ Olvidaste tu contraseña ? </a>
-                </div>
-              </div>
-              <div class="level">
-                <div class="level-item">
-                  <p @click=" login = false, register=true ">
-                    ¿Aún no tienes cuenta? <a> Registrate Aqui <fa-i icon='external-link-alt'></fa-i> </a>
+          <form   @submit=" logIn() " >
+            <div class="columns is-centered ">
+              <div class=" column  is-8 ">
+                <div class="field">
+                  <p class="control has-icons-left has-icons-right ">
+                    <input class="input" type="email" placeholder="Correo" v-model=" loginData.email ">
+                    <span class="icon is-small is-left has-text-primary ">
+                      <fa-i icon='envelope'> </fa-i>
+                    </span>
                   </p>
                 </div>
-              </div>
-              <hr>
-              <div class="level">
-                <div class="level-item">
-
-                  <p> Al iniciar sesion aceptas los
-                    <router-link :to="{ name: 'TermsAndConditions'}" @click=" login = false "> <strong> Términos y
-                        Condiciones</strong> </router-link>
+                <div class="field">
+                  <p class="control has-icons-left">
+                    <input class="input" type="password" placeholder="Password" v-model=" loginData.password ">
+                    <span class="icon is-small is-left has-text-primary ">
+                      <fa-i icon='key'> </fa-i>
+                    </span>
                   </p>
                 </div>
-              </div>
+                <div class="level">
+                  <div class="level-rigth">
+                    <a> ¿ Olvidaste tu contraseña ? </a>
+                  </div>
+                </div>
+                <div class="level">
+                  <div class="level-item">
+                    <p @click=" login = false, register=true ">
+                      ¿Aún no tienes cuenta? <a> Registrate Aqui <fa-i icon='external-link-alt'></fa-i> </a>
+                    </p>
+                  </div>
+                </div>
+                <hr>
+                <div class="level">
+                  <div class="level-item">
 
+                    <p> Al iniciar sesion aceptas los
+                      <router-link :to="{ name: 'TermsAndConditions'}" @click=" login = false "> <strong> Términos y
+                          Condiciones</strong> </router-link>
+                    </p>
+                  </div>
+                </div>
+
+              </div>
             </div>
-          </div>
+          </form>
+
 
 
         </section>
@@ -299,13 +305,15 @@
 
 
         </header>
-        <section class=" modal-card-body  ">
+
+        <section class=" modal-card-body ">
+
           <div class="columns is-centered ">
             <div class=" column  is-8 ">
               <label for="register_email"> Correo </label>
               <div class="field">
                 <p class="control has-icons-left has-icons-right ">
-                  <input class="input" type="email" placeholder="Correo" id="register_email">
+                  <input class="input" type="email" placeholder="Correo" id="register_email" required>
                   <span class="icon is-small is-left has-text-primary ">
                     <fa-i icon='envelope'> </fa-i>
                   </span>
@@ -317,7 +325,8 @@
               <label for="register_pas1"> Contraseña </label>
               <div class="field">
                 <p class="control has-icons-left">
-                  <input class="input" type="password" placeholder="Contraseña" id="register_pas1" v-model="reg_pass1">
+                  <input class="input" type="password" placeholder="Contraseña" id="register_pas1" v-model="reg_pass1"
+                    required>
                   <span class="icon is-small is-left has-text-primary ">
                     <fa-i icon='key'> </fa-i>
                   </span>
@@ -412,7 +421,7 @@
     },
 
     methods: {
-      LogOut(){
+      LogOut() {
         localStorage.removeItem('token');
         this.session = {};
       },
