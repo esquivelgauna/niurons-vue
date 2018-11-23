@@ -5,8 +5,8 @@ const jwt = require('jsonwebtoken');
 const JWT_Secret = 'NvTfMrR';
 
 
-exports.Login = (email, password) => {
-  return new Promise((resolve, reject) => {
+exports.Login = async (email, password) => {
+  return new Promise( async (resolve, reject) => {
     mysql.select({
       table: 't_dat_usuario',
       conditions: {
@@ -16,22 +16,27 @@ exports.Login = (email, password) => {
       show_query: true
     }, async (err, result) => {
       if (err) reject(err);
-      if (result.length > 0) {
-        // console.log(result);
-        if ( await this.checkUser(password, result[0]['password'])) {
-          resolve({
-            status: true,
-            message: 'Sesion iniciada correctamente',
-            token: await this.token(result[0]),
-          });
+      if (result) {
+        if (result.length > 0) {
+          // console.log(result);
+          if (await this.checkUser(password, result[0]['password'])) {
+            resolve({
+              status: true,
+              message: 'Sesion iniciada correctamente',
+              token: await this.token(result[0]),
+            });
+          } else {
+            resolve({
+              status: false,
+              message: 'Correo y/o contraseña incorrectos.'
+            });
+          }
         } else {
           resolve({
             status: false,
-            message: 'Correo y/o contraseña incorrectos.'
+            message: 'El correo no esta registrado.'
           });
         }
-
-
       } else {
         resolve({
           status: false,

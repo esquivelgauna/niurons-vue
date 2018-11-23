@@ -11,21 +11,22 @@ import Buefy from 'buefy'
 // import { dom } from '@fortawesome/fontawesome-svg-core' 
 // dom.watch()
 window._ = require('lodash');
-
-library.add(fas)
- 
-
-
-Vue.component('fa-i', FontAwesomeIcon)
+library.add(fas);
+Vue.component('fa-i', FontAwesomeIcon);
 
 Vue.use(Buefy, {  defaultIconPack: 'fas'} ); 
-Vue.http.options.root = 'http://localhost:3000/'
-Vue.config.productionTip = false
+Vue.http.options.root = 'http://localhost:3000/api';
+Vue.config.productionTip = false;
+Vue.http.interceptors.push(function(request) {
+  console.log( 'interceptor hhtp', request ); 
+});
+Vue.prototype.$host = 'http://localhost:3000';
+
 /* eslint-disable */ 
 /* eslint-disable */
 new Vue({
   el: '#app',
   router,
   components: { App },
-  template: '<App/>'
+  template: '<App/>',
 })

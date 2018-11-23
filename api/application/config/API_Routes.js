@@ -1,6 +1,7 @@
 const express = require('express')
 const landing = require('../controllers/Ctr_Landing')
 const Login = require('../controllers/Ctr_Login')
+const Lyfs = require('../controllers/Ctr_Lyfs')
 
 const router = express.Router()
  

@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <h3> Categoria: {{ $route.params.alias }} </h3>
-    <div class="column">
+    <div class="column is-full " >
+      <h3> Categoria: {{ $route.params.alias }} </h3>
       <p>
         <strong>Descripcion: </strong>
         Lorem ipsum dolor sit amet,
@@ -9,6 +9,11 @@
         inventore nisi. Ipsum deleniti sint doloribus obcaecati, fugiat nulla
         minima reprehenderit quidem incidunt! Illo in molestias iure.
       </p>
+
+    </div>
+
+    <div class="column">
+
       <hr>
       <div class="columns">
         <div class="column is-4  is-3-tablet is-3-desktop">
@@ -65,10 +70,10 @@
 
           <div class="field is-grouped">
             <div class="control">
-              <button class="button is-text is-hidden" @click=" checkboxGroup =[]" >Limpiar</button>
+              <button class="button is-text is-hidden" @click=" checkboxGroup =[]">Limpiar</button>
             </div>
             <div class="control">
-              <button class="button is-success " >Buscar</button>
+              <button class="button is-success ">Buscar</button>
             </div>
           </div>
 

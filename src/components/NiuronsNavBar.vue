@@ -5,7 +5,7 @@
       <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
           <router-link :to="{ name: 'Landing' }" class="navbar-item">
-            <img src="assets/img/logo-niurons.png " class='img-50'>
+            <img src=" " class=' niu-icon icon-niurons-logo '>
           </router-link>
           <a role="button" class="navbar-burger burger" :class=" { 'is-active': navBar==true } " @click="navBar =  !navBar "
             aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">

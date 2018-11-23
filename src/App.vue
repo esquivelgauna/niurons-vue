@@ -24,7 +24,7 @@
     },
     methods: {
       getCategrories: function () {
-        this.$http.get('Categories').then(response => {
+        this.$http.get('/Categories').then(response => {
           console.log('OK API', response);
           this.categories = response.body;
 
@@ -39,6 +39,7 @@
       if (localStorage.getItem('token')) {
         try {
           this.session = JWT.decode(localStorage.getItem('token'));
+          this.$http.headers.common.Authorization = localStorage.getItem('token');
           console.log(this.session);
         } catch (e) {
           // localStorage.removeItem('token');

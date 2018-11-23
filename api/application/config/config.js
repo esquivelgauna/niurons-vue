@@ -1,5 +1,7 @@
 const fs = require('fs');
 const path = require('path');
+//Secret JWT
+process.env.jwt_secret = process.env.jwt_secret || "NvTfMrR";
 //PayPal 
 process.env.client_id =  process.env.client_id || 'ASnNvJukwWF8CyzqcrIwJNmzxyt7JZ5NWq7D0fkPGEFFqScndVjaK8sxAZqNHKxBDJK-n36Q9dH8y0O6' ;
 process.env.client_secret = process.env.client_secret || 'ELqheDq9lgrf69MaXojBXOq7Lyuhyf89HCtaHCe9YYo70ZZRNn-SpyLuzjy9QPjUP6SGVzuNuQhwkzBc' ; 

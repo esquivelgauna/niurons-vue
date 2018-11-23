@@ -6,6 +6,10 @@
 	background: url('./assets/svg/icons-niurons.svg');
 	background-repeat: no-repeat;
 }
+.niu-bg {
+	display: inline-block; 
+	background: url('./assets/svg/icons-niurons.svg'); 
+}
 
 .niu-xs {
 	zoom: .2 !important;
@@ -17,7 +21,7 @@
 }
 
 .niu-ico-sm {
-	zoom: .5;
+	zoom: .5 !important;
 }
 
 .niu-ico-md {
@@ -168,7 +172,20 @@
 	width: 200px;
 	height: 200px;
 }
- 
+
+.icon-niurons-logo {
+	background-position: -800px -816px;
+	background-color: white;
+	border: none;
+	width: 450px;
+	height: 158px;
+	zoom: .3 !important;
+	max-height: 200px !important;
+    object-position: center;
+    object-fit: cover;
+}
+
+
 /* Notification icons  */
 
 .icon_notify_order {
@@ -194,6 +211,16 @@
 	width: 200px;
 	height: 200px;
 }
+
+.bg-cat-description{
+	// background-repeat: round;
+	background: url('./assets/svg/icons-niurons.svg')  repeat -1050px -1050px;
+	// background-color: #fe1212;
+	width: 198px;
+	height: 201px;
+	zoom: .8;
+}
+
 
 /*Counter*/
 

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if=" session.name ">
+    <div v-if=" session.name "> 
       <ul class="columns is-variable is-2">
 
         <li class="column ">
@@ -138,7 +138,7 @@
             <div class="dropdown-trigger">
               <div class=" is-text " aria-haspopup="true" aria-controls="dropdown-menu-user">
                 <span>
-                  <i class="niu-icon icon-nav-var-top icon-bell-niu"> </i>
+                  <img :src=" $host + session.img " alt="" id="img-profile" > 
                 </span>
               </div>
             </div>
@@ -194,8 +194,6 @@
       <button class=" button is-light has-text-primary   " @click=" login = true "> Iniciar Sesion </button>
       <button class=" button is-light has-text-primary   " @click=" register = true "> Registrarse </button>
     </div>
-
-
 
     <div class="modal animated fadeIn " :class=" { 'is-active':login == true}">
       <div class="modal-background  " @click=" login = false "></div>
@@ -257,8 +255,6 @@
               </div>
             </div>
           </form>
-
-
 
         </section>
         <footer class="modal-card-foot">
@@ -482,6 +478,10 @@
 <style>
   .modal-content {
     z-index: 100;
+  }
+  #img-profile{
+    height: 30px;
+    border-radius: 50% 50%;
   }
 
 </style>
