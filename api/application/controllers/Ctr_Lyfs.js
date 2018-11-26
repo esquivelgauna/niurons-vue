@@ -1,18 +1,19 @@
 'use strict'
-const Mdl_Lyfs= require('../models/Mdl_Login')
+const Mdl_Lyfs= require('../models/Mdl_Lyfs')
 
 
 exports.Lyfs = async (req, res) => {
   console.log('Buscando Lifs..');
-  console.log(req.body);
-  if(req.body.idLyf){
+  // console.log(req.user);
+  let lyfs = [];
+  if( !isNaN(  req.body.idLyf   ) ){
 
   }else{
-    let myLyfs = await Mdl_Lyfs.Lyfs( );
+    lyfs = await Mdl_Lyfs.getTopLyfs( req.user.id );
   }
-  
+ 
 
 
-
-  return res.json(myLyfs); 
+  return res.json( {lyfs} ); 
 }
+ 

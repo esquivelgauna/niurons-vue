@@ -33,11 +33,16 @@
 
         </div>
       </div>
-      <div class="column is-7 "> 
-          <h4> Lif's </h4> 
+      <div class="column is-7-tablet is-9-desktop ">
+        <h4> Lif's </h4>
         <div v-if=" session.seller ">
-          <p> <strong class="has-text-success"> Eres vendedor , <router-link> consulta las bases </router-link>
-            </strong> </p>
+          <p> <strong class="has-text-success"> Eres vendedor </strong> </p>
+          <div class="columns is-multiline ">
+            <div class="column is-4" v-for=" lyf in Lyfs  " :key=" lyf ">
+              <lyf-prev v-bind:Lyf="lyf" >
+              </lyf-prev> 
+            </div>
+          </div>
         </div>
         <div v-else>
           <p> <strong class="has-text-primary"> Aun no eres vendedor , <router-link> consulta las bases </router-link>
@@ -49,8 +54,11 @@
   </div>
 </template>
 <script>
+  import Lyf from '@/components/Lyf_Prev'
   export default {
-
+     components: {
+      'lyf-prev': Lyf,
+    },
     data() {
       return {
         session: this.$parent.session,
@@ -59,10 +67,10 @@
     },
     methods: {
       getLyfs: function () {
-          console.log('geting lifs');
-        this.$http.get('Lyfs').then(response => {
-          console.log('OK API', respresponse.bodyonse);
-          this.Lyfs = response.body;
+        console.log('geting lifs');
+        this.$http.get('user/lyfs').then(response => {
+          console.log('OK API', response.body.lyfs);
+          this.Lyfs = response.body.lyfs;
 
         }, response => {
 

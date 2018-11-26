@@ -1,6 +1,6 @@
 <template>
   <div id="app" class=" container is-fullheight is-mobile ">
-    <niurons-nav-var v-bind:categories="categories"></niurons-nav-var>
+    <niurons-nav-var v-bind:categories="categories" ></niurons-nav-var>
     <router-view />
     <niurons-footer></niurons-footer>
   </div>
@@ -24,7 +24,7 @@
     },
     methods: {
       getCategrories: function () {
-        this.$http.get('/Categories').then(response => {
+        this.$http.get('Categories').then(response => {
           console.log('OK API', response);
           this.categories = response.body;
 
@@ -39,8 +39,9 @@
       if (localStorage.getItem('token')) {
         try {
           this.session = JWT.decode(localStorage.getItem('token'));
-          this.$http.headers.common.Authorization = localStorage.getItem('token');
-          console.log(this.session);
+          // this.http.headers.common['Authorization'] = localStorage.getItem('token');
+          // this.$http.headers.common.Authorization = localStorage.getItem('token');
+          console.log( 'token en headers', this.http.headers.common );
         } catch (e) {
           // localStorage.removeItem('token');
         }
