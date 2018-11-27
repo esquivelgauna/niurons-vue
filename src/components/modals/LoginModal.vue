@@ -149,7 +149,7 @@
                   <fa-i icon='user'></fa-i>
                   <span>Perfil</span>
                 </router-link>
-                <router-link :to="{ name: 'Profile' }" class="dropdown-item">
+                <router-link :to="{ name: 'Configuration' }" class="dropdown-item">
                   <fa-i icon='cogs'></fa-i>
                   <span>Configuración</span>
                 </router-link>

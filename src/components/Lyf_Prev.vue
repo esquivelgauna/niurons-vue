@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="column notification ">
+    <div class="column notification has-text-primary">
       <h3 class=" is-size-5 "> {{ Lyf.titulo }} </h3>
       <div v-if=" Lyf.img=='' ">
         <img :src=" $host + '/imgLyf/default.png' " alt="" class=" img-lyf ">
@@ -8,11 +8,6 @@
       <div v-else>
         <img :src=" $host + '/imgLyf/' + Lyf.img " alt="" class="img-lyf">
       </div>
-
-      <!-- <img :src=" $host + '/imgLyf/' + Lyf.img " alt=""> -->
-      <strong>Descripción:</strong>
-      <p v-html=" Lyf.descripcion " class="lyf-description">
-      </p>
     </div>
   </div>
 

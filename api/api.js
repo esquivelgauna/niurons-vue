@@ -16,17 +16,15 @@ const API_User = require('./application/config/API_User');
 //   bodyParser.urlencoded({     // to support URL-encoded bodies  extended: true}));  
 //Middle
 app.use(express.json()); // to support JSON-encoded bodies
-app.use(bodyParser.urlencoded({
-  extended: false
-}))
 app.use(morgan('dev'));
 app.use((req, res, next) => {
   res.append('Access-Control-Allow-Origin', ['http://localhost:8081']);
   res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-  res.append('Access-Control-Allow-Headers', 'Content-Type, x-access-token, authorization');
+  res.append('Access-Control-Allow-Headers', 'Content-Type, authorization');
   next();
 });
-
+// app.use(bodyParser.urlencoded({ extended: true }))
+// app.use(bodyParser.json())
 io.use(socketioJwt.authorize({
   secret: process.env.jwt_secret,
   handshake: true

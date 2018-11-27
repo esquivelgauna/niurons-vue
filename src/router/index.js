@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Resource from 'vue-resource'
-import NiuronsNavBar from '@/components/NiuronsNavBar'
+import Resource from 'vue-resource' 
 
 import Profile from '@/components/Profile'
+import Configuration from '@/components/Configuration'
 import ProfileUser from '@/components/ProfileUser'
+import Search from '@/components/Search'
 
 import Landing from '@/components/landing/NiuLandingIndex'
 import Categories from '@/components/categories/Categories'
@@ -44,16 +45,17 @@ export default new Router({
       component: SubCategorie
     },
     {
-      path: '/nav',
-      name: 'NiuronsNavBar',
-      component: NiuronsNavBar
+      path: '/Busqueda/',
+      name: 'Search',
+      component: Search
+    },
+    {
+      path: '/Busqueda/:words',
+      name: 'Search',
+      component: Search
     },
 
-    {
-      path: '/Terminos-y-Condiciones',
-      name: 'TermsAndConditions',
-      component: TermsAndConditions
-    },
+    
     {
       path: '/Perfil/',
       name: 'Profile',
@@ -64,6 +66,12 @@ export default new Router({
       name: 'ProfileUser',
       component: ProfileUser
     },
+    {
+      path: '/Configuracion/',
+      name: 'Configuration',
+      component: Configuration
+    },
+
     {
       path: '/Compras',
       name: 'Purchases',
@@ -84,6 +92,12 @@ export default new Router({
       name: 'Sale',
       component: Sale
     },
+    {
+      path: '/Terminos-y-Condiciones',
+      name: 'TermsAndConditions',
+      component: TermsAndConditions
+    },
+
   ],
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {

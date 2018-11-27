@@ -7,10 +7,6 @@
           <div class="level-item">
             <img :src=" $host + session.img " alt="" id="profile-img" class="img-200">
           </div>
-          <!-- lastName
-             nickname
-             seller
-             email -->
           <div class="level-item">
             <strong class="is-clipped"> {{ session.name +' '+ session.lastName }} </strong>
           </div>
@@ -36,16 +32,22 @@
       <div class="column is-7-tablet is-9-desktop ">
         <h4> Lif's </h4>
         <div v-if=" session.seller ">
-          <p> <strong class="has-text-success"> Eres vendedor </strong> </p>
           <div class="columns is-multiline ">
             <div class="column is-4" v-for=" lyf in Lyfs  " :key=" lyf ">
-              <lyf-prev v-bind:Lyf="lyf" >
-              </lyf-prev> 
+              <router-link :to="{ name: 'Lyf', params: { idLyf: lyf.id }}">
+                <lyf-prev v-bind:Lyf="lyf">
+                </lyf-prev>
+              </router-link>
+            </div>
+
+            <div class="column is-12 has-text-centered has-text-primary has-background-grey-lighter ">
+              <h4 v-if=" Lyfs.length > 9 && condition != fasle "> Ver más </h4>
+              <h4 v-else>Son todos tus Lyf´s </h4>
             </div>
           </div>
         </div>
         <div v-else>
-          <p> <strong class="has-text-primary"> Aun no eres vendedor , <router-link> consulta las bases </router-link>
+          <p><strong class="has-text-primary"> Aun no eres vendedor , <router-link> consulta las bases </router-link>
             </strong> </p>
         </div>
 
@@ -56,13 +58,14 @@
 <script>
   import Lyf from '@/components/Lyf_Prev'
   export default {
-     components: {
+    components: {
       'lyf-prev': Lyf,
     },
     data() {
       return {
         session: this.$parent.session,
-        Lyfs: []
+        Lyfs: [],
+        condition: true
       }
     },
     methods: {
@@ -81,11 +84,7 @@
     },
     beforeMount() {
       this.getLyfs();
-
     }
-
-
-
   }
 
 </script>

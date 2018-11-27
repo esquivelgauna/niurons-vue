@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class=" container is-fullheight is-mobile ">
+  <div id="app" class=" container is-fullheight is-full is-mobile ">
     <niurons-nav-var v-bind:categories="categories" ></niurons-nav-var>
     <router-view />
     <niurons-footer></niurons-footer>

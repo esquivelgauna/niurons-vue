@@ -34,36 +34,56 @@ exports.getPacket = (idLyf, idPack) => {
 	});
 }
 
-exports.getPurchases = (id) => {
+exports.getPurchases = (idPurchaser, idSale) => {
 	return new Promise((resolve, reject) => {
-		mysql.select({
-			table: 'v_orden',
-			conditions: {
-				purchaser: id
-			},
-			show_query: false
-		}, function (err, result) {
-			if (err) reject(err);
-			resolve(result);
+	  if (idSale) {
+		// console.log('More sales', idSale );
+		mysql.native_query({
+		  query: "CALL s_purchases( " + idSale + "," + idPurchaser + " , FALSE )",
+		  show_query: true,
+		}, (err, result) => {
+		  if (err) reject('Algo salio mal (Traer mas compras) ');
+		  if (result) {
+			resolve(result[0]);
+		  } else {
+			resolve([]);
+		  }
 		});
-	})
-}
+	  } else {
+		console.log('Top Purchases');
+		mysql.native_query({
+		  query: "CALL s_purchases( 0 ," + idPurchaser + " , TRUE )",
+		  show_query: true,
+		}, (err, result) => {
+		  if (err) reject('Algo salio mal (Traer top compras) ');
+		  if (result) {
+			resolve(result[0]);
+		  } else {
+			resolve([]);
+		  }
+		});
+	  }
+	});
+  }
+
+  
 exports.getPurchase = (idUser, idPurchase) => {
 	return new Promise((resolve, reject) => {
 		mysql.select({
-			table: 'v_orden',
+			table: 'v_order',
 			conditions: {
 				purchaser: idUser,
-				order: idPurchase
+				id_order: idPurchase
 			},
+			limit:1,
 			show_query: false
 		},   (err, result) => {
 			if (err) reject(err);
-			if (result[0].vPurchaser == 0) {
-				this.viewedPurchase(idUser, result[0]['order']);
-			} 
+			console.log(result);
+			// if (result[0].vPurchaser == 0) {
+			// 	this.viewedPurchase(idUser, result[0]['order']);
+			// } 
 			resolve(result[0]);
-
 		});
 	})
 }
