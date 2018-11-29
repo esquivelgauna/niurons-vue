@@ -18,8 +18,8 @@ const API_User = require('./application/config/API_User');
 app.use(express.json()); // to support JSON-encoded bodies
 app.use(morgan('dev'));
 app.use((req, res, next) => {
-  res.append('Access-Control-Allow-Origin', ['http://localhost:8081']);
-  res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.append('Access-Control-Allow-Origin', '*');
+  // res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
   res.append('Access-Control-Allow-Headers', 'Content-Type, authorization');
   next();
 });
@@ -64,6 +64,10 @@ app.use('/api', API_Routes);
 app.use('/api/user', jwt({
   secret: process.env.jwt_secret
 }), API_User);
+
+app.use((req, res, next) => {
+  res.redirect('/');
+});
 
 server.listen(process.env.api_port, function (err) {
   if (err) return console.log(err);

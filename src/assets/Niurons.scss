@@ -1,26 +1,80 @@
 // Import Bulma's core
-@import url( './assets/animate.css'); 
+@import url('./assets/animate.css');
 
 @import "~bulma/sass/utilities/_all";
 
 @font-face {
   font-family: Roboto-bold;
-  src: url('./assets/fonts/roboto/Roboto-Bold.ttf');
+  src: url('./assets/fonts/Roboto-Bold.ttf');
 }
 
 @font-face {
   font-family: Roboto-regular;
-  src: url('./assets/fonts/roboto/Roboto-Regular.ttf');
+  src: url('./assets/fonts/Roboto-Regular.ttf');
 }
 
-$family-primary: 'Roboto-regular';
-$family-secondary: 'Roboto-bold';
+@font-face {
+  font-family: Montserrat-bold;
+  src: url('./assets/fonts/Montserrat-Bold.otf');
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+legend {
+  font-family: Montserrat-bold !important;
+}
+
+button,
+.btn {
+  font-family: Roboto-bold !important;
+}
+
+input[type=date],
+input[type=datetime-local],
+input[type=email],
+input[type=number],
+input[type=password],
+input[type=search-md],
+input[type=search],
+input[type=tel],
+input[type=text],
+input[type=time],
+input[type=url],
+textarea,
+div,
+p,
+span,
+label,
+ul,
+li,
+a,
+select,
+option,
+u,
+i,
+table,
+tr,
+td,
+th,
+caption {
+  font-family: Roboto-regular !important;
+}
+
+
+$family-primary: 'Roboto-regular' !important;
+$family-secondary: 'Roboto-bold' !important  ;
 // Set your colors
 $primary: #008df0;
 $primary-invert: findColorInvert($primary);
 
 $twitter: #008df0;
 $twitter-invert: findColorInvert($twitter);
+$dropdown-item-hover-color: $primary-invert;
+$dropdown-item-hover-background-color : $primary;
 
 // Setup $colors to use as bulma classes (e.g. 'is-twitter')
 $colors: ("white": ($white, $black),

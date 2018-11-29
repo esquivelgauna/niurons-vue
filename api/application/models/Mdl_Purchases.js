@@ -79,7 +79,7 @@ exports.getPurchase = (idUser, idPurchase) => {
 			show_query: false
 		},   (err, result) => {
 			if (err) reject(err);
-			console.log(result);
+			// console.log(result);
 			// if (result[0].vPurchaser == 0) {
 			// 	this.viewedPurchase(idUser, result[0]['order']);
 			// } 

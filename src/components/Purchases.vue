@@ -40,7 +40,7 @@
             }
           }).then(response => {
             console.log('More purchases:', response.body.purchases);
-            this.purchases = this.sales.concat(response.body.purchases);
+            this.purchases = this.purchases.concat(response.body.purchases);
             if (response.body.purchases.length < 10) {
               this.condition = false;
             }
