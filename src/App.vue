@@ -71,6 +71,8 @@
 <style lang="scss">
   @import "./assets/Niurons";
   @import "./assets/Icons";
+  @import "./assets/Spacing";
+  @import "./assets/Borders";
   @import "./assets/Images-size";
 
 </style>

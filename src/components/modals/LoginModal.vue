@@ -195,7 +195,7 @@
       <button class=" button is-light has-text-primary   " @click=" register = true "> Registrarse </button>
     </div>
 
-    <div class="modal animated fadeIn " :class=" { 'is-active':login == true}">
+    <div class="modal animated fadeIn " :class=" { 'is-active':login == true}"  >
       <div class="modal-background  " @click=" login = false "></div>
       <div class="modal-card ">
         <header class=" modal-card-head   ">
