@@ -10,68 +10,57 @@
       </header>
       <section class="modal-card-body">
         <div class="columns is-multiline is-mobile ">
-
-          <div class="column is-12 ">
+          <div class="column is-4-tablet">
             <div class="field">
-              <label class="label"> Domicilio actual </label>
-              <div class="control">
-                <input class="input" type="text" placeholder="Domicilio actual" disabled >
-              </div>
-            </div>
-          </div>
-          <div class="column is-12 ">
-            <div class="field">
-              <label class="label"> Pais </label>
-              <div class="control">
-                <input class="input" type="text" placeholder="Domicilio actual">
-              </div>
-            </div>
-          </div>
-
-          <div class="column is-6">
-
-            <div class="field">
-              <label class="label"> Estado </label>
+              <label class="label">
+                <fa-i icon='id-card'></fa-i> Nombre
+              </label>
               <div class="control">
                 <input class="input" type="text" placeholder="Estado">
               </div>
             </div>
+          </div>
+          <div class="column is-4-tablet">
             <div class="field">
-              <label class="label"> Colonia </label>
+              <label class="label">
+                <fa-i icon='graduation-cap'></fa-i> Institución
+              </label>
               <div class="control">
                 <input class="input" type="text" placeholder="Colonia">
               </div>
             </div>
+          </div>
+          <div class="column is-4-tablet">
             <div class="field">
-              <label class="label">Número # </label>
+              <label class="label">
+                <fa-i icon='clock'></fa-i> Fecha
+              </label>
               <div class="control">
                 <input class="input" type="text" placeholder="Número">
               </div>
             </div>
-
           </div>
-
-          <div class="column is-6">
-
+          <div class="column is-12-tablet">
             <div class="field">
-              <label class="label"> Municipio (Ciudad) </label>
+              <label class="label">
+                <fa-i icon='file-image'></fa-i> Certificado
+              </label>
               <div class="control">
-                <input class="input" type="text" placeholder=" Municipio (Ciudad) ">
+                <b-field>
+                  <b-upload v-model="dropFiles" multiple drag-drop class="hero">
+                    <section class="section">
+                      <div class="content has-text-centered">
+                        <p>
+                          <fa-i icon="upload" size="is-large">
+                          </fa-i >
+                        </p>
+                        <p>Drop your files here or click to upload</p>
+                      </div>
+                    </section>
+                  </b-upload>
+                </b-field>
               </div>
             </div>
-            <div class="field">
-              <label class="label"> Calle  </label>
-              <div class="control">
-                <input class="input" type="text" placeholder="Calle">
-              </div>
-            </div>
-            <div class="field">
-              <label class="label"> Codigo Postal </label>
-              <div class="control">
-                <input class="input" type="text" placeholder=" Codigo Postal ">
-              </div>
-            </div>
-
           </div>
         </div>
       </section>
@@ -81,7 +70,7 @@
         <div class="column">
           <div class="level is-mobile ">
             <div class="level-left ">
-              <button class="button" @click=" $emit('close') ">Cancel</button>
+              <button class="button" @click=" $emit('close') "> Cancelar </button>
             </div>
             <div class="level-right">
               <button class="button is-success"> Guardar </button>

@@ -58,10 +58,6 @@
               </b-checkbox>
             </div>
 
-
-
-
-
             <p class="content">
               <b>Selection:</b>
               {{ checkboxGroup }}
@@ -104,8 +100,6 @@
             break;
           }
         }
-
-
       }
     },
     computed: {

@@ -11,39 +11,24 @@
       <section class="modal-card-body">
         <div class="columns is-multiline is-mobile ">
 
-          <div class="column is-12 ">
-            <div class="field">
-              <label class="label"> Domicilio actual </label>
-              <div class="control">
-                <input class="input" type="text" placeholder="Domicilio actual" disabled >
-              </div>
-            </div>
-          </div>
-          <div class="column is-12 ">
-            <div class="field">
-              <label class="label"> Pais </label>
-              <div class="control">
-                <input class="input" type="text" placeholder="Domicilio actual">
-              </div>
-            </div>
-          </div>
-
           <div class="column is-6">
 
             <div class="field">
-              <label class="label"> Estado </label>
+              <label class="label">
+                <fa-i icon='id-card'></fa-i> Carrera/Licenciatura
+              </label>
               <div class="control">
                 <input class="input" type="text" placeholder="Estado">
               </div>
             </div>
             <div class="field">
-              <label class="label"> Colonia </label>
+              <label class="label"> Institución </label>
               <div class="control">
                 <input class="input" type="text" placeholder="Colonia">
               </div>
             </div>
             <div class="field">
-              <label class="label">Número # </label>
+              <label class="label"> Pais </label>
               <div class="control">
                 <input class="input" type="text" placeholder="Número">
               </div>
@@ -53,22 +38,15 @@
 
           <div class="column is-6">
 
+            <b-field label="Fecha de egreso">
+              <b-datepicker placeholder="Click to select..." icon="calendar-today">
+              </b-datepicker>
+            </b-field>
+            
             <div class="field">
-              <label class="label"> Municipio (Ciudad) </label>
-              <div class="control">
-                <input class="input" type="text" placeholder=" Municipio (Ciudad) ">
-              </div>
-            </div>
-            <div class="field">
-              <label class="label"> Calle  </label>
+              <label class="label"> Numero de cedula </label>
               <div class="control">
                 <input class="input" type="text" placeholder="Calle">
-              </div>
-            </div>
-            <div class="field">
-              <label class="label"> Codigo Postal </label>
-              <div class="control">
-                <input class="input" type="text" placeholder=" Codigo Postal ">
               </div>
             </div>
 

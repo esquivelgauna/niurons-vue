@@ -13,9 +13,9 @@
 
           <div class="column is-12 ">
             <div class="field">
-              <label class="label"> Domicilio actual </label>
+              <label class="label"> <fa-i icon='map-marker'></fa-i> Domicilio Fiscal </label>
               <div class="control">
-                <input class="input" type="text" placeholder="Domicilio actual" disabled >
+                <input class="input" type="text" placeholder="Domicilio actual" disabled>
               </div>
             </div>
           </div>
@@ -60,7 +60,7 @@
               </div>
             </div>
             <div class="field">
-              <label class="label"> Calle  </label>
+              <label class="label"> Calle </label>
               <div class="control">
                 <input class="input" type="text" placeholder="Calle">
               </div>

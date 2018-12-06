@@ -1,5 +1,5 @@
 <template>
-  <div class="containe is-centered ">
+  <div class="container is-centered ">
 
     <div class="columns ">
       <div class="column is-5-tablet is-3-desktop  has-background-light ">

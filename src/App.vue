@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class=" container is-fullheight is-full is-mobile ">
+  <div id="app" class=" hero is-mobile ">
     <niurons-nav-var v-bind:categories="categories" ></niurons-nav-var>
     <router-view />
     <niurons-footer></niurons-footer>
@@ -32,16 +32,26 @@
           // error callback
           console.log('Error:', response);
         });
+      },
+      getInitials: function () {
+        this.$http.get('user/Initials').then(response => {
+          console.log('OK API', response);
+          // this.initials = response.body;
+
+        }, response => {
+          // error callback
+          console.log('Error:', response);
+        });
       }
+      
     },
     beforeMount() {
 
       if (localStorage.getItem('token')) {
         try {
           this.session = JWT.decode(localStorage.getItem('token'));
-          // this.http.headers.common['Authorization'] = localStorage.getItem('token');
-          // this.$http.headers.common.Authorization = localStorage.getItem('token');
-          console.log( 'token en headers', this.http.headers.common );
+          this.getInitials();
+          // console.log( 'token en headers', this.http.headers.common );
         } catch (e) {
           // localStorage.removeItem('token');
         }

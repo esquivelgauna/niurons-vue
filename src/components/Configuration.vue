@@ -51,20 +51,20 @@
 
     <div class="columns is-mobile is-multiline is-centered  is-size-5-desktop is-size-6-mobile ">
       <div class="column is-narrow is-5-mobile is-3-tablet is-4-desktop  ">
-        <div class="notification has-text-centered is-primary ">
+        <div class="notification has-text-centered is-primary " @click=" modals.studies = true " >
           <fa-i icon='graduation-cap'></fa-i>
-          <h3>Estudios</h3>
+          <h3>Educación</h3>
         </div>
 
       </div>
       <div class="column is-narrow is-5-mobile is-3-tablet is-4-desktop  ">
-        <div class="notification has-text-centered is-primary ">
+        <div class="notification has-text-centered is-primary " @click=" modals.cert = true " >
           <fa-i icon='bookmark'></fa-i>
           <h3>Certificaciones</h3>
         </div>
       </div>
       <div class="column is-narrow is-5-mobile is-3-tablet is-4-desktop  ">
-        <div class="notification has-text-centered is-primary ">
+        <div class="notification has-text-centered is-primary " @click=" modals.lan = true " >
           <fa-i icon='language'></fa-i>
           <h3>Idiomas </h3>
         </div>
@@ -72,81 +72,15 @@
     </div>
 
     <!-- * /* /* /* * /* /* /* / modals */ */ */* /* / */ */ -->
-    <modal-generals :Modal.sync ="modals.general"  Title='Generales '      Icon='user' @close = " modals.general = false "   ></modal-generals>
+    <modal-generals :Modal.sync ="modals.general"  Title='Generales '      Icon='user'        @close = " modals.general = false "   ></modal-generals>
     <modal-about    :Modal.sync ="modals.about"    Title='Acerca de mí '   Icon='user-circle'  @close = " modals.about = false "  ></modal-about>
     <modal-home     :Modal.sync ="modals.home"     Title='Domicilio Actual ' Icon='map-marker-alt'  @close = " modals.home = false "  ></modal-home>
     <modal-security :Modal.sync ="modals.security" Title='Seguridad '        Icon='shield-alt'  @close = " modals.security = false "  ></modal-security>
+    <modal-fiscal   :Modal.sync ="modals.fiscal"   Title='Datos Fiscales '   Icon='briefcase'  @close = " modals.fiscal = false "  ></modal-fiscal>
+    <modal-studies   :Modal.sync ="modals.studies"   Title=' Estudios  '   Icon='graduation-cap'  @close = " modals.studies = false "  ></modal-studies>
+    <modal-cert   :Modal.sync ="modals.cert"   Title='Certificaciones '   Icon='bookmark'  @close = " modals.cert = false "  ></modal-cert>
+    <modal-lan   :Modal.sync ="modals.lan"   Title='Idiomas '   Icon='language'  @close = " modals.lan = false "  ></modal-lan>
     
-
-
-    <div class="modal" :class=" { 'is-active':modals.generasadfdsl == true}">
-      <div class="modal-background" @click=" modals.gensdfsderal = false "></div>
-      <div class="modal-content ">
-        <div class=" column is-rounded has-background-white ">
-          <div class="level">
-            <div class="level-item">
-              <h3 class=" is-size-3 ">
-                <fa-i icon='user'></fa-i> Generales
-              </h3>
-            </div>
-          </div>
-
-          <div class="columns">
-            <div class="column is-6">
-              <div class="level is-marginless">
-                <div class="level-item">
-                  <img :src=" $host + session.img " alt="" class="img-150 ">
-                </div>
-              </div>
-
-              <div class="field">
-                <label class="label"> Nickname </label>
-                <div class="control">
-                  <input class="input" type="text" placeholder="Nickname">
-                </div>
-              </div>
-              <div class="field">
-                <label class="label">Celular</label>
-                <div class="control">
-                  <input class="input" type="text" placeholder="Celular">
-                </div>
-              </div>
-            </div>
-            <div class="column is-6">
-              <div class="field">
-                <label class="label">Nombre</label>
-                <div class="control">
-                  <input class="input" type="text" placeholder="Nombre">
-                </div>
-              </div>
-              <div class="field">
-                <label class="label">Apellido</label>
-                <div class="control">
-                  <input class="input" type="text" placeholder="Apellido">
-                </div>
-              </div>
-              <div class="field">
-                <label class="label">Telefono fijo</label>
-                <div class="control">
-                  <input class="input" type="text" placeholder="Telefono fijo">
-                </div>
-              </div>
-              <div class="field">
-                <label class="label">Miembro desde</label>
-                <div class="control">
-                  <input class="input" type="text" placeholder="Miembro desde">
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </div>
-
-        <!-- Any other Bulma elements you want -->
-      </div>
-      <button class="modal-close is-large" aria-label="close" @click=" modals.general = false "></button>
-    </div>
-
   </div>
 
 </template>
@@ -156,6 +90,11 @@ import modal_generals from '@/components/modals/modal_config_generals.vue'
 import modal_about from '@/components/modals/modal_config_about.vue'
 import modal_home from '@/components/modals/modal_config_home.vue'
 import modal_security from '@/components/modals/modal_config_security.vue'
+import modal_fiscal from '@/components/modals/modal_config_fiscal.vue'
+//Academics
+import modal_studies from '@/components/modals/modal_config_studies.vue'
+import modal_cert from '@/components/modals/modal_config_certifications.vue'
+import modal_lan from '@/components/modals/modal_config_languages.vue'
   export default {
     data() {
       return {
@@ -166,6 +105,9 @@ import modal_security from '@/components/modals/modal_config_security.vue'
           home: false,
           fiscal: false,
           security: false,
+          studies: false,
+          cert: false,
+          lan: false,
         },
       }
     },
@@ -174,6 +116,11 @@ import modal_security from '@/components/modals/modal_config_security.vue'
       'modal-about': modal_about, 
       'modal-home': modal_home, 
       'modal-security': modal_security, 
+      'modal-fiscal': modal_fiscal, 
+
+      'modal-studies': modal_studies, 
+      'modal-cert': modal_cert, 
+      'modal-lan': modal_lan, 
     },
   }
 

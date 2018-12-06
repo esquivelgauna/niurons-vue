@@ -4,6 +4,11 @@ import Resource from 'vue-resource'
 
 import Profile from '@/components/Profile'
 import Configuration from '@/components/Configuration'
+
+import Messages from '@/components/Messages'
+import Notifications from '@/components/Notifications'
+import Blog from '@/components/Blog'
+
 import ProfileUser from '@/components/ProfileUser'
 import Search from '@/components/Search'
 
@@ -18,6 +23,7 @@ import Purchases from '@/components/Purchases'
 import Purchase from '@/components/Purchase'
 import Sales from '@/components/Sales'
 import Sale from '@/components/Sale'
+import Finances from '@/components/Finances'
 
 Vue.use(Resource)
 Vue.use(Router)
@@ -71,7 +77,22 @@ export default new Router({
       name: 'Configuration',
       component: Configuration
     },
-
+    {
+      path: '/Blog/',
+      name: 'Blog',
+      component: Blog
+    },
+    {
+      path: '/Mensajes/',
+      name: 'Messages',
+      component: Messages
+    },
+    {
+      path: '/Notificaciones/',
+      name: 'Notifications',
+      component: Notifications
+    },
+    
     {
       path: '/Compras',
       name: 'Purchases',
@@ -91,6 +112,11 @@ export default new Router({
       path: '/Ventas/:id',
       name: 'Sale',
       component: Sale
+    },
+    {
+      path: '/Finanzas',
+      name: 'Finances',
+      component: Finances
     },
     {
       path: '/Terminos-y-Condiciones',

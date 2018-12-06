@@ -1,13 +1,11 @@
 <template>
   <div>
-    <div v-if=" session.name "> 
+    <div v-if=" session.name ">
       <ul class="columns is-variable is-2">
 
         <li class="column ">
           <div class="dropdown is-right is-hoverable ">
             <div class="dropdown-trigger">
-
-
               <div class=" is-text " aria-haspopup="true" aria-controls="dropdown-menu-blog">
                 <span>
                   <i class="niu-icon icon-nav-var-top icon-blog-niu"> </i>
@@ -16,6 +14,14 @@
             </div>
             <div class="dropdown-menu" id="dropdown-menu-blog" role="menu">
               <div class="dropdown-content">
+
+                <router-link :to="{ name: 'Blog' }" class="dropdown-item">
+                  <fa-i icon='user'></fa-i>
+                  <span>Blog</span>
+                </router-link>
+
+                <hr class="dropdown-divider">
+
                 <a href="#" class="dropdown-item">
                   Dropdown item
                 </a>
@@ -28,10 +34,7 @@
                 <a href="#" class="dropdown-item">
                   Other dropdown item
                 </a>
-                <hr class="dropdown-divider">
-                <a href="#" class="dropdown-item">
-                  With a divider
-                </a>
+
               </div>
             </div>
           </div>
@@ -48,9 +51,12 @@
             </div>
             <div class="dropdown-menu" id="dropdown-menu-works" role="menu">
               <div class="dropdown-content">
-                <a href="#" class="dropdown-item">
-                  Dropdown item
-                </a>
+                <router-link :to="{ name: 'Works' }" class="dropdown-item">
+                  <fa-i icon='user'></fa-i>
+                  <span>Trabajos</span>
+                </router-link>
+                <hr class="dropdown-divider">
+
                 <a class="dropdown-item">
                   Other dropdown item
                 </a>
@@ -80,9 +86,12 @@
             </div>
             <div class="dropdown-menu" id="dropdown-menu-messages" role="menu">
               <div class="dropdown-content">
-                <a href="#" class="dropdown-item">
-                  Dropdown item
-                </a>
+                <router-link :to="{ name: 'Messages' }" class="dropdown-item">
+                  <fa-i icon='user'></fa-i>
+                  <span>Mensajes</span>
+                </router-link>
+                <hr class="dropdown-divider">
+
                 <a class="dropdown-item">
                   Other dropdown item
                 </a>
@@ -112,9 +121,12 @@
             </div>
             <div class="dropdown-menu" id="dropdown-menu-notifications" role="menu">
               <div class="dropdown-content">
-                <a href="#" class="dropdown-item">
-                  Dropdown item
-                </a>
+                <router-link :to="{ name: 'Notifications' }" class="dropdown-item is-text-centered ">
+                  <fa-i icon='user'></fa-i>
+                  <span> Notificaciones </span>
+                </router-link>
+                <hr class="dropdown-divider">
+
                 <a class="dropdown-item">
                   Other dropdown item
                 </a>
@@ -138,7 +150,7 @@
             <div class="dropdown-trigger">
               <div class=" is-text " aria-haspopup="true" aria-controls="dropdown-menu-user">
                 <span>
-                  <img :src=" $host + session.img " alt="" id="img-profile" > 
+                  <img :src=" $host + session.img " alt="" id="img-profile">
                 </span>
               </div>
             </div>
@@ -171,11 +183,12 @@
                   <fa-i icon='money-bill-wave'></fa-i>
                   <span>Ventas</span>
                 </router-link>
- 
-                <a href="#" class="dropdown-item">
+
+                <router-link :to="{ name: 'Finances' }" class="dropdown-item">
                   <fa-i icon='chart-line'></fa-i>
-                  <span> Finanzas </span>
-                </a>
+                  <span>Finanzas</span>
+                </router-link>
+
 
                 <hr class="dropdown-divider">
                 <a href="/" class="dropdown-item" @click="LogOut()">
@@ -195,7 +208,7 @@
       <button class=" button is-light has-text-primary   " @click=" register = true "> Registrarse </button>
     </div>
 
-    <div class="modal animated fadeIn " :class=" { 'is-active':login == true}"  >
+    <div class="modal animated fadeIn " :class=" { 'is-active':login == true}">
       <div class="modal-background  " @click=" login = false "></div>
       <div class="modal-card ">
         <header class=" modal-card-head   ">
@@ -210,7 +223,7 @@
 
         </header>
         <section class=" modal-card-body  ">
-          <form   @submit=" logIn() " >
+          <form @submit=" logIn() ">
             <div class="columns is-centered ">
               <div class=" column  is-8 ">
                 <div class="field">
@@ -479,7 +492,8 @@
   .modal-content {
     z-index: 100;
   }
-  #img-profile{
+
+  #img-profile {
     height: 30px;
     border-radius: 50% 50%;
   }
