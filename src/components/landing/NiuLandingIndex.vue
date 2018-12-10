@@ -11,12 +11,12 @@
           <div class="colimn is-quarer">
             <div class="field has-addons">
               <div class="control">
-                <input class="input" type="text" placeholder="Buscar">
+                <input class="input is-rounded " type="text" placeholder="Buscar" v-model =" mySearch "    >
               </div>
               <div class="control">
-                <a class="button is-info">
-                  <fa-i icon="search"></fa-i>
-                </a>
+                <router-link :to="{ name: 'Search', params: { words:  mySearch }}" class=" button is-info is-rounded ">
+                    <fa-i icon="search"></fa-i>
+                  </router-link>
               </div>
             </div>
           </div>
@@ -41,9 +41,10 @@ import { throws } from 'assert';
     },
     data() {
       return { 
+        mySearch: this.$parent.search,
         message: 'Hola a todos'
       }
-    }, 
+    },
      
   }
 

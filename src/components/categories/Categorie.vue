@@ -52,7 +52,7 @@
 
           <h4 class="  is-size-4 "> Subcategorías </h4>
           <section class=" column ">
-            <div v-for=" subCat in orderedSubCat  " :key=" subCat ">
+            <div v-for=" subCat in orderedSubCat  " :key=" subCat.url ">
               <b-checkbox :native-value="subCat.url " v-model="checkboxGroup">
                 {{subCat.alias}}
               </b-checkbox>

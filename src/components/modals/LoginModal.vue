@@ -161,19 +161,22 @@
                   <fa-i icon='user'></fa-i>
                   <span>Perfil</span>
                 </router-link>
+
                 <router-link :to="{ name: 'Configuration' }" class="dropdown-item">
                   <fa-i icon='cogs'></fa-i>
                   <span>Configuración</span>
                 </router-link>
 
-                <a href="#" class="dropdown-item  ">
+                <router-link :to="{ name: 'Lyfs' }" class="dropdown-item">
                   <fa-i icon='hand-holding-heart'></fa-i>
-                  <span> LYF´s</span>
-                </a>
-                <a href="#" class="dropdown-item">
+                  <span> LYF´s </span>
+                </router-link>
+                
+                <router-link :to="{ name: 'Works' }" class="dropdown-item">
                   <fa-i icon='briefcase'></fa-i>
-                  <span> Trabajos</span>
-                </a>
+                  <span> Trabajos </span>
+                </router-link>
+
                 <router-link :to="{ name: 'Purchases' }" class="dropdown-item">
                   <fa-i icon='shopping-cart'></fa-i>
                   <span>Compras</span>

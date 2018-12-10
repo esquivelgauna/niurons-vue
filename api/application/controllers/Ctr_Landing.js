@@ -10,10 +10,9 @@ exports.Categories =  async (req, res) => {
     const cat = await Mdl_Landing.getCategories();
     for( let index in cat  ){
         // console.log( cat[index].nombre );
-        cat[index].subCats = await Mdl_Landing.getSubCat( cat[index]['id_cat'] );
-        delete cat[index]['id_cat'];
+        cat[index].subCats = await Mdl_Landing.getSubCat( cat[index]['id'] );
+        // delete cat[index]['id_cat'];
     }
     
     return res.json( cat );
-    // return  res(  )  ;
 }

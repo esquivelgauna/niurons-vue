@@ -11,6 +11,8 @@ import Blog from '@/components/Blog'
 
 import ProfileUser from '@/components/ProfileUser'
 import Search from '@/components/Search'
+import Lyfs from '@/components/Lyfs'
+import Logout from '@/components/Logout'
 
 import Landing from '@/components/landing/NiuLandingIndex'
 import Categories from '@/components/categories/Categories'
@@ -57,7 +59,7 @@ export default new Router({
     },
     {
       path: '/Busqueda/:words',
-      name: 'Search',
+      name: 'SearchW',
       component: Search
     },
 
@@ -92,7 +94,11 @@ export default new Router({
       name: 'Notifications',
       component: Notifications
     },
-    
+    {
+      path: '/Lyfs/',
+      name: 'Lyfs',
+      component: Lyfs
+    },
     {
       path: '/Compras',
       name: 'Purchases',
@@ -122,6 +128,11 @@ export default new Router({
       path: '/Terminos-y-Condiciones',
       name: 'TermsAndConditions',
       component: TermsAndConditions
+    },
+    {
+      path: '/Salir/',
+      name: 'Logout',
+      component: Logout
     },
 
   ],

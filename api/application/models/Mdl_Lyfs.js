@@ -76,31 +76,22 @@ exports.getCover = (idLyf) => {
   });
 
 }
-exports.getLyfs = async (idLyf, lastIdLyf) => {
+exports.getLyfs = async (idUser, lastIdLyf) => {
   return new Promise(async (resolve, reject) => {
-    if (idLyf) {
-      mysql.select({
-        table: 't_dat_usuario',
-        conditions: {
-          email: email
-        },
-        limit: 1,
-        show_query: true
-      }, async (err, result) => {
-        if (err) reject(err);
-
-      });
+    if (lastIdLyf) {
+      
     } else {
       mysql.select({
-        table: 't_dat_usuario',
+        table: 'v_lyfs',
+        fields: [ 'id', 'titulo', 'cat', 'subcat' , 'status' , 'img', 'date' ],
         conditions: {
-          email: email
+          id_user: idUser
         },
-        limit: 1,
+        limit: 5,
         show_query: true
       }, async (err, result) => {
         if (err) reject(err);
-
+        resolve( result );
       });
     }
 

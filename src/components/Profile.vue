@@ -71,7 +71,7 @@
     methods: {
       getLyfs: function () {
         console.log('geting lifs');
-        this.$http.get('user/lyfs').then(response => {
+        this.$http.get('user/Profile/Lyfs').then(response => {
           console.log('OK API', response.body.lyfs);
           this.Lyfs = response.body.lyfs;
 

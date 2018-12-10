@@ -19,12 +19,13 @@
             <div class="navbar-item">
               <div class="field has-addons">
                 <div class="control">
-                  <input class="input" type="text" placeholder="Buscar">
+                  <input class="input is-rounded" type="text" placeholder="Buscar" v-model="mySearch" @input=" $emit('update:search', mySearch)   ">
                 </div>
                 <div class="control">
-                  <a class="button is-info">
+                  <router-link :to="{ name: 'SearchW', params: { words:  mySearch }}" class=" button is-info is-rounded">
                     <fa-i icon="search"></fa-i>
-                  </a>
+                  </router-link>
+ 
                 </div>
               </div>
             </div>
@@ -56,13 +57,14 @@
   import Categories from '@/components/nav-bar/NavCategories'
   export default {
     name: 'NiuronsNavBar',
-    props: ['categories'],
+    props: ['categories', 'search'],
     components: {
       'login-modal': LoginModal,
       'nav-categories': Categories
     },
     data() {
       return {
+        mySearch: this.search,
         session: this.$parent.session,
         navBar: false,
         title: ' Barra de navegacion '

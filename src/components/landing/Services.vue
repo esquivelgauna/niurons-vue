@@ -7,7 +7,7 @@
       </div>
     </div>
     <ul class=" columns is-multiline is-centered is-mobile ">
-      <li v-for=" service in services  " :key=" service " class=" column is-4-mobile is-3-tablet is-one-fifth-desktop has-text-centered">
+      <li v-for=" service in services  " :key=" service.url " class=" column is-4-mobile is-3-tablet is-one-fifth-desktop has-text-centered">
 
         <router-link :to="{ name: 'Categorie', params: { cat: service.url , alias: service.alias }}">
           <div class="columns">

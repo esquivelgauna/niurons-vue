@@ -3,8 +3,22 @@ const Mdl_Lyfs = require('../models/Mdl_Lyfs')
 
 
 exports.Lyfs = async (req, res) => {
-  console.log('Buscando Lifs..');
-  // console.log(req.user);
+  console.log(' Lyfs - Buscando Lyfs..');
+  let lyfs = [];
+  if (!isNaN(req.body.idLyf)) {
+
+  } else {
+    lyfs = await Mdl_Lyfs.getLyfs(req.user.id, null);
+  }
+  return res.json({
+    lyfs
+  });
+}
+
+exports.ProfileLyfs = async (req, res) => {
+  console.log(' profile- Buscando Lyfs..');
+
+
   let lyfs = [];
   if (!isNaN(req.body.idLyf)) {
 
@@ -15,3 +29,4 @@ exports.Lyfs = async (req, res) => {
     lyfs
   });
 }
+

@@ -1,6 +1,6 @@
 <template>
   <div id="app" class=" hero is-mobile ">
-    <niurons-nav-var v-bind:categories="categories" ></niurons-nav-var>
+    <niurons-nav-var v-bind:categories="categories" v-bind:search.sync='search'></niurons-nav-var>
     <router-view />
     <niurons-footer></niurons-footer>
   </div>
@@ -14,6 +14,7 @@
     name: 'App',
     data() {
       return {
+        search: 'hell',
         categories: {},
         session: {}
       }
@@ -23,6 +24,11 @@
       'niurons-footer': NiuronsFooter
     },
     methods: {
+      changeSearch: function (newSearch) {
+        console.log('changeSearch', newSearch);
+
+        this.search = newSearch;
+      },
       getCategrories: function () {
         this.$http.get('Categories').then(response => {
           console.log('OK API', response);
@@ -43,7 +49,15 @@
           console.log('Error:', response);
         });
       }
-      
+
+    },
+    watch: {
+      search(newSearch) {
+        console.log('changeSearch', newSearch);
+
+        this.search = newSearch;
+      }
+
     },
     beforeMount() {
 
