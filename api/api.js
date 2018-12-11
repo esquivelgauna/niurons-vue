@@ -12,14 +12,13 @@ var bodyParser = require('body-parser');
 
 const API_Routes = require('./application/config/API_Routes');
 const API_User = require('./application/config/API_User');
-// var jwt         = require('jwt-express');
-//   bodyParser.urlencoded({     // to support URL-encoded bodies  extended: true}));  
+// const API_Pubilc_Lyfs = require('./application/config/API_Pubilc_Lyfs');
+
 //Middle
 app.use(express.json()); // to support JSON-encoded bodies
 app.use(morgan('dev'));
 app.use((req, res, next) => {
   res.append('Access-Control-Allow-Origin', '*');
-  // res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
   res.append('Access-Control-Allow-Headers', 'Content-Type, authorization');
   next();
 });
@@ -44,14 +43,12 @@ io.sockets.on('connection', (socket) => {
 });
 
 //Public 
-// console.log( path.join(__dirname, '../dist/static') );
 app.use('/static', express.static(path.join(__dirname, '../dist/static')));
 app.use('/assets', express.static(path.join(__dirname, '../src/assets')));
 app.use('/imgLyf', express.static(path.join(__dirname, '../src/assets/img/uploads/imglyf')));
 app.set('views', path.join(__dirname, 'application/views'));
 app.set('view engine', 'ejs');
 //Routes
-// app.use(jwt.init(process.env.jwt_secret));
 
 app.get('/', function (req, res) {
   let mipa = path.join(__dirname, '../dist/index.html');

@@ -75,6 +75,27 @@
 
 
         </div>
+
+        <div class="column is-6  is-9-tablet is-9-desktop " v-if=" condition ">
+          <h3 class=" is-size-3 ">Lifs </h3>
+          <div class="columns is-multiline ">
+
+            <div class="column is-3 has-shadow " v-for=" Lyf in Lyfs " :key=" Lyf.idLyf " >
+              <niu-lyf v-bind:Lyf ="Lyf"  >
+              </niu-lyf>
+            </div>
+
+          </div>
+
+        </div>
+        <div v-else>
+          <div v-if=" condition == false && noLyfs == true ">
+            <h3>No se encontraron Lyfs , crea uno Pulsando aqui </h3>
+          </div>
+          <div v-else>
+            Cargando.....
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -82,9 +103,17 @@
 
 
 <script>
+import Lyfv from '@/components/views/view_lyf.vue'
   export default {
+    components:{
+      'niu-lyf': Lyfv
+    },
     data() {
       return {
+        Data : {},
+        Lyfs : [],
+        noLyfs: false,
+        condition: false,
         subCategories: [],
         checkboxGroup: []
       }
@@ -100,7 +129,28 @@
             break;
           }
         }
+      },
+      getLyfs: function( ) {
+        
+        this.$http.get('Lyfs/Categorie', {
+          params: {
+            id: this.$route.params.id
+          }
+        }).then(response => {
+          console.log('Lyfs-Categorie:', response.body.lyfs);
+          if( response.body.lyfs.length > 0 ){
+            this.Lyfs = response.body.lyfs;
+            this.condition = true;
+          }else{
+            
+            this.noLyfs = true;
+          }
+          
+        }, response => {
+          console.log('Error:', response);
+        });
       }
+
     },
     computed: {
       orderedSubCat: function () {
@@ -108,13 +158,20 @@
       }
     },
     mounted() {
+      
       this.getSubCategories();
+      this.getLyfs();
     },
     watch: {
       '$route'(to, from) {
-        //   console.log( to, from  );
+        this.Lyfs = [];
+        this.condition = false;
+        this.noLyfs = false;
+        // this.Data.Lyfs = [];
         this.getSubCategories();
-        // react to route changes...
+        this.getLyfs();
+        console.log( this.$route.params );
+
       }
     }
 
@@ -122,7 +179,3 @@
   }
 
 </script>
-
-<style>
-
-</style>

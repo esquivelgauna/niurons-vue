@@ -2,11 +2,17 @@ const express = require('express')
 const landing = require('../controllers/Ctr_Landing')
 const Login = require('../controllers/Ctr_Login')
 const Lyfs = require('../controllers/Ctr_Lyfs')
+const Profile = require('../controllers/Ctr_Profile')
 const router = express.Router()
-
+//////////////////*/*/**/ *////// GET //////////////////*/*/**/ */
 router.get('/', landing.Landing)
-router.post('/Login', Login.Login)
 router.get('/Categories', landing.Categories)
+router.get('/Lyfs/Categorie', Lyfs.LyfsCategorie)
+router.get('/Profile', Profile.GetProfile )
+
+
+
+router.post('/Login', Login.Login)
 router.post('/Lyfs', Lyfs.Lyfs)
 module.exports = router
 

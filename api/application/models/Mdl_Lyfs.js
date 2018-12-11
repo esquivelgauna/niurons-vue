@@ -32,6 +32,42 @@ exports.Lyfs = async (idLyf) => {
 
   });
 }
+
+exports.getLyfsCategorie = async (idLyf , idCategorie) => {
+  return new Promise(async (resolve, reject) => {
+    if (idLyf) {
+      mysql.select({
+        table: 't_dat_usuario',
+        conditions: {
+          email: email
+        },
+        limit: 1,
+        show_query: true
+      }, async (err, result) => {
+        if (err) reject(err);
+
+      });
+    } else {
+      mysql.select({
+        table: 'v_lyf',
+        conditions: {
+          idCategoria: idCategorie
+        }, 
+        show_query: true
+      }, async (err, result) => {
+        if (err) reject(err);
+        console.log( result );
+        resolve(result )
+
+      });
+    }
+
+  });
+}
+
+
+
+
 exports.getTopLyfs = (idUser) => {
   return new Promise((resolve, reject) => {
     mysql.native_query({
