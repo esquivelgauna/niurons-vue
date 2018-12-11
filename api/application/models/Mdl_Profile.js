@@ -32,14 +32,16 @@ exports.Skills = async (idUser) => {
   return new Promise(async (resolve, reject) => {
     mysql.select({
       table: 't_dat_detalles_usuario',
+      fields: ['habilidades'],
       conditions: {
         f_id_usuario: idUser
       },
+      limit:1,
       show_query: true
     }, async (err, result) => {
       if (err) reject(err);
       console.log(result);
-      resolve(result[0]);
+      resolve( result[0]['habilidades'] );
     });
 
 
@@ -52,6 +54,7 @@ exports.Languages = async (idUser) => {
   return new Promise(async (resolve, reject) => {
     mysql.select({
       table: 'v_idiomas',
+      fields: ['Conversasional' , 'Escritura' , 'Idioma' , 'Lectura' ],
       conditions: {
         id_usuario: idUser
       },
@@ -69,6 +72,7 @@ exports.Studies = async (idUser) => {
   return new Promise(async (resolve, reject) => {
     mysql.select({
       table: 'v_estudios',
+      fields: ['Carrera' , 'Escuela' , 'Pais' ],
       conditions: {
         id_user: idUser
       },
@@ -87,6 +91,7 @@ exports.Certifications = async (idUser) => {
   return new Promise(async (resolve, reject) => {
     mysql.select({
       table: 't_dat_certificaciones',
+      fields: ['nombre' , 'institucion' , 'fecha' ],
       conditions: {
         f_id_usuario: idUser
       },

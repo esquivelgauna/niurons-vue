@@ -8,6 +8,7 @@ const router = express.Router()
 router.get('/', landing.Landing)
 router.get('/Categories', landing.Categories)
 router.get('/Lyfs/Categorie', Lyfs.LyfsCategorie)
+router.get('/Lyfs/Search/Categories', Lyfs.LyfSearchCategories)
 router.get('/Profile', Profile.GetProfile )
 
 

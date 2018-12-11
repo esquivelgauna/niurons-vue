@@ -37,8 +37,8 @@
               <h6> <small>MENSAJE</small> </h6>
             </button>
             <button class=" button is-outlined is-success is-rounded  is-small ">
-                <h6 class=""> <small>ORDEN</small> </h6>
-              </button>
+              <h6 class=""> <small>ORDEN</small> </h6>
+            </button>
           </div>
 
           <hr class=" has-margin-y-4 ">
@@ -47,12 +47,44 @@
             {{ Profile.descripcion_laboral }}
           </p>
           <h5 class=" is-size-6 has-text-primary ">Habilidades</h5>
+          <div class="buttons">
+            <span class=" button is-rounded is-small has-shadow  " v-for=" skill in getSkills " :key="skill">
+              {{ skill }}
+            </span>
+          </div>
+
           <hr class=" has-margin-y-4 ">
           <h5 class=" is-size-6 has-text-primary ">Idiomas:</h5>
+          <div class="columns is-multiline">
+            <div class="column is-12  has-text-grey " v-for=" langage in Profile.languages " :key="langage.Idioma">
+              <h4 class="is-size-6 "> {{ langage.Idioma }} </h4>
+              <P> Lectura: {{ langage.Lectura }} </P>
+              <P> Escritura: {{ langage.Escritura }} </P>
+              <P> Conversacional: {{ langage.Conversasional }} </P>
+
+            </div>
+          </div>
           <hr class=" has-margin-y-4 ">
           <h5 class=" is-size-6 has-text-primary ">Estudios</h5>
+          <div class="columns is-multiline">
+            <div class="column is-12 has-text-grey " v-for=" studie in Profile.studies " :key="studie.Carrera">
+              <h4 class="is-size-6 "> {{ studie.Carrera }} </h4>
+              <P> {{ studie.Escuela }} </P>
+              <P> {{ studie.Pais }} </P> 
+
+            </div>
+          </div>
           <hr class=" has-margin-y-4 ">
           <h5 class=" is-size-6 has-text-primary ">Certificaciones</h5>
+          
+          <div class="columns is-multiline">
+            <div class="column is-12 has-text-grey " v-for=" cert in Profile.certifications " :key="cert.nombre">
+              <h4 class="is-size-6 "> {{ cert.nombre }} </h4>
+              <P> {{ cert.institucion }} </P>
+              <P> {{ cert.fecha }} </P> 
+
+            </div>
+          </div>
           <hr class=" has-margin-y-4 ">
           <h5 class=" is-size-6 has-text-primary ">Redes Sociales</h5>
 
@@ -101,10 +133,18 @@
         });
       },
     },
-    mounted() {
+    beforeMount() {
       this.getProfile();
     },
-
+    computed: {
+      getSkills: function () {
+        if (this.Profile.skills) {
+          console.log(this.Profile.skills.split(','));
+          return this.Profile.skills.split(',');
+        }
+        return [];
+      }
+    },
 
   }
 
@@ -116,6 +156,7 @@
 
   .niu-profile-image {
     margin-top: -75px;
+    background-color: white;
   }
 
 </style>

@@ -1,5 +1,4 @@
 const mysql = require('../heplers/database');
-const bcrypt = require('bcrypt');
 
 
 exports.Lyfs = async (idLyf) => {
@@ -33,7 +32,7 @@ exports.Lyfs = async (idLyf) => {
   });
 }
 
-exports.getLyfsCategorie = async (idLyf , idCategorie) => {
+exports.getLyfsCategorie = async (idLyf, idCategorie) => {
   return new Promise(async (resolve, reject) => {
     if (idLyf) {
       mysql.select({
@@ -49,18 +48,74 @@ exports.getLyfsCategorie = async (idLyf , idCategorie) => {
       });
     } else {
       mysql.select({
-        table: 'v_lyf',
+        table: 'v_lyfs',
         conditions: {
-          idCategoria: idCategorie
-        }, 
+          id_cat: idCategorie,
+          status: 'activo'
+        },
         show_query: true
       }, async (err, result) => {
         if (err) reject(err);
-        console.log( result );
-        resolve(result )
+        // console.log( result );
+        resolve(result)
 
       });
     }
+
+  });
+}
+
+exports.searchLyfsCategories = async (idLyf, data) => {
+  return new Promise(async (resolve, reject) => {
+
+    if (data.idLyf) {
+
+    } else {
+      if (data.categories) {
+        mysql.select({
+          table: 'v_lyfs',
+          conditions: {
+            id_cat: data.categories,
+            status: 'activo',
+            'cost >=': data.min,
+            'cost <=': data.max,
+
+            or: {
+              'nickname LIKE': `%${data.words}%`,
+              'title LIKE': `%${data.words}%`,
+              'cat LIKE': `%${data.words}%`,
+              'subcat LIKE': `%${data.words}%`,
+            }
+          },
+          limit: 12,
+          show_query: true
+        }, async (err, result) => {
+          if (err) reject(err);
+          resolve(result)
+        });
+      } else {
+        mysql.select({
+          table: 'v_lyfs',
+          conditions: {
+            status: 'activo',
+            'cost >=': data.min,
+            'cost <=': data.max,
+            or: {
+              'nickname LIKE': `%${data.words}%`,
+              'title LIKE': `%${data.words}%`,
+              'cat LIKE': `%${data.words}%`,
+              'subcat LIKE': `%${data.words}%`,
+            }
+          },
+          limit: 12,
+          show_query: true
+        }, async (err, result) => {
+          if (err) reject(err);
+          resolve(result)
+        });
+      }
+    }
+
 
   });
 }
@@ -115,19 +170,26 @@ exports.getCover = (idLyf) => {
 exports.getLyfs = async (idUser, lastIdLyf) => {
   return new Promise(async (resolve, reject) => {
     if (lastIdLyf) {
-      
+
     } else {
       mysql.select({
         table: 'v_lyfs',
-        fields: [ 'id', 'titulo', 'cat', 'subcat' , 'status' , 'img', 'date' ],
+        fields: ['id', 'title', 'cat', 'subcat', 'status', 'img', 'date'],
         conditions: {
-          id_user: idUser
+          and: {
+            id_user: idUser,
+            status: {
+              status1: 'activo',
+              status2: 'pausado',
+            }
+          }
+
         },
         limit: 5,
         show_query: true
       }, async (err, result) => {
         if (err) reject(err);
-        resolve( result );
+        resolve(result);
       });
     }
 

@@ -1,16 +1,22 @@
 <template>
-  <div>
-    <img :src=" $host + Lyf.imgPerfil " alt="" class=" img-100 ">
-    <router-link :to="{ name: 'ProfileUser', params: { nickname: Lyf.nickName }}"  
-      class=" has-text-grey is-text  ">
+  <div class=" animated fadeIn">
+
+    <div class="level">
+      <div class="level-item">
+        <img :src=" $host + '/assets/img/uploads/imglyf/thumb/'  + Lyf.img " alt="" class=" img-w-100 ">
+      </div>
+    </div>
+
+    <router-link :to="{ name: 'ProfileUser', params: { nickname: Lyf.nickname }}" class=" has-text-grey is-text  ">
+
       <div class="level">
         <div class="level-left">
           <div class="level-item">
-            <img :src=" $host + Lyf.imgPerfil " alt="" class=" img-20 is-circle ">
+            <img :src=" $host + Lyf.img_user " alt="" class=" img-20 is-circle ">
           </div>
           <div class="level-item">
             <h4 class=" is-size-6 ">
-              {{ Lyf.nickName }}
+              {{ Lyf.nickname }}
             </h4>
 
           </div>
@@ -20,7 +26,7 @@
     </router-link>
 
     <p>
-      {{Lyf.titulo }}
+      {{Lyf.title }}
     </p>
     <hr>
     <div class="level">
@@ -38,7 +44,7 @@
       </div>
       <div class="level-rigth">
         <div class="level-item">
-          $ {{ Lyf.costo }}
+         Comprar $ {{ Lyf.cost }}
         </div>
       </div>
     </div>

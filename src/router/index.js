@@ -12,6 +12,8 @@ import Blog from '@/components/Blog'
 import ProfileUser from '@/components/ProfileUser'
 import Search from '@/components/Search'
 import Lyfs from '@/components/Lyfs'
+import LyfsCrear from '@/components/LyfsCrear'
+
 import Logout from '@/components/Logout'
 
 import Landing from '@/components/landing/NiuLandingIndex'
@@ -26,6 +28,8 @@ import Purchase from '@/components/Purchase'
 import Sales from '@/components/Sales'
 import Sale from '@/components/Sale'
 import Finances from '@/components/Finances'
+//Trabajos
+import Works from '@/components/Works'
 
 Vue.use(Resource)
 Vue.use(Router)
@@ -56,6 +60,11 @@ export default new Router({
       path: '/Busqueda/',
       name: 'Search',
       component: Search
+    },
+    {
+      path: '/Trabajos/',
+      name: 'Works',
+      component: Works
     },
     {
       path: '/Busqueda/:words',
@@ -98,6 +107,11 @@ export default new Router({
       path: '/Lyfs/',
       name: 'Lyfs',
       component: Lyfs
+    },
+    {
+      path: '/Lyfs/Crear/',
+      name: 'Lyfs/Crear',
+      component: LyfsCrear
     },
     {
       path: '/Compras',

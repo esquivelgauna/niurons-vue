@@ -17,9 +17,14 @@
 
 
       </div>
-      <div class="level-right"><a class="button is-info is-rounded">
-          <fa-i icon='plus-circle' class="has-margin-r-2"></fa-i>Crear Lyf
-        </a></div>
+      <div class="level-right">
+        <div class="level-item">
+          <router-link :to="{ name: 'Lyfs/Crear' } " class=" button is-info is-rounded  ">
+            <fa-i icon='plus-circle' class="has-margin-r-2"></fa-i>Crear Lyf
+          </router-link>
+        </div>
+      </div>
+
     </div>
     <hr>
     <div class="level">
@@ -51,24 +56,24 @@
 
           </b-table-column>
 
-          <b-table-column field="cat" label="Categoria" sortable >
+          <b-table-column field="cat" label="Categoria" sortable>
             {{ props.row.cat }}
           </b-table-column>
 
-          <b-table-column field="subcat" label="Subcategoria" sortable >
+          <b-table-column field="subcat" label="Subcategoria" sortable>
             {{ props.row.subcat }}
           </b-table-column>
 
-          <b-table-column field="date" label="Fecha" centered sortable >
+          <b-table-column field="date" label="Fecha" centered sortable>
             <span class="tag is-success">
               {{ new Date(props.row.date).toLocaleDateString() }}
             </span>
           </b-table-column>
-          <b-table-column field="status" label="Status" sortable >
+          <b-table-column field="status" label="Status" sortable>
             <div :v-if=" props.row.status == 'activo' " class="has-text-success">
-              <fa-i icon = 'circle'> </fa-i> <span > {{props.row.status}} </span> 
+              <fa-i icon='circle'> </fa-i> <span> {{props.row.status}} </span>
             </div>
-            
+
           </b-table-column>
 
         </template>

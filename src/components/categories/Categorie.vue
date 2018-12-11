@@ -1,6 +1,6 @@
 <template>
-  <div class="container">
-    <div class="column is-full " >
+  <div class="container ">
+    <div class="column is-full ">
       <h3> Categoria: {{ $route.params.alias }} </h3>
       <p>
         <strong>Descripcion: </strong>
@@ -12,11 +12,11 @@
 
     </div>
 
-    <div class="column">
+    <div class="column ">
 
-      <hr>
-      <div class="columns">
-        <div class="column is-4  is-3-tablet is-3-desktop">
+      <hr class=" ">
+      <div class="columns ">
+        <div class="column is-4  is-3-tablet is-3-desktop ">
           <div class="field">
             <label class=" is-size-3 " for="cat_search"><strong> Busqueda </strong> </label>
             <div class="control">
@@ -69,19 +69,16 @@
               <button class="button is-text is-hidden" @click=" checkboxGroup =[]">Limpiar</button>
             </div>
             <div class="control">
-              <button class="button is-success ">Buscar</button>
+              <button class="button is-success" @click=" SearchLyfs() " >Buscar</button>
             </div>
           </div>
-
-
         </div>
 
         <div class="column is-6  is-9-tablet is-9-desktop " v-if=" condition ">
           <h3 class=" is-size-3 ">Lifs </h3>
           <div class="columns is-multiline ">
-
-            <div class="column is-3 has-shadow " v-for=" Lyf in Lyfs " :key=" Lyf.idLyf " >
-              <niu-lyf v-bind:Lyf ="Lyf"  >
+            <div class="column is-3 has-shadow " v-for=" Lyf in Lyfs " :key=" Lyf.idLyf ">
+              <niu-lyf v-bind:Lyf="Lyf">
               </niu-lyf>
             </div>
 
@@ -103,49 +100,69 @@
 
 
 <script>
-import Lyfv from '@/components/views/view_lyf.vue'
+  import Lyfv from '@/components/views/view_lyf.vue'
   export default {
-    components:{
+    components: {
       'niu-lyf': Lyfv
     },
     data() {
       return {
-        Data : {},
-        Lyfs : [],
+        Data: {},
+        Lyfs: [],
         noLyfs: false,
         condition: false,
         subCategories: [],
-        checkboxGroup: []
+        checkboxGroup: [],
+        idCat: null,
       }
     },
     methods: {
-      getSubCategories: function () {
+      GetSubCategories: function () {
         this.checkboxGroup = [];
         for (let index in this.$parent.categories) {
           //   console.log(this.$route.params);
           // console.log(this.$parent.categories[index]['url'])
           if (this.$route.params.cat == this.$parent.categories[index]['url']) {
+            // console.log( this.$parent.categories[index] );
+            this.idCat = this.$parent.categories[index]['id']
             this.subCategories = this.$parent.categories[index]['subCats'];
             break;
           }
         }
+        this.GetLyfs();
       },
-      getLyfs: function( ) {
-        
+      GetLyfs: function () {
         this.$http.get('Lyfs/Categorie', {
           params: {
-            id: this.$route.params.id
+            id: this.idCat
           }
         }).then(response => {
-          console.log('Lyfs-Categorie:', response.body.lyfs);
-          if( response.body.lyfs.length > 0 ){
+
+          if (response.body.lyfs.length > 0) {
+            console.log('Lyfs-Categorie:', response.body.lyfs);
             this.Lyfs = response.body.lyfs;
             this.condition = true;
-          }else{
-            
+          } else {
             this.noLyfs = true;
           }
-          
+        }, response => {
+          console.log('Error:', response);
+        });
+      },
+      SearchLyfs: function () {
+        this.$http.get('Lyfs/Categorie', {
+          params: {
+            id: this.idCat
+          }
+        }).then(response => {
+
+          if (response.body.lyfs.length > 0) {
+            console.log('Lyfs-Categorie:', response.body.lyfs);
+            this.Lyfs = response.body.lyfs;
+            this.condition = true;
+          } else {
+            this.noLyfs = true;
+          }
         }, response => {
           console.log('Error:', response);
         });
@@ -157,10 +174,12 @@ import Lyfv from '@/components/views/view_lyf.vue'
         return _.sortBy(this.subCategories, 'alias');
       }
     },
+    beforeMount() {
+      this.GetSubCategories();
+
+    },
     mounted() {
-      
-      this.getSubCategories();
-      this.getLyfs();
+      this.GetLyfs();
     },
     watch: {
       '$route'(to, from) {
@@ -168,9 +187,9 @@ import Lyfv from '@/components/views/view_lyf.vue'
         this.condition = false;
         this.noLyfs = false;
         // this.Data.Lyfs = [];
-        this.getSubCategories();
-        this.getLyfs();
-        console.log( this.$route.params );
+        this.GetSubCategories();
+
+        console.log(this.$route.params);
 
       }
     }
@@ -179,3 +198,8 @@ import Lyfv from '@/components/views/view_lyf.vue'
   }
 
 </script>
+
+<style>
+ 
+
+</style>
