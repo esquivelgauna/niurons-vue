@@ -1,5 +1,5 @@
 <template>
-  <div class=" columns is-multiline is-mobile  sticky has-background-white ">
+  <div class=" columns is-multiline is-mobile  sticky has-background-white has-shadow has-text-white-bis  ">
 
     <div class="column is-full">
       <nav class="navbar" role="navigation" aria-label="main navigation">
@@ -41,7 +41,8 @@
 
       </nav>
     </div>
-
+    
+    
     <div class="column is-full is-hidden-touch ">
       <nav-categories v-bind:categories="categories">
       </nav-categories>

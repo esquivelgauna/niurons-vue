@@ -236,6 +236,7 @@
             </p>
           </div>
         </div>
+
         <div :class=" { 'has-none ':Lyfprogress < 32 || Lyfprogress > 48  } " class=" animated fadeIn ">
           <h4 class="is-size-4 has-text-primary "> Galería </h4>
           <small>
@@ -271,7 +272,27 @@
             </p>
           </div>
         </div>
+        <div :class=" { 'has-none ':Lyfprogress < 64 || Lyfprogress > 48  } " class=" animated fadeIn ">
+          <h4 class="is-size-4 has-text-primary "> Paquetes </h4>
+          <small>
+            <p>
+              Selecciona los paquetes que deseas crear (selecciona almenos uno).
+            </p>
+          </small>
+          <br>
+          
+          
 
+
+          <hr class=" has-margin-y-3 ">
+          <div class="field is-grouped is-grouped-right">
+            <p class="control">
+              <a class="button is-primary" @click=" SaveImages() ">
+                Siguiente
+              </a>
+            </p>
+          </div>
+        </div>
 
 
       </div>
