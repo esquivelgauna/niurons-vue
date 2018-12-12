@@ -16,14 +16,8 @@ exports.getCategories = () => {
 }
 exports.getSubCat = (idCat) => {
   return new Promise((resolve, reject) => {
-    mysql.select({
-      table: 't_cat_subcat',
-      fields: ['alias', 'url'],
-      conditions: {
-        f_id_cat: idCat,
-        bool_aprobado: 1
-      },
-      show_query: true
+    mysql.native_query({
+      query: `SELECT id_subcat as id , alias, url FROM t_cat_subcat WHERE f_id_cat = ${idCat} AND bool_aprobado = 1 `,
     }, (err, result) => {
       if (err) reject(err);
       if (result) {
@@ -32,5 +26,6 @@ exports.getSubCat = (idCat) => {
         resolve([])
       }
     });
+
   });
 }

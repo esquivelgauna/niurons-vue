@@ -8,6 +8,7 @@ import {fas} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import Buefy from 'buefy'
 
+window.validate = require("validate.js");
 window._ = require('lodash');
 library.add(fas);
 Vue.component('fa-i', FontAwesomeIcon);
@@ -27,7 +28,6 @@ Vue.http.interceptors.push(function(request  , next ) {
   // next();
 });
 Vue.prototype.$host = 'http://localhost:3000';
-
 /* eslint-disable */ 
 new Vue({
   el: '#app',

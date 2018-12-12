@@ -25,7 +25,7 @@
                   <router-link :to="{ name: 'SearchW', params: { words:  mySearch }}" class=" button is-info is-rounded">
                     <fa-i icon="search"></fa-i>
                   </router-link>
- 
+
                 </div>
               </div>
             </div>
@@ -62,6 +62,19 @@
       'login-modal': LoginModal,
       'nav-categories': Categories
     },
+    methods: {
+      // SendSession: function (session) {
+      //   console.log('Sending Session');
+      //   this.$parent.$emit('SetSession', session);
+      // }
+    },
+    created() {
+      this.$on('SendSession', session => {
+        console.log('Sending Session');
+        this.$parent.$emit('SetSession', session);
+      });
+    },
+
     data() {
       return {
         mySearch: this.search,

@@ -455,17 +455,18 @@
       },
 
       logIn: function () {
-        console.log(this.$parent.session);
-        console.log(this.loginData);
+        // console.log(this.$parent.session);
+        // console.log(this.loginData);
         this.$http.post('Login', this.loginData).then(response => {
 
           if (response.body.status) {
+
             localStorage.setItem('token', response.body.token);
             let tokenDecoded = JWT.decode(response.body.token);
 
-            console.log(' Login ', tokenDecoded);
+            // console.log(' Login ', tokenDecoded);
             this.session = tokenDecoded;
-
+            this.$parent.$emit('SendSession', tokenDecoded );
             this.loginSuccess(response.body.message);
             this.login = false;
           } else {

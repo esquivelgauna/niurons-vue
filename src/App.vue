@@ -48,29 +48,37 @@
           // error callback
           console.log('Error:', response);
         });
-      }
-
+      },
+      LoadToken: function () {
+        console.log('Loading Token ');
+        if (localStorage.getItem('token')) {
+          try {
+            this.session = JWT.decode(localStorage.getItem('token'));
+            this.getInitials();
+            console.log(' Token Successful ');
+          } catch (e) {
+            console.log(' Not Token ');
+            // localStorage.removeItem('token');
+          }
+        }
+      },
     },
+    created() {
+      this.$on('SetSession', session => {
+        console.log(' SetSession ', session);
+        this.session = session;
+      });
+    },
+
     watch: {
       search(newSearch) {
         console.log('changeSearch', newSearch);
 
         this.search = newSearch;
       }
-
     },
     beforeMount() {
-
-      if (localStorage.getItem('token')) {
-        try {
-          this.session = JWT.decode(localStorage.getItem('token'));
-          this.getInitials();
-          // console.log( 'token en headers', this.http.headers.common );
-        } catch (e) {
-          // localStorage.removeItem('token');
-        }
-      }
-
+      this.LoadToken();
       if (localStorage.getItem('categories')) {
         try {
           this.categories = JSON.parse(localStorage.getItem('categories'));

@@ -89,33 +89,6 @@
 
         </div>
 
-        <!-- <div class="column is-5-tablet is-3-desktop  has-background-light ">
-        <div class="levels">
-          <div class="level-item">
-            <img :src=" $host + session.img " alt="" id="profile-img" class="img-200">
-          </div>
-          <div class="level-item">
-            <strong class="is-clipped"> {{ session.name +' '+ session.lastName }} </strong>
-          </div>
-          <div class="level-item">
-            <p>Nickname: <strong> {{ session.nickname }} </strong> </p>
-          </div>
-          <div class="level-item">
-            <div v-if=" session.seller ">
-              <p> <strong class="has-text-success"> Eres vendedor </strong> </p>
-            </div>
-            <div v-else>
-              <p> <strong class="has-text-primary"> Aun no eres vendedor </strong> </p>
-            </div>
-
-          </div>
-          <div class="level-item">
-            <p>E-mail: <strong> {{ session.email }} </strong> </p>
-
-          </div>
-
-        </div>
-      </div> -->
         <div class="column is-7-tablet is-8-desktop ">
           <h4> Lif's </h4>
           <div v-if=" session.seller ">

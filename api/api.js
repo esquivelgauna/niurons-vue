@@ -49,10 +49,10 @@ app.use('/imgLyf', express.static(path.join(__dirname, '../src/assets/img/upload
 app.set('views', path.join(__dirname, 'application/views'));
 app.set('view engine', 'ejs');
 //Routes
-
+let mipa = path.join(__dirname, '../dist/index.html');
 app.get('/', function (req, res) {
-  let mipa = path.join(__dirname, '../dist/index.html');
-  console.log(mipa);
+  // let mipa = path.join(__dirname, '../dist/index.html');
+  // console.log(mipa);
   res.sendFile(mipa);
 });
 
@@ -63,7 +63,7 @@ app.use('/api/user', jwt({
 }), API_User);
 
 app.use((req, res, next) => {
-  res.redirect('/');
+    res.sendFile(mipa);
 });
 
 server.listen(process.env.api_port, function (err) {
