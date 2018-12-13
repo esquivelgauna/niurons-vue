@@ -9,7 +9,7 @@
             <progress class="progress is-primary" :value="Lyfprogress" max="100" id="lyf-progress"> </progress>
 
           </div>
-          <ul class="level">
+          <ul class="level is-mobile ">
             <li class="level-item  ">
               <button class=" button is-primary is-circle ">
                 <fa-i icon='list-alt'></fa-i>
@@ -54,9 +54,9 @@
                 <div class="control">
                   <input class="input" type="text" placeholder="Título" v-model="myLyf.title">
                 </div>
-                <div class="level">
+                <div class="level is-mobile">
                   <div class="level-left">
-                    <span class="help is-success ">Ponle un titulo llamativo a tu servicio </span>
+                    <span class="help is-primary ">Ponle un titulo llamativo a tu servicio </span>
                   </div>
                   <div class="level-right">
                     <div class="level-item">
@@ -93,9 +93,9 @@
                 <div class="control">
                   <textarea class="textarea" placeholder="Descripción" v-model="myLyf.description"></textarea>
                 </div>
-                <div class="level">
+                <div class="level is-mobile">
                   <div class="level-left">
-                    <span class="help is-success ">Mínimo 30 caracteres </span>
+                    <span class="help is-primary ">Mínimo 30 caracteres </span>
                   </div>
                   <div class="level-right">
                     <div class="level-item">
@@ -120,7 +120,7 @@
                 </div>
                 <div class="level">
                   <div class="level-left">
-                    <span class="help is-success ">Agrega al menos un requerimiento </span>
+                    <span class="help is-primary ">Agrega al menos un requerimiento </span>
                   </div>
                   <div class="level-right">
                     <div class="level-item">
@@ -159,7 +159,7 @@
                 </div>
                 <div class="level">
                   <div class="level-left">
-                    <span class="help is-success "> Minimo 5 caracteres </span>
+                    <span class="help is-primary "> Minimo 5 caracteres </span>
                   </div>
                   <div class="level-right">
                     <div class="level-item">
@@ -177,7 +177,7 @@
                 </div>
                 <div class="level">
                   <div class="level-left">
-                    <span class="help is-success "> Minimo 5 caracteres </span>
+                    <span class="help is-primary "> Minimo 5 caracteres </span>
                   </div>
                   <div class="level-right">
                     <div class="level-item">
@@ -251,7 +251,8 @@
             <div class="dropbox is-rounded has-background-white-ter ">
               <input type="file" multiple @change="onFileChange($event);  " accept="image/*" class="input-file">
               <p>
-                <fa-i icon='image'></fa-i> <strong class=" has-text-primary "> Buscar imágenes </strong> o arrastra y sueltalas aquí.
+                <fa-i icon='image'></fa-i> <strong class=" has-text-primary "> Buscar imágenes </strong> o arrastra y
+                sueltalas aquí.
               </p>
             </div>
           </section>
@@ -272,26 +273,486 @@
             </p>
           </div>
         </div>
-        <div :class=" { 'has-none ':Lyfprogress < 64 || Lyfprogress > 48  } " class=" animated fadeIn ">
+
+        <div :class=" { 'has-none ':Lyfprogress < 48 || Lyfprogress > 64   } " class=" animated fadeIn ">
           <h4 class="is-size-4 has-text-primary "> Paquetes </h4>
           <small>
             <p>
               Selecciona los paquetes que deseas crear (selecciona almenos uno).
             </p>
           </small>
-          <br>
-          
-          
 
+          <div class="buttons is-centered has-margin-y-3 ">
+            <span class="button is-rounded is-primary " @click=" myLyf.packages.type = 1, AddPackage('basic') ">
+              <strong>
+                BÁSICO</strong> </span>
+            <span class="button is-rounded is-primary " @click=" myLyf.packages.type = 2, AddPackage('standard') ">
+              <strong>
+                ESTÁNDAR </strong> </span>
+            <span class="button is-rounded is-primary " @click=" myLyf.packages.type = 3, AddPackage('premium') ">
+              <strong>
+                PREMIUM </strong> </span>
+          </div>
+
+          <div class="columns is-multiline animated fadeIn " :class=" { 'has-none ':myLyf.packages.type != 1 } ">
+            <div class="column is-full">
+              <hr class=" has-margin-y-1 ">
+              <div class="level is-marginless">
+                <div class="level-left">
+                  <div class="level-item">
+                    <h4 class=" is-size-4  "> Básico </h4>
+                  </div>
+                </div>
+                <div class="level-right">
+                  <button class="button is-small is-circle  is-danger is-outlined " @click=" myLyf.packages.type = 4, DeletePackage('basic') ">
+                    <fa-i icon='trash'></fa-i>
+                  </button>
+
+                </div>
+              </div>
+              <hr class=" has-margin-y-1 ">
+            </div>
+            <div class="column is-full">
+              <div class="field">
+                <label class="label"> Subtitulo </label>
+                <div class="control">
+                  <input class="input" type="text" placeholder="Título" v-model="myLyf.packages.basic.package.subtitle">
+                </div>
+                <div class="level is-mobile ">
+                  <div class="level-left">
+                    <span class="help is-primary "> Ponle un subtitulo llamativo a tu servicio , mínimo 5 caracteres
+                    </span>
+                  </div>
+                  <div class="level-right">
+                    <div class="level-item">
+                      <span class="help "> {{ myLyf.packages.basic.package.subtitle.length }} /50 </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="column is-4">
+              <div class="field">
+                <label class="label"> Costo </label>
+                <div class="control">
+                  <input class="input" type="number" min="5" max="20" placeholder="Título" v-model="myLyf.packages.basic.package.cost">
+                </div>
+                <div class="level">
+                  <div class="level-left">
+                    <span class="help is-primary "> Costo minimo: $5 , costo maximo: $20 </span>
+                  </div>
+                  <div class="level-right">
+                    <div class="level-item">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="column is-4">
+              <div class="field">
+                <label class="label"> Tiempo de entrega (días) </label>
+                <div class="control">
+                  <input class="input" type="number" min="1" placeholder="Tiempo de entrega" v-model="myLyf.packages.basic.package.time">
+                </div>
+                <div class="level is-mobile">
+                  <div class="level-left">
+                    <span class="help is-primary "> Mínimo 1 día , Maximo 30 días </span>
+                  </div>
+                  <div class="level-right">
+                    <div class="level-item">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="column is-4">
+              <div class="field">
+                <label class="label"> Revisiones </label>
+                <div class="control">
+                  <input class="input" type="number" min="1" placeholder="Revisiones" v-model="myLyf.packages.basic.package.revisions">
+                </div>
+                <div class="level">
+                  <div class="level-left">
+                    <span class="help is-primary "> Mínimo 1 Revision </span>
+                  </div>
+                  <div class="level-right">
+                    <div class="level-item">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="column is-full">
+              <div class="field">
+                <label class="label"> Descripción </label>
+                <div class="control">
+                  <textarea class="textarea is-primary" placeholder="Descripción" v-model="myLyf.packages.basic.package.description"></textarea>
+                </div>
+                <div class="level is-mobile">
+                  <div class="level-left">
+                    <span class="help is-primary "> Caracteristicas del servicio o producto, minimo 10 caracteres
+                    </span>
+                  </div>
+                  <div class="level-right">
+                    <div class="level-item">
+                      <span class="help "> {{ myLyf.packages.basic.package.description.length }} /200 </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="columns is-multiline animated fadeIn " :class=" { 'has-none ':myLyf.packages.type != 2  } ">
+            <div class="column is-full">
+              <hr class=" has-margin-y-1 ">
+              <div class="level is-marginless">
+                <div class="level-left">
+                  <div class="level-item">
+                    <h4 class=" is-size-4  "> Estándar </h4>
+                  </div>
+                </div>
+                <div class="level-right">
+                  <button class="button is-small is-circle  is-danger is-outlined " @click=" myLyf.packages.type = 4 , DeletePackage('standard')  ">
+                    <fa-i icon='trash'></fa-i>
+                  </button>
+
+                </div>
+              </div>
+              <hr class=" has-margin-y-1 ">
+            </div>
+            <div class="column is-full">
+              <div class="field">
+                <label class="label"> Subtitulo </label>
+                <div class="control">
+                  <input class="input" type="text" placeholder="Título" v-model="myLyf.packages.standard.package.subtitle">
+                </div>
+                <div class="level">
+                  <div class="level-left">
+                    <span class="help is-primary "> Ponle un subtitulo llamativo a tu servicio </span>
+                  </div>
+                  <div class="level-right">
+                    <div class="level-item">
+                      <span class="help "> {{ myLyf.packages.standard.package.subtitle.length }} /50 </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="column is-4">
+              <div class="field">
+                <label class="label"> Costo </label>
+                <div class="control">
+                  <input class="input" type="number" min="5" max="20" placeholder="Título" v-model="myLyf.packages.standard.package.cost">
+                </div>
+                <div class="level">
+                  <div class="level-left">
+                    <span class="help is-primary "> Costo minimo: $5 , costo maximo: $20 </span>
+                  </div>
+                  <div class="level-right">
+                    <div class="level-item">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="column is-4">
+              <div class="field">
+                <label class="label"> Tiempo de entrega (días) </label>
+                <div class="control">
+                  <input class="input" type="number" min="1" placeholder="Tiempo de entrega" v-model="myLyf.packages.standard.package.time">
+                </div>
+                <div class="level">
+                  <div class="level-left">
+                    <span class="help is-primary "> Mínimo 1 día </span>
+                  </div>
+                  <div class="level-right">
+                    <div class="level-item">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="column is-4">
+              <div class="field">
+                <label class="label"> Revisiones </label>
+                <div class="control">
+                  <input class="input" type="text" placeholder="Revisiones" v-model="myLyf.packages.standard.package.revisions">
+                </div>
+                <div class="level">
+                  <div class="level-left">
+                    <span class="help is-primary "> Mínimo 1 Revision </span>
+                  </div>
+                  <div class="level-right">
+                    <div class="level-item">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="column is-full">
+              <div class="field">
+                <label class="label"> Descripción </label>
+                <div class="control">
+                  <textarea class="textarea is-primary" placeholder="Descripción" v-model="myLyf.packages.standard.package.description"></textarea>
+                </div>
+                <div class="level">
+                  <div class="level-left">
+                    <span class="help is-primary "> Caracteristicas del servicio o producto </span>
+                  </div>
+                  <div class="level-right">
+                    <div class="level-item">
+                      <span class="help "> {{ myLyf.packages.standard.package.description.length }} /200 </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="columns is-multiline animated fadeIn " :class=" { 'has-none ':myLyf.packages.type != 3  } ">
+            <div class="column is-full">
+              <hr class=" has-margin-y-1 ">
+              <div class="level is-marginless">
+                <div class="level-left">
+                  <div class="level-item">
+                    <h4 class=" is-size-4  "> Premium </h4>
+                  </div>
+                </div>
+                <div class="level-right">
+                  <button class="button is-small is-circle  is-danger is-outlined " @click=" myLyf.packages.type = 4, DeletePackage('premium') ">
+                    <fa-i icon='trash'></fa-i>
+                  </button>
+
+                </div>
+              </div>
+              <hr class=" has-margin-y-1 ">
+            </div>
+            <div class="column is-full">
+              <div class="field">
+                <label class="label"> Subtitulo </label>
+                <div class="control">
+                  <input class="input" type="text" placeholder="Título" v-model="myLyf.packages.premium.package.subtitle">
+                </div>
+                <div class="level">
+                  <div class="level-left">
+                    <span class="help is-primary "> Ponle un subtitulo llamativo a tu servicio </span>
+                  </div>
+                  <div class="level-right">
+                    <div class="level-item">
+                      <span class="help "> {{ myLyf.packages.premium.package.subtitle.length }} /50 </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="column is-4">
+              <div class="field">
+                <label class="label"> Costo </label>
+                <div class="control">
+                  <input class="input" type="number" min="5" max="20" placeholder="Título" v-model="myLyf.packages.premium.package.cost">
+                </div>
+                <div class="level">
+                  <div class="level-left">
+                    <span class="help is-primary "> Costo minimo: $5 , costo maximo: $20 </span>
+                  </div>
+                  <div class="level-right">
+                    <div class="level-item">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="column is-4">
+              <div class="field">
+                <label class="label"> Tiempo de entrega (días) </label>
+                <div class="control">
+                  <input class="input" type="number" min="1" placeholder="Tiempo de entrega" v-model="myLyf.packages.premium.package.time">
+                </div>
+                <div class="level">
+                  <div class="level-left">
+                    <span class="help is-primary "> Mínimo 1 día </span>
+                  </div>
+                  <div class="level-right">
+                    <div class="level-item">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="column is-4">
+              <div class="field">
+                <label class="label"> Revisiones </label>
+                <div class="control">
+                  <input class="input" type="number" placeholder="Revisiones" v-model="myLyf.packages.premium.package.revisions">
+                </div>
+                <div class="level">
+                  <div class="level-left">
+                    <span class="help is-primary "> Mínimo 1 Revision </span>
+                  </div>
+                  <div class="level-right">
+                    <div class="level-item">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="column is-full">
+              <div class="field">
+                <label class="label"> Descripción </label>
+                <div class="control">
+                  <textarea class="textarea is-primary" placeholder="Descripción" v-model="myLyf.packages.premium.package.description"></textarea>
+                </div>
+                <div class="level">
+                  <div class="level-left">
+                    <span class="help is-primary "> Caracteristicas del servicio o producto </span>
+                  </div>
+                  <div class="level-right">
+                    <div class="level-item">
+                      <span class="help "> {{ myLyf.packages.premium.package.description.length }} /200 </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
           <hr class=" has-margin-y-3 ">
           <div class="field is-grouped is-grouped-right">
             <p class="control">
-              <a class="button is-primary" @click=" SaveImages() ">
+              <a class="button is-primary" @click=" SavePackages() ">
                 Siguiente
               </a>
             </p>
           </div>
+
+
+        </div>
+
+        <div :class=" { 'has-none ':Lyfprogress < 64 || Lyfprogress > 80  } " class=" animated fadeIn ">
+          <h4 class="is-size-4 has-text-primary "> Añadir extras (Opcional) </h4>
+          <small>
+            <p>
+              Agrega extras que probalemente las personas comprarian sobre tu LYF.
+            </p>
+            <p>
+              Maximo 5 extras.
+            </p>
+          </small>
+
+          <div class="columns is-multiline ">
+            <div class="column is-4 ">
+              <div class="field">
+                <label class="label">Título</label>
+                <div class="control">
+                  <input class="input" type="text" placeholder="Título" v-model="extra.title">
+                </div>
+                <div class="level is-mobile ">
+                  <div class="level-left">
+                    <span class="help is-primary "> Minimo 5 caracteres </span>
+                  </div>
+                  <div class="level-right">
+                    <div class="level-item">
+                      <span class="help "> {{ extra.title.length }} /100 </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="column is-4 ">
+              <div class="field">
+                <label class="label">Descripción</label>
+                <div class="control">
+                  <input class="input" type="text" placeholder="Descripción" v-model="extra.desc">
+                </div>
+                <div class="level is-mobile ">
+                  <div class="level-left">
+                    <span class="help is-primary "> Minimo 5 caracteres </span>
+                  </div>
+                  <div class="level-right">
+                    <div class="level-item">
+                      <span class="help "> {{ extra.desc.length }} /400 </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="column is-4 ">
+              <div class="field">
+                <label class="label">Costo</label>
+                <div class="control">
+                  <input class="input" type="text" placeholder="Título" v-model="extra.cost">
+                </div>
+                <div class="level is-mobile ">
+                  <div class="level-left">
+                    <span class="help is-primary "> Minimo $7 </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="column is-full ">
+              <div class="field is-grouped is-grouped-right">
+                <p class="control">
+                  <a class="button is-success is-rounded" @click=" AddExtra() ">
+                    <fa-i icon='plus'></fa-i> <small class=" has-margin-x-2 "> AÑADIR </small>
+                    
+                  </a>
+                </p>
+              </div>
+              <hr class="has-margin-y-2">
+            </div>
+
+            <!-- Questions and answers -->
+            <div class="column is-full ">
+              <div class="columns is-multiline ">
+
+                <div class="column is-full " v-for=" ( extra , index ) in myLyf.extras " :key="extra.desc">
+                  <div class="level is-mobile">
+                    <div class="level-lef">
+                      <p>
+                        <strong> Título: </strong> {{ extra.title }}
+                        <br>
+                        <strong> Descripción: </strong> {{ extra.desc }}
+                        <br>
+                        <strong> Costo: </strong> {{ extra.cost }}
+                      </p>
+                    </div>
+                    <div class="level-right">
+                      <button @click=" DeleteExtra (index ) ">
+                        <fa-i icon='trash'></fa-i>
+                      </button>
+                    </div>
+                  </div>
+                  <hr class="has-margin-y-2">
+
+
+
+                </div>
+              </div>
+            </div>
+
+
+
+          </div>
+          <div class="field is-grouped is-grouped-right">
+            <p class="control">
+              <a class="button is-primary is-rounded" @click=" SaveExtras() ">
+                <fa-i icon='save'></fa-i> <small class="has-margin-x-2 has-small">FINALIZAR</small>
+              </a>
+            </p>
+          </div>
+        </div>
+        <div :class=" { 'has-none ':Lyfprogress < 80 || Lyfprogress > 100  } " class=" animated fadeIn ">
+          <span> imagen lyf </span>
+          <h4 class="is-size-4 has-text-primary "> !Genial, has terminado de crear tu LYF¡ </h4>
+          <button> Ver mi lyf </button>
+          <p>
+            Ve a la <strong class="is-primary"> sección de LYF's </strong> para consultar, editar, cambiar el estatus o
+            eliminar tus LYF's.
+          </p>
         </div>
 
 
@@ -313,16 +774,45 @@
           tags: null,
           req: '',
           questions: [],
-          imgs: []
+          imgs: [],
+          packages: {
+            list: [],
+            type: 4,
+            basic: {
+              condition: true,
+              package: {},
+            },
+            standard: {
+              condition: true,
+              package: {},
+            },
+            premium: {
+              condition: true,
+              package: {},
+            },
+          },
+          extras: [],
         },
         question: '',
         answer: '',
+        extra: {
+          title: '',
+          desc: '',
+          cost: 7,
+        },
         categorie: null,
         subcategorie: null,
         categories: this.$parent.categories,
         subCats: [],
+        package: {
+          subtitle: '',
+          cost: 5,
+          time: 1,
+          revisions: 1,
+          description: '',
+        },
         condition: true,
-        Lyfprogress: 48,
+        Lyfprogress: 70,
       }
     },
     methods: {
@@ -408,9 +898,44 @@
       SaveImages: function () {
         console.log(this.myLyf.imgs);
         if (this.myLyf.imgs.length > 0) {
+
+          // Check Packages 
+          let condition = true
+          if (condition) {
+            this.Lyfprogress += 16;
+          }
+
+        }
+      },
+      SavePackages: function () {
+        console.log(this.myLyf.packages);
+
+        if (this.myLyf.packages.list.length > 0) {
           this.Lyfprogress += 16;
         }
       },
+      SaveExtras: function () {
+        console.log(this.myLyf);
+
+        if (this.myLyf.extras.length > 0) {
+          this.Lyfprogress = 100;
+        }
+      },
+
+      AddPackage: function (name) {
+        console.log(name);
+        if (!this.myLyf.packages.list.includes(name)) {
+          this.myLyf.packages.list.push(name);
+        }
+      },
+      DeletePackage: function (name) {
+        console.log(name);
+        if (this.myLyf.packages.list.includes(name)) {
+          this.myLyf.packages.list.splice(this.myLyf.packages.list.indexOf(name), 1);
+
+        }
+      },
+
 
       onFileChange: function (e) {
 
@@ -431,8 +956,6 @@
 
 
 
-
-
       AddQuestion: function () {
         console.log(this.question, this.answer);
         this.myLyf.questions.push({
@@ -447,6 +970,25 @@
       DeleteQuestion: function (index) {
         this.myLyf.questions.splice(index, 1);
         console.log(this.myLyf.questions);
+      },
+
+      AddExtra: function () {
+        console.log(this.extra);
+        if (this.extra.title == '' || this.extra.title == '') {
+
+        } else {
+          this.myLyf.extras.push(_.clone(this.extra, true));
+          this.extra.title = '';
+          this.extra.desc = '';
+          this.extra.cost = 7;
+          console.log(this.myLyf.extras);
+        }
+
+      },
+
+      DeleteExtra: function (index) {
+        this.myLyf.extras.splice(index, 1);
+        console.log(this.myLyf.extras);
       }
     },
     computed: {
@@ -456,8 +998,7 @@
 
       ordSubCats: function () {
         return _.sortBy(this.subCats, 'alias');
-      }
-
+      },
     },
     watch: {
       categorie: function (idCat) {
@@ -473,6 +1014,11 @@
       },
 
     },
+    beforeMount() {
+      this.myLyf.packages.basic.package = _.clone(this.package, true);
+      this.myLyf.packages.standard.package = _.clone(this.package, true);
+      this.myLyf.packages.premium.package = _.clone(this.package, true);
+    }
 
   }
 

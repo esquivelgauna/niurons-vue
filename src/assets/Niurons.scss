@@ -29,7 +29,7 @@ legend {
 }
 
 button,
-.btn {
+.button {
   font-family: Roboto-bold !important;
 }
 
@@ -96,3 +96,4 @@ $link-focus-border: $primary;
 // Import Bulma and Buefy styles
 @import "~bulma";
 @import "~buefy/src/scss/buefy";
+// 7rem
