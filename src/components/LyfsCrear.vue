@@ -50,7 +50,7 @@
               <div class="field">
                 <label class="label">Título</label>
                 <div class="control">
-                  <input class="input" type="text" placeholder="Título" v-model="myLyf.title">
+                  <input class="input" type="text" placeholder="Título" v-model="myLyf.generals.title">
                 </div>
                 <div class="level is-mobile">
                   <div class="level-left">
@@ -58,7 +58,7 @@
                   </div>
                   <div class="level-right">
                     <div class="level-item">
-                      <span class="help "> {{ myLyf.title.length }} /50 </span>
+                      <span class="help "> {{ myLyf.generals.title.length }} /50 </span>
                     </div>
                   </div>
                 </div>
@@ -89,7 +89,7 @@
               <div class="field">
                 <label class="label">Descripción</label>
                 <div class="control">
-                  <textarea class="textarea" placeholder="Descripción" v-model="myLyf.description"></textarea>
+                  <textarea class="textarea" placeholder="Descripción" v-model="myLyf.generals.description"></textarea>
                 </div>
                 <div class="level is-mobile">
                   <div class="level-left">
@@ -97,7 +97,7 @@
                   </div>
                   <div class="level-right">
                     <div class="level-item">
-                      <span class="help "> {{ myLyf.description.length }} /2000 </span>
+                      <span class="help "> {{ myLyf.generals.description.length }} /2000 </span>
                     </div>
                   </div>
                 </div>
@@ -105,7 +105,7 @@
             </div>
             <div class="column is-full ">
               <b-field label="Palabras clave">
-                <b-taginput v-model="myLyf.tags" ellipsis maxtags="10" maxlength="10" icon="label" placeholder="Agrega palabra/s clave">
+                <b-taginput v-model="myLyf.generals.tags" ellipsis maxtags="10" maxlength="10" icon="label" placeholder="Agrega palabra/s clave">
                 </b-taginput>
               </b-field>
 
@@ -114,7 +114,7 @@
               <div class="field">
                 <label class="label">Requerimientos</label>
                 <div class="control">
-                  <textarea class="textarea" placeholder="Requerimientos" v-model="myLyf.req"></textarea>
+                  <textarea class="textarea" placeholder="Requerimientos" v-model="myLyf.generals.req"></textarea>
                 </div>
                 <div class="level is-mobile ">
                   <div class="level-left">
@@ -122,7 +122,7 @@
                   </div>
                   <div class="level-right">
                     <div class="level-item">
-                      <span class="help "> {{ myLyf.req.length }} /500 </span>
+                      <span class="help "> {{ myLyf.generals.req.length }} /500 </span>
                     </div>
                   </div>
                 </div>
@@ -135,7 +135,7 @@
             </div>
             <div class="level-right">
               <div class="level-item">
-                <button class="button is-primary is-rounded " @click=" SaveGenerals() ">
+                <button class="button is-primary is-rounded " @click=" SaveGenerals() " :class="{'is-loading':isLoading} ">
                   <fa-i icon='save'></fa-i> <span class="has-margin-x-2"> Siguiente </span>
                 </button>
               </div>
@@ -824,16 +824,23 @@
 </template>
 <script>
   import modal_error from '@/components/modals/modal_lyf_error.vue'
+  import {
+    error
+  } from 'util';
   export default {
     data() {
       return {
         myLyf: {
-          title: '',
-          categorie: null,
-          subcat: null,
-          description: '',
-          tags: null,
-          req: '',
+
+          generals: {
+            id: '',
+            title: '',
+            categorie: null,
+            subcat: null,
+            description: '',
+            tags: null,
+            req: '',
+          },
           questions: [],
           imgs: [],
           packages: {
@@ -854,12 +861,10 @@
           },
           extras: [],
         },
-
         questions: {
           question: '',
           answer: '',
         },
-
         extra: {
           title: '',
           desc: '',
@@ -878,7 +883,8 @@
         },
         errors: [],
         modalError: false,
-        Lyfprogress: 40,
+        isLoading: false,
+        Lyfprogress: 8,
       }
     },
     components: {
@@ -897,7 +903,7 @@
         }
       },
       SaveGenerals: function () {
-
+        this.isLoading = true;
         let constraints = {
           title: {
             presence: {
@@ -951,19 +957,37 @@
           }
 
         };
-        validate.async(this.myLyf, constraints, {
+        console.log(this.myLyf.generals);
+        validate.async(this.myLyf.generals, constraints, {
           fullMessages: false
         }).then(
           (success) => {
-            this.Lyfprogress += 16;
-            console.info('Todo Bien');
-            console.info(success);
+            // 
+            this.$http.post('user/Lyf/Create/Generals', this.myLyf.generals).then(response => {
+              console.log(response.body);
+              if (response.body.status) {
+                this.myLyf.generals.id = response.body.id;
+              } else {
+                alert('No se guardo , inenta de nuevo');
+              }
+              this.Lyfprogress += 16;
+              this.isLoading = false;
+              // console.info('Todo Bien');
+              // console.info(success);
+            }, err => {
+              // error callback
+              console.log('Error:', err);
+              this.isLoading = false;
+            });
+
+
           }, (errors) => {
-            this.modalError = true;
             this.errors = errors;
             console.error(errors);
+            this.isLoading = false;
+            this.modalError = true;
           }
-        )
+        );
 
       },
 
@@ -1150,13 +1174,13 @@
     watch: {
       categorie: function (idCat) {
         console.log
-        this.myLyf.categorie = idCat;
+        this.myLyf.generals.categorie = idCat;
         this.GetSubCategories(idCat);
 
       },
       subcategorie: function (idSubcat) {
 
-        this.myLyf.subcat = idSubcat;
+        this.myLyf.generals.subcat = idSubcat;
 
       },
 
