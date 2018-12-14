@@ -962,20 +962,24 @@
           fullMessages: false
         }).then(
           (success) => {
-            // 
+            //
             this.$http.post('user/Lyf/Create/Generals', this.myLyf.generals).then(response => {
               console.log(response.body);
               if (response.body.status) {
-                this.myLyf.generals.id = response.body.id;
+                if (response.body.updated) {
+
+                } else {
+                  this.myLyf.generals.id = response.body.id;
+                }
+                this.Lyfprogress += 16;
+
               } else {
                 alert('No se guardo , inenta de nuevo');
               }
-              this.Lyfprogress += 16;
               this.isLoading = false;
-              // console.info('Todo Bien');
-              // console.info(success);
+
             }, err => {
-              // error callback
+              
               console.log('Error:', err);
               this.isLoading = false;
             });

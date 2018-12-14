@@ -2,9 +2,9 @@ const mysql = require('../heplers/database');
 
 
 
-exports.Update = async(iduser, generals) => {
-  
-  return new Promise(async (resolve, reject) => { 
+exports.Update = async (iduser, generals) => {
+
+  return new Promise(async (resolve, reject) => {
     mysql.update({
       table: 't_dat_lyf',
       details: {
@@ -18,15 +18,17 @@ exports.Update = async(iduser, generals) => {
         id_lyf: generals.id,
       },
       show_query: false,
-    }, (err, result, number_of_changed_rows) => { 
-      
+    }, (err, result, number_of_changed_rows) => {
+
       if (err) {
         resolve({
+          updated: true,
           status: false,
-          message: 'Error al editar '
+          message: 'Error al editar ',
         });
-      } else { 
+      } else {
         resolve({
+          updated: true,
           status: true,
           message: ' Se editó correctamente '
         });
@@ -35,7 +37,7 @@ exports.Update = async(iduser, generals) => {
       this.UpSubCat(generals.id, generals.subcat);
     });
   });
-  
+
 }
 
 exports.UpSubCat = (idLyf, idSubCat) => {
@@ -48,7 +50,7 @@ exports.UpSubCat = (idLyf, idSubCat) => {
       f_id_lyf: idLyf,
     },
     show_query: true,
-  }, (err, result, number_of_changed_rows) =>  {
+  }, (err, result, number_of_changed_rows) => {
     if (err) console.log(err);
     console.log('Updated subCategorie ', number_of_changed_rows);
 
