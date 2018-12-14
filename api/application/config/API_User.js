@@ -20,6 +20,6 @@ router.get('/Initials', Ctr_Initials.Initials );
 
 // POST
 router.post('/Lyf/Create/Generals', Ctr_Lyf_Create.Generals );
-
-
+router.post('/Lyf/Create/Questions', Ctr_Lyf_Create.Questions );
+router.post('/Lyf/Create/Images', Ctr_Lyf_Create.Images );
 module.exports = router;

@@ -12,6 +12,7 @@ exports.Update = async (iduser, generals) => {
         descripcion: generals.description,
         instrucciones: generals.req,
         tag: generals.tags.toString(),
+        f_id_subcat: generals.subcat,
       },
       conditions: {
         f_id_usuario: iduser,
@@ -33,28 +34,10 @@ exports.Update = async (iduser, generals) => {
           message: ' Se editó correctamente '
         });
       }
-      // console.log(generals);
-      this.UpSubCat(generals.id, generals.subcat);
+
     });
   });
 
-}
-
-exports.UpSubCat = (idLyf, idSubCat) => {
-  mysql.update({
-    table: 't_rel_lyf_subcat',
-    details: {
-      f_id_subcat: idSubCat,
-    },
-    conditions: {
-      f_id_lyf: idLyf,
-    },
-    show_query: true,
-  }, (err, result, number_of_changed_rows) => {
-    if (err) console.log(err);
-    console.log('Updated subCategorie ', number_of_changed_rows);
-
-  });
 }
 
 exports.Create = async (iduser, generals) => {
@@ -64,6 +47,7 @@ exports.Create = async (iduser, generals) => {
       table: 't_dat_lyf',
       details: {
         f_id_usuario: iduser,
+        f_id_subcat: generals.subcat,
         titulo: generals.title,
         descripcion: generals.description,
         fecha_publicacion: new Date(),
@@ -75,31 +59,66 @@ exports.Create = async (iduser, generals) => {
     }, (err, result, inserted_id) => {
       if (err) reject(err);
       resolve(inserted_id);
-      this.SaveSubCat(inserted_id, generals.subcat);
-
     });
 
   });
 }
 
-exports.SaveSubCat = (idLyf, idSubCat) => {
 
+exports.DeleteQuestions = async (idLyf) => {
+  return new Promise(async (resolve, reject) => {
+
+    mysql.delete({
+      table: 't_dat_lyf_faq',
+      conditions: {
+        f_id_lyf: idLyf,
+      },
+      show_query: false,
+    }, (err, result, number_of_changed_rows) => {
+      if (err) console.log('Error , delete questions');
+      console.log(' Deleted questions', number_of_changed_rows);
+      resolve(true);
+    });
+
+  });
+}
+exports.SaveQuestion = async (idLyf, question) => {
   mysql.insert({
-    table: 't_rel_lyf_subcat',
+    table: 't_dat_lyf_faq',
     details: {
       f_id_lyf: idLyf,
-      f_id_subcat: idSubCat,
+      pregunta: question.question,
+      respuesta: question.answer,
     },
-    show_query: true,
-  }, function (err, result, inserted_id) {
-    if (err) console.log(err);
-    console.log('Save subCategorie ', inserted_id)
+    show_query: false,
+  }, (err, result, inserted_id) => {
+    if (err) console.error('Error , SaveQuestion');
+    // console.log(' SaveQuestion', inserted_id);
   });
 
 }
 
+exports.SaveImage = async (idLyf, img) => {
+  return new Promise((resolve, reject) => {
+    mysql.insert({
+      table: 't_dat_lyf_galeria',
+      details: {
+        f_id_lyf: idLyf,
+        url_img: img,
+      },
+      show_query: true,
+    }, (err, result, inserted_id) => {
+      if (err) console.error('Error , Save Image');
+      console.log(' Save Image', inserted_id);
+      resolve({
+        id: inserted_id,
+        url_img: img
+      })
+    });
+  })
 
 
+}
 
 
 

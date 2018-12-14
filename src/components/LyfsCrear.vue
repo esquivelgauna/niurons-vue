@@ -153,7 +153,7 @@
             <p>*Agrega al menos solo una (Máximo 5).</p>
           </small>
 
-          <div class="columns is-multiline is-mobile ">
+          <div class="columns is-multiline is-mobile " v-if=" myLyf.questions.length < 5 ">
             <div class="column is-full ">
               <div class="field">
                 <label class="label">Pregunta</label>
@@ -201,36 +201,32 @@
               <hr class="has-margin-y-2">
             </div>
 
-            <!-- Questions and answers -->
-            <div class="column is-full ">
-              <div class="columns is-multiline ">
 
-                <div class="column is-full " v-for=" (question, index ) in myLyf.questions " :key="question">
-                  <div class="level">
-                    <div class="level-lef">
-                      <p>
-                        <strong> Pregunta: </strong> ¿ {{ question.question }} ?
-                        <br>
-                        <strong> Respuesta: </strong> {{ question.answer }}
-                      </p>
-                    </div>
-                    <div class="level-right">
-                      <button @click=" DeleteQuestion (index ) ">
-                        <fa-i icon='trash'></fa-i>
-                      </button>
-                    </div>
-                  </div>
-                  <hr class="has-margin-y-2">
-
-
-
-                </div>
-              </div>
-            </div>
 
 
 
           </div>
+          <!-- Questions and answers -->
+          <div class="columns is-multiline ">
+            <div class="column is-full " v-for=" (question, index ) in myLyf.questions " :key="index">
+              <div class="level">
+                <div class="level-lef">
+                  <p>
+                    <strong> Pregunta: </strong> ¿ {{ question.question }} ?
+                    <br>
+                    <strong> Respuesta: </strong> {{ question.answer }}
+                  </p>
+                </div>
+                <div class="level-right">
+                  <button class="  button is-danger is-circle  " @click=" DeleteQuestion (index ) ">
+                    <fa-i icon='trash'></fa-i>
+                  </button>
+                </div>
+              </div>
+              <hr class="has-margin-y-2">
+            </div>
+          </div>
+
 
           <div class="level is-mobile ">
             <div class="level-left">
@@ -242,7 +238,7 @@
             </div>
             <div class="level-right">
               <div class="level-item">
-                <button class="button is-primary is-rounded " @click=" SaveQuestions() ">
+                <button class="button is-primary is-rounded " @click=" SaveQuestions() " :class="{'is-loading':isLoading} ">
                   <fa-i icon='save'></fa-i> <span class="has-margin-x-2"> Siguiente </span>
                 </button>
               </div>
@@ -288,7 +284,7 @@
             </div>
             <div class="level-right">
               <div class="level-item">
-                <button class="button is-primary is-rounded " @click=" SaveImages() ">
+                <button class="button is-primary is-rounded " @click=" SaveImages() " :class="{'is-loading':isLoading} ">
                   <fa-i icon='save'></fa-i> <span class="has-margin-x-2"> Siguiente </span>
                 </button>
               </div>
@@ -655,7 +651,7 @@
                 </div>
                 <div class="level-right">
                   <div class="level-item">
-                    <button class="button is-primary is-rounded " @click=" SavePackages() ">
+                    <button class="button is-primary is-rounded " @click=" SavePackages() " :class="{'is-loading':isLoading} ">
                       <fa-i icon='save'></fa-i> <span class="has-margin-x-2"> Siguiente </span>
                     </button>
                   </div>
@@ -763,9 +759,6 @@
                     </div>
                   </div>
                   <hr class="has-margin-y-2">
-
-
-
                 </div>
               </div>
             </div>
@@ -783,7 +776,7 @@
             </div>
             <div class="level-right">
               <div class="level-item">
-                <button class="button is-primary is-rounded " @click=" SaveExtras() ">
+                <button class="button is-primary is-rounded " @click=" SaveExtras() " :class="{'is-loading':isLoading} ">
                   <fa-i icon='save'></fa-i> <span class="has-margin-x-2"> FINALIZAR </span>
                 </button>
               </div>
@@ -831,9 +824,8 @@
     data() {
       return {
         myLyf: {
-
           generals: {
-            id: '',
+            id: 12,
             title: '',
             categorie: null,
             subcat: null,
@@ -884,7 +876,7 @@
         errors: [],
         modalError: false,
         isLoading: false,
-        Lyfprogress: 8,
+        Lyfprogress: 40,
       }
     },
     components: {
@@ -979,7 +971,7 @@
               this.isLoading = false;
 
             }, err => {
-              
+
               console.log('Error:', err);
               this.isLoading = false;
             });
@@ -996,6 +988,7 @@
       },
 
       SaveQuestions: function () {
+        this.isLoading = true;
         let constraints = {
           questions: {
             presence: {
@@ -1012,9 +1005,25 @@
           fullMessages: false
         }).then(
           (success) => {
-            this.Lyfprogress += 16;
-            // console.info(' Pregunta correcta ');
-            // console.info(success);
+            this.$http.post('user/Lyf/Create/Questions', {
+              id: this.myLyf.generals.id,
+              questions: this.myLyf.questions
+            }).then(response => {
+              console.log(response.body);
+              if (response.body.status) {
+
+                this.Lyfprogress += 16;
+              } else {
+                alert(response.body.message);
+              }
+
+              this.isLoading = false;
+            }, err => {
+
+              console.log('Error:', err);
+              this.isLoading = false;
+            });
+
           }, (errors) => {
             this.modalError = true;
             this.errors = errors;
@@ -1023,7 +1032,10 @@
         );
 
       },
+
       SaveImages: function () {
+        this.isLoading = true;
+
         let constraints = {
           imgs: {
             presence: {
@@ -1036,12 +1048,38 @@
             }
           },
         };
+
         validate.async(this.myLyf, constraints, {
           fullMessages: false
         }).then(
           (success) => {
             console.log(this.myLyf.imgs);
-            this.Lyfprogress += 16;
+            let formData = new FormData();
+            formData.append('id', this.myLyf.generals.id);
+            for (let index in this.myLyf.imgs) {
+              formData.append('fileToUpload[]', this.myLyf.imgs[index].file , this.myLyf.imgs[index].file.name );
+            }
+
+            console.log(formData);
+
+            this.$http.post('user/Lyf/Create/Images', formData).then(response => {
+              console.log(response.body);
+              if (response.body.status) {
+
+                // this.Lyfprogress += 16;
+              } else {
+                alert(response.body.message);
+              }
+
+              this.isLoading = false;
+            }, err => {
+
+              console.log('Error:', err);
+              this.isLoading = false;
+            });
+
+
+            // this.Lyfprogress += 16;
             // console.info(' Pregunta correcta ');
             // console.info(success);
           }, (errors) => {
@@ -1098,6 +1136,7 @@
         console.log(e.target.files);
 
       },
+
       LyfReturn: function () {
         this.Lyfprogress -= 16;
       },
