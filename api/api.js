@@ -54,6 +54,7 @@ app.set('views', path.join(__dirname, 'application/views'));
 app.set('view engine', 'ejs');
 //Routes
 let mipa = path.join(__dirname, '../dist/index.html');
+
 app.get('/', function (req, res) {
   // let mipa = path.join(__dirname, '../dist/index.html');
   // console.log(mipa);

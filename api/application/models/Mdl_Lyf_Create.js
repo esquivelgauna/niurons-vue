@@ -98,6 +98,9 @@ exports.SaveQuestion = async (idLyf, question) => {
 
 }
 
+
+
+
 exports.SaveImage = async (idLyf, img) => {
   return new Promise((resolve, reject) => {
     mysql.insert({
@@ -117,8 +120,6 @@ exports.SaveImage = async (idLyf, img) => {
       })
     });
   })
-
-
 }
 
 exports.GetImage = async (idLyf, idImage) => {
@@ -133,7 +134,7 @@ exports.GetImage = async (idLyf, idImage) => {
       show_query: true,
     }, (err, result) => {
       if (err) console.error('Error , Geting Image');
-      console.log(' Get Image', result[0] );
+      console.log(' Get Image', result[0]);
       resolve(result[0])
     });
   })
@@ -152,6 +153,143 @@ exports.DeleteImage = async (idLyf, idImage) => {
     console.log(' DeleteImage');
   });
 }
+
+
+exports.UpdatePackage = async (idLyf, pack) => {
+  return new Promise((resolve, reject) => {
+    mysql.update({
+      table: 't_dat_paquetes',
+      details: {
+        // f_id_lyf: idLyf,
+        // f_id_tipopaquete: pack.type,
+        titulo: pack.subtitle,
+        descripcion: pack.description,
+        costo: pack.cost,
+        tiempo_entrega: pack.time,
+        revisiones: pack.revisions,
+      },
+      conditions: {
+        id_paquete: pack.id,
+      },
+      limit:1,
+      show_query: false,
+    }, (err, result, inserted_id) => {
+      if (err) reject(err);
+      resolve(inserted_id);
+      this.ActiveLyf(idLyf);
+      // console.log(' SaveQuestion', inserted_id);
+    });
+  });
+}
+
+exports.SavePackage = async (idLyf, pack) => {
+  return new Promise((resolve, reject) => {
+    mysql.insert({
+      table: 't_dat_paquetes',
+      details: {
+        f_id_lyf: idLyf,
+        f_id_tipopaquete: pack.type,
+        titulo: pack.subtitle,
+        descripcion: pack.description,
+        costo: pack.cost,
+        tiempo_entrega: pack.time,
+        revisiones: pack.revisions,
+      },
+      show_query: false,
+    }, (err, result, inserted_id) => {
+      if (err) reject(err);
+      resolve(inserted_id);
+      this.ActiveLyf(idLyf);
+      // console.log(' SaveQuestion', inserted_id);
+    });
+  });
+}
+
+exports.ActiveLyf = (idLyf) => {
+  return new Promise((resolve, reject) => {
+
+    mysql.update({
+      table: 't_dat_lyf',
+      details: {
+        status: 'activo',
+      },
+      conditions: {
+        id_lyf: idLyf,
+      },
+      show_query: false,
+    }, (err, result, number_of_changed_rows) => {
+      if (err) console.log('Error , Active Lyf ');
+      console.log(' Active Lyf', number_of_changed_rows);
+      resolve(true);
+    });
+
+  });
+}
+
+exports.DeletePackage = async (idLyf, idPack) => {
+  return new Promise(async (resolve, reject) => {
+    mysql.delete({
+      table: 't_dat_paquetes',
+      conditions: {
+        f_id_lyf: idLyf,
+        id_paquete: idPack,
+      },
+      limit: 1,
+      show_query: false,
+    }, (err, result, number_of_changed_rows) => {
+      if (err) console.log('Error , Delete Package');
+      console.log(' Deleted Package', number_of_changed_rows);
+      this.IncompletLyf(idLyf);
+      resolve(true);
+    });
+
+  });
+}
+
+exports.IncompletLyf = async (idLyf) => {
+  mysql.select({
+    table: 't_dat_paquetes',
+    conditions: {
+      f_id_lyf: idLyf,
+    },
+    limit: 3,
+    show_query: false,
+  }, (err, result) => {
+    if (err) console.log('Error , delete questions');
+    console.log(result.length);
+    if (result.length < 1) {
+      console.log('Pausing lyf ');
+      this.PauseLyf(idLyf);
+    }
+
+    // if()
+
+  });
+}
+
+exports.PauseLyf = (idLyf) => {
+  return new Promise((resolve, reject) => {
+
+    mysql.update({
+      table: 't_dat_lyf',
+      details: {
+        status: 'pausado',
+      },
+      conditions: {
+        id_lyf: idLyf,
+      },
+      show_query: false,
+    }, (err, result, number_of_changed_rows) => {
+      if (err) console.log('Error , Pause Lyf ');
+      console.log(' Paused Lyf', number_of_changed_rows);
+      resolve(true);
+    });
+
+  });
+}
+
+
+
 
 exports.Lyfs = async (idLyf) => {
   return new Promise(async (resolve, reject) => {

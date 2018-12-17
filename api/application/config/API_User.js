@@ -22,8 +22,12 @@ router.get('/Initials', Ctr_Initials.Initials );
 router.post('/Lyf/Create/Generals', Ctr_Lyf_Create.Generals );
 router.post('/Lyf/Create/Questions', Ctr_Lyf_Create.Questions );
 router.post('/Lyf/Create/Images', Ctr_Lyf_Create.Images );
+router.post('/Lyf/Create/Packages', Ctr_Lyf_Create.Packages );
 
 // UpDate
 router.put('/Lyf/DeleteImage', Ctr_Lyf_Create.DeleteImage );
 
+
+// Delete
+router.delete('/Lyf/Package/Delete', Ctr_Lyf_Create.DeletePackage );
 module.exports = router;

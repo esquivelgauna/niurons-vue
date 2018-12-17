@@ -310,6 +310,7 @@
           </div>
 
         </div>
+
         <!-- Packages -->
         <div :class=" { 'has-none ':Lyfprogress < 48 || Lyfprogress > 64   } " class=" animated fadeIn ">
           <div class="columns is-mobile ">
@@ -659,6 +660,7 @@
               </div>
 
               <hr class=" has-margin-y-3 ">
+
               <div class="level is-mobile ">
                 <div class="level-left">
                   <div class="level-item">
@@ -897,7 +899,7 @@
         errors: [],
         modalError: false,
         isLoading: false,
-        Lyfprogress: 40,
+        Lyfprogress: 56,
       }
     },
     components: {
@@ -1110,10 +1112,10 @@
               }
             );
           } else {
-            // this.Lyfprogress += 16;
             this.isLoading = false;
           }
 
+          this.Lyfprogress += 16;
 
 
         } else {
@@ -1129,19 +1131,172 @@
 
 
       },
+
       SavePackages: function () {
         console.log(this.myLyf.packages);
+        this.isLoading = true;
 
-        if (this.myLyf.packages.list.length > 0) {
-          this.Lyfprogress += 16;
-        }
+        let constraints = {
+          list: {
+            presence: {
+              message: "Agrega al menos solo un paquete "
+            },
+            length: {
+              minimum: 1,
+              maximum: 3,
+              message: " Mínimo 1 paquete máximo 3 "
+            }
+          },
+        };
+        validate.async(this.myLyf.packages, constraints, {
+          fullMessages: false
+        }).then(
+          async (success) => {
+            let check;
+            // Check Packages
+            for (let pack of this.myLyf.packages.list) {
+              console.log(pack);
+              check = await this.CheckPackage(this.myLyf.packages[pack].package, pack);
+              if (check) {
+                console.log('Valid ', pack)
+              } else {
+                console.log('not Valid ', pack)
+                break;
+              }
+            }
+
+            if (check) {
+              this.$http.post('user/Lyf/Create/Packages', {
+                idLyf: this.myLyf.generals.id,
+                packages: this.myLyf.packages
+              }).then(response => {
+
+                console.log(response.body);
+                if (response.body.status) {
+
+                  this.myLyf.packages = response.body.packages;
+                  this.Lyfprogress += 16;
+
+                } else {
+
+                  alert(response.body.message);
+                }
+
+                this.isLoading = false;
+              }, err => {
+                console.log('Error:', err);
+                this.isLoading = false;
+              });
+            }
+
+          }, (errors) => {
+            this.modalError = true;
+            this.errors = errors;
+            console.error(errors);
+          }
+        );
+
+        this.isLoading = false;
+        // if (this.myLyf.packages.list.length > 0) {
+        //   this.Lyfprogress += 16;
+        // }
       },
+
+
+
+
+
       SaveExtras: function () {
         console.log(this.myLyf);
 
         if (this.myLyf.extras.length > 0) {
           this.Lyfprogress = 100;
         }
+      },
+
+      CheckPackage: function (pack, name) {
+        console.log(pack);
+        let constraints = {
+
+          description: {
+            presence: {
+              message: "Descripción: Recuerda Agregar la descripción "
+            },
+            length: {
+              minimum: 10,
+              maximum: 200,
+              message: "Descripción: Mínimo 10 caracteres , máximo 5 "
+            }
+          },
+          cost: {
+            presence: {
+              message: "Costo: Recurda agregar el precio "
+            },
+            numericality: {
+              greaterThanOrEqualTo: 5,
+              lessThanOrEqualTo: 20,
+              notValid: "Costo: Mínimo $5 imagen máximo $20 "
+            }
+          },
+          time: {
+            presence: {
+              message: "Entrega: Recuerda agregar el tiempo de entrega "
+            },
+            numericality: {
+              greaterThanOrEqualTo: 1,
+              lessThanOrEqualTo: 30,
+              notValid: "Entrega: Mínimo 1 días , máximo 30  "
+            }
+          },
+          revisions: {
+            presence: {
+              message: "Revisiones: Agrega el numero de revisiones  "
+            },
+            numericality: {
+              greaterThanOrEqualTo: 1,
+              lessThanOrEqualTo: 10,
+              notValid: "Revisiones: Mínimo 1 revisión , máximo 10 "
+            }
+          },
+          subtitle: {
+            presence: {
+              message: "Subtitulo: Recuerda agregar el titulo  "
+            },
+            length: {
+              minimum: 5,
+              maximum: 50,
+              message: "Subtitulo: Mínimo 5 caracteres , máximo 50 "
+            }
+          },
+
+        };
+        return validate.async(pack, constraints, {
+          fullMessages: false
+        }).then(
+          (success) => {
+            // console.info(success);
+            // console.info('Package Valid:' ,  name );
+            return true;
+          }, (errors) => {
+            // console.info('Package invalid:' ,  name );
+            this.modalError = true;
+            switch (name) {
+              case 'basic':
+                name = ' Paquete : Básico ';
+                break;
+              case 'standard':
+                name = ' Paquete : Estándar ';
+                break;
+              case 'premium':
+                name = ' Paquete : Premium ';
+                break;
+            }
+            errors.name = [name];
+            this.errors = errors;
+            // console.error(errors);
+            return false;
+          }
+        );
       },
 
       AddPackage: function (name) {
@@ -1154,9 +1309,36 @@
       DeletePackage: function (name) {
         console.log(name);
         if (this.myLyf.packages.list.includes(name)) {
-          this.myLyf.packages.list.splice(this.myLyf.packages.list.indexOf(name), 1);
+          if (this.myLyf.packages[name].package.id) {
 
+            this.$http.delete( 'user/Lyf/Package/Delete', {
+              params: {
+                idLyf: this.myLyf.generals.id,
+                idPackage: this.myLyf.packages[name].package.id,
+              }
+            }).then(response => {
+              console.log(response.body);
+
+              if (response.body.status) {
+                delete this.myLyf.packages[name].package.id;
+                this.myLyf.packages[name].package.subtitle = '';
+                this.myLyf.packages[name].package.cost = 5;
+                this.myLyf.packages[name].package.time = 1;
+                this.myLyf.packages[name].package.revisions = 1;
+                this.myLyf.packages[name].package.description = '';
+
+              } else {
+                alert(' No se eliminó , inenta de nuevo');
+                this.myLyf.images.up[index].status = false;
+              }
+
+            }, err => {
+              alert(' No se eliminó , inenta de nuevo');
+            });
+
+          }
         }
+        this.myLyf.packages.list.splice(this.myLyf.packages.list.indexOf(name), 1);
       },
 
       onFileChange: function (e) {
@@ -1182,6 +1364,7 @@
         if (condition) {
           console.log('Delete inServer')
           this.myLyf.images.up[index].status = true;
+
           this.$http.put('user/Lyf/DeleteImage', {
             idLyf: this.myLyf.generals.id,
             idImage: this.myLyf.images.up[index].id,
@@ -1211,6 +1394,7 @@
       LyfReturn: function () {
         this.Lyfprogress -= 16;
       },
+
       AddQuestion: function () {
         // console.log(this.questions);
         let constraints = {
@@ -1301,8 +1485,11 @@
     },
     beforeMount() {
       this.myLyf.packages.basic.package = _.clone(this.package, true);
+      this.myLyf.packages.basic.package.type = 1;
       this.myLyf.packages.standard.package = _.clone(this.package, true);
+      this.myLyf.packages.standard.package.type = 2;
       this.myLyf.packages.premium.package = _.clone(this.package, true);
+      this.myLyf.packages.premium.package.type = 3;
     }
 
   }
