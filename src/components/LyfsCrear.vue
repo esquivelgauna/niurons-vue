@@ -266,12 +266,30 @@
             </div>
           </section>
           <br>
+
+          <h4 class=" is-size-4 has-text-info  " v-if="  myLyf.images.temp.length > 0"> Listas para subir</h4>
           <div class="columns is-multiline is-mobile has-text-centered is-variable is-1">
-            <div class="column is-3" v-for="img in myLyf.imgs" :key=" img.url ">
-              <img :src="img.url" alt="" class=" img-w-100 is-rounded animated fadeIn ">
+
+            <div class="column is-3" v-for="( img, index ) in myLyf.images.temp" :key=" index ">
+              <img :src=" img.url" alt="" class=" img-w-100 is-rounded animated fadeIn ">
+              <button class=" button is-danger is-fullwidth " @click=" DeleteImage( index , false )">
+                <fa-i icon='trash'></fa-i>
+              </button>
             </div>
+
           </div>
 
+          <h4 class=" is-size-4 has-text-success " v-if=" myLyf.images.up.length > 0"> En Servidor</h4>
+          <div class="columns is-multiline is-mobile has-text-centered is-variable is-1">
+
+            <div class="column is-3" v-for=" (img,index) in myLyf.images.up" :key=" index ">
+              <img :src=" $host + '/thumbs/' + img.url" alt="" class=" img-w-100 is-rounded animated fadeIn ">
+              <button class=" button is-danger is-fullwidth " @click=" DeleteImage( index , true )" :class="{'is-loading':img.status} ">
+                <fa-i icon='trash'></fa-i>
+              </button>
+            </div>
+
+          </div>
 
           <hr class=" has-margin-y-3 ">
           <div class="level is-mobile ">
@@ -834,7 +852,10 @@
             req: '',
           },
           questions: [],
-          imgs: [],
+          images: {
+            temp: [],
+            up: [],
+          },
           packages: {
             list: [],
             type: 4,
@@ -1035,59 +1056,77 @@
 
       SaveImages: function () {
         this.isLoading = true;
+        if (this.myLyf.images.up.length > 0 || this.myLyf.images.temp.length > 0) {
 
-        let constraints = {
-          imgs: {
-            presence: {
-              message: "Agrega al menos solo una imagen "
-            },
-            length: {
-              minimum: 1,
-              maximum: 5,
-              message: " Mínimo 1 imagen máximo 5 "
-            }
-          },
-        };
+          if (this.myLyf.images.temp.length > 0) {
+            let constraints = {
+              'images.temp': {
+                presence: {
+                  message: "Agrega al menos solo una imagen "
+                },
+                length: {
+                  minimum: 1,
+                  maximum: 5,
+                  message: " Mínimo 1 imagen máximo 5 "
+                }
+              },
+            };
+            validate.async(this.myLyf, constraints, {
+              fullMessages: false
+            }).then(
+              (success) => {
+                console.log(this.myLyf.images.temp);
+                let formData = new FormData();
+                formData.append('id', this.myLyf.generals.id);
+                for (let index in this.myLyf.images.temp) {
+                  formData.append('fileToUpload[]', this.myLyf.images.temp[index].file, this.myLyf.images.temp[
+                      index].file
+                    .name);
+                }
+                // console.log(formData);
+                this.$http.post('user/Lyf/Create/Images', formData).then(response => {
+                  console.log(response.body);
+                  if (response.body.status) {
+                    this.myLyf.images.temp = [];
+                    this.myLyf.images.up = this.myLyf.images.up.concat(response.body.images);
+                    // this.Lyfprogress += 16;
+                  } else {
+                    alert(response.body.message);
+                  }
+                  this.isLoading = false;
+                }, err => {
+                  console.log('Error:', err);
+                  this.isLoading = false;
+                });
 
-        validate.async(this.myLyf, constraints, {
-          fullMessages: false
-        }).then(
-          (success) => {
-            console.log(this.myLyf.imgs);
-            let formData = new FormData();
-            formData.append('id', this.myLyf.generals.id);
-            for (let index in this.myLyf.imgs) {
-              formData.append('fileToUpload[]', this.myLyf.imgs[index].file , this.myLyf.imgs[index].file.name );
-            }
 
-            console.log(formData);
 
-            this.$http.post('user/Lyf/Create/Images', formData).then(response => {
-              console.log(response.body);
-              if (response.body.status) {
-
-                // this.Lyfprogress += 16;
-              } else {
-                alert(response.body.message);
+                // console.info(' Pregunta correcta ');
+                // console.info(success);
+              }, (errors) => {
+                this.modalError = true;
+                this.errors = errors;
+                console.error(errors);
               }
-
-              this.isLoading = false;
-            }, err => {
-
-              console.log('Error:', err);
-              this.isLoading = false;
-            });
-
-
+            );
+          } else {
             // this.Lyfprogress += 16;
-            // console.info(' Pregunta correcta ');
-            // console.info(success);
-          }, (errors) => {
-            this.modalError = true;
-            this.errors = errors;
-            console.error(errors);
+            this.isLoading = false;
           }
-        );
+
+
+
+        } else {
+          this.modalError = true;
+          this.errors = {
+            image: [' Agrega al menos una imagen']
+          };
+        }
+        this.isLoading = false;
+
+
+
+
 
       },
       SavePackages: function () {
@@ -1124,7 +1163,7 @@
 
         for (let index in e.target.files) {
           if (e.target.files[index].size < 5000000) {
-            this.myLyf.imgs.push({
+            this.myLyf.images.temp.push({
               file: e.target.files[index],
               url: URL.createObjectURL(e.target.files[index])
             });
@@ -1134,6 +1173,38 @@
           // this.myLyf.imgs[index].url  = URL.createObjectURL( e.target.files[index] );
         }
         console.log(e.target.files);
+
+      },
+
+      DeleteImage: function (index, condition) {
+        console.log(index);
+
+        if (condition) {
+          console.log('Delete inServer')
+          this.myLyf.images.up[index].status = true;
+          this.$http.put('user/Lyf/DeleteImage', {
+            idLyf: this.myLyf.generals.id,
+            idImage: this.myLyf.images.up[index].id,
+          }).then(response => {
+            console.log(response.body);
+            if (response.body.status) {
+              this.myLyf.images.up.splice(index, 1);
+
+            } else {
+              alert(' No se eliminó , inenta de nuevo');
+              this.myLyf.images.up[index].status = false;
+            }
+
+          }, err => {
+            alert(' No se eliminó , inenta de nuevo');
+            this.myLyf.images.up[index].status = false;
+          });
+
+
+        } else {
+          this.myLyf.images.temp.splice(index, 1);
+        }
+
 
       },
 

@@ -18,7 +18,9 @@ const API_User = require('./application/config/API_User');
 app.use(express.json()); // to support JSON-encoded bodies
 app.use(morgan('dev'));
 app.use((req, res, next) => {
+
   res.append('Access-Control-Allow-Origin', '*');
+  res.append('Access-Control-Allow-Methods', '*');
   res.append('Access-Control-Allow-Headers', 'Content-Type, authorization');
   next();
 });
@@ -43,9 +45,11 @@ io.sockets.on('connection', (socket) => {
 });
 
 //Public 
+app.use('/thumbs', express.static(path.join(__dirname, 'uploads/img/thumbs')));
 app.use('/static', express.static(path.join(__dirname, '../dist/static')));
 app.use('/assets', express.static(path.join(__dirname, '../src/assets')));
 app.use('/imgLyf', express.static(path.join(__dirname, '../src/assets/img/uploads/imglyf')));
+
 app.set('views', path.join(__dirname, 'application/views'));
 app.set('view engine', 'ejs');
 //Routes

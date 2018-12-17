@@ -22,4 +22,8 @@ router.get('/Initials', Ctr_Initials.Initials );
 router.post('/Lyf/Create/Generals', Ctr_Lyf_Create.Generals );
 router.post('/Lyf/Create/Questions', Ctr_Lyf_Create.Questions );
 router.post('/Lyf/Create/Images', Ctr_Lyf_Create.Images );
+
+// UpDate
+router.put('/Lyf/DeleteImage', Ctr_Lyf_Create.DeleteImage );
+
 module.exports = router;

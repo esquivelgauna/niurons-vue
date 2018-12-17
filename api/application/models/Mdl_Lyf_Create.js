@@ -112,7 +112,8 @@ exports.SaveImage = async (idLyf, img) => {
       console.log(' Save Image', inserted_id);
       resolve({
         id: inserted_id,
-        url_img: img
+        url: img,
+        status: false,
       })
     });
   })
@@ -120,7 +121,37 @@ exports.SaveImage = async (idLyf, img) => {
 
 }
 
-
+exports.GetImage = async (idLyf, idImage) => {
+  return new Promise((resolve, reject) => {
+    mysql.select({
+      table: 't_dat_lyf_galeria',
+      conditions: {
+        id_img_galeria: idImage,
+        f_id_lyf: idLyf,
+      },
+      limit: 1,
+      show_query: true,
+    }, (err, result) => {
+      if (err) console.error('Error , Geting Image');
+      console.log(' Get Image', result[0] );
+      resolve(result[0])
+    });
+  })
+}
+exports.DeleteImage = async (idLyf, idImage) => {
+  mysql.delete({
+    table: 't_dat_lyf_galeria',
+    conditions: {
+      id_img_galeria: idImage,
+      f_id_lyf: idLyf,
+    },
+    limit: 1,
+    show_query: false,
+  }, (err, result) => {
+    if (err) console.error('Error , Delete Image ');
+    console.log(' DeleteImage');
+  });
+}
 
 exports.Lyfs = async (idLyf) => {
   return new Promise(async (resolve, reject) => {

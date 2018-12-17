@@ -7,6 +7,9 @@ var path = require('path');
 var uuid = require('uuid');
 const sharp = require('sharp');
 sharp.cache(false);
+//Uploads
+var pathImages = path.join(__dirname, '../../uploads/img/lyf');
+var pathImagesThumb = path.join(__dirname, '../../uploads/img/thumbs');
 
 exports.Generals = async (req, res) => {
   console.log(' Save Generals ..');
@@ -199,9 +202,9 @@ exports.Images = async (req, res) => {
   });
 
   form.on('end', async () => {
-    await this.MoveImages(imgsTemp);
     res.json({
-      images: imgList
+      status: true,
+      images: await this.MoveImages(idLyf, imgTempPath, imgsTemp)
     });
   });
 
@@ -209,25 +212,96 @@ exports.Images = async (req, res) => {
 
 }
 
-exports.MoveImages = (idLyf, tempPath, imgListTemp) => {
-  let imgList = [];
-  let newName = 'lyf-' + idLyf + '-' + uuid.v1() + '.png';
-  for (let index in imgListTemp) {
-    await sharp(file.path).resize(200, 200).max().toFile(tempPath + '/' + newName).then(async (Image) => {
-
-      console.log('Imagen redimensionada');
-      // console.log(newName);
-      // imgList.push(file.path);
-      await fs.unlinkSync(file.path);
-    });
+exports.MoveImages = async (idLyf, tempPath, imgListTemp) => {
+  //Create foldres
+  if (!fs.existsSync(pathImages)) {
+    fs.mkdirSync(pathImages);
+  }
+  if (!fs.existsSync(pathImagesThumb)) {
+    fs.mkdirSync(pathImagesThumb);
+  }
+  let lyfPath = pathImages + '/lyf-' + idLyf;
+  if (!fs.existsSync(lyfPath)) {
+    fs.mkdirSync(lyfPath);
   }
 
-  
-  imgList.push( await Mdl_Lyf_Create.SaveImage(idLyf, newName) );
+  let imgList = [];
+  //Read aaray images
+  for (let index in imgListTemp) {
+
+
+    //Set name image
+    let nameImage = 'lyf-' + idLyf + '-' + uuid.v1() + '.png';
+
+    //Resise image max 1000 X 1000
+
+    await sharp(imgListTemp[index]).resize(1000, 1000).max().toFile(lyfPath + '/' + nameImage).then(async (Image) => {
+      // console.log(Image)
+      // Do Thumb 200 X 200
+      await sharp(lyfPath + '/' + nameImage).resize(200, 200).max().toFile(pathImagesThumb + '/' + nameImage).then(async (Image) => {
+        console.log(' Do Thumb ');
+        imgList.push(await Mdl_Lyf_Create.SaveImage(idLyf, nameImage));
+      });
+      console.log('Imagen redimensionada');
+    });
+
+    // Delete Temp images
+    await fs.unlinkSync(imgListTemp[index]);
+
+
+  }
+  return imgList;
+
 }
 
+exports.DeleteImage = async (req, res) => {
+  console.log(' Delete Image ..');
 
+  let constraints = {
+    idLyf: {
+      presence: {
+        message: "Agrega al menos solo una pregunta "
+      },
+    },
+    idImage: {
+      presence: {
+        message: "Agrega al menos solo una pregunta "
+      },
+    }
 
+  };
+  let status = false;
+  validate.async(req.body, constraints, {
+    fullMessages: false
+  }).then(
+    async (success) => {
+
+      Mdl_Lyf_Create.GetImage(req.body.idLyf, req.body.idImage).then(async (Image) => {
+
+        Mdl_Lyf_Create.DeleteImage(req.body.idLyf, req.body.idImage);
+
+        // console.log('Deleting image:', Image);
+        // console.log(pathImages + '/' + Image['url_img'])
+        // Delete Image 
+        await fs.unlinkSync (path.join(pathImages , `lyf-${req.body.idLyf}` , Image['url_img']) );
+        // Delete Thumb
+        await fs.unlinkSync(pathImagesThumb + '/' + Image['url_img']);
+        res.json({
+          status: true ,
+          message: 'Imagen eliminada con exito',
+        })
+
+      }, (errors) => {
+        console.error(errors);
+        res.json({
+          status,
+          message: errors
+        })
+      });
+    }
+  );
+
+}
 
 exports.ValidateQuestions = async (questions) => {
   let constraints = {
