@@ -11,8 +11,8 @@ process.env.api_port = process.env.api_port || 3000;
 //============== DATA BASE =====================
 process.env.db_host = process.env.db_host || "localhost";
 process.env.db_name = process.env.db_name || "db_niurons";
-process.env.db_user = process.env.db_user || "root";
-process.env.db_pass = process.env.db_pass || "";
+process.env.db_user = process.env.db_user || "niurons_dev";
+process.env.db_pass = process.env.db_pass || "**niurons_dev2018";
 console.log('Server Port:', process.env.PORT)
 console.log('DB Host:', process.env.db_host)
 console.log('DB Name:', process.env.db_name)

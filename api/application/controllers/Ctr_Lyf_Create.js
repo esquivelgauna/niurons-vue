@@ -11,9 +11,10 @@ sharp.cache(false);
 var pathImages = path.join(__dirname, '../../uploads/img/lyf');
 var pathImagesThumb = path.join(__dirname, '../../uploads/img/thumbs');
 
+
 exports.Generals = async (req, res) => {
   console.log(' Save Generals ..');
-  console.log(req.body);
+  // console.log(req.body);
   let constraints = {
     title: {
       presence: {
@@ -72,7 +73,7 @@ exports.Generals = async (req, res) => {
   }).then(
     async (success) => {
       console.info('Todo Bien');
-      console.info(success);
+      // console.info(success);
       let status = false;
       let message = '';
       let id = null;
@@ -100,6 +101,7 @@ exports.Generals = async (req, res) => {
 
 
 }
+
 
 exports.Questions = async (req, res) => {
   console.log(' Save Questions ..');
@@ -147,21 +149,6 @@ exports.Questions = async (req, res) => {
         })
       }
 
-      // let message = '';
-      // let id = null;
-      // if (req.body.id) {
-      //   res.json(await Mdl_Lyf_Create.Update(req.user.id, req.body));
-      // } else {
-      //   id = await Mdl_Lyf_Create.Create(req.user.id, req.body);
-      //   status = true;
-      //   message = 'Lyf guardado con exito';
-      //   res.json({
-      //     id,
-      //     status,
-      //     message
-      //   })
-      // }
-
     }, (errors) => {
       console.error(errors);
       res.json({
@@ -173,6 +160,7 @@ exports.Questions = async (req, res) => {
 
 
 }
+
 
 exports.Images = async (req, res) => {
   console.log(' Save Images ..');
@@ -211,9 +199,11 @@ exports.Images = async (req, res) => {
   form.parse(req);
 
 }
+
+
 exports.Packages = async (req, res) => {
   console.log(' Saving Packages..');
-  // console.log(req.body);
+  console.log(req.body);
 
   let constraints = {
     idLyf: {
@@ -255,12 +245,14 @@ exports.Packages = async (req, res) => {
       }
       if (check) {
         for (let pack of req.body.packages.list) {
-          if (req.body.packages[pack].package.id) {
-            Mdl_Lyf_Create.SavePackage(req.body.idLyf, req.body.packages[pack].package );
-          } else {
-            Mdl_Lyf_Create.SavePackage(req.body.idLyf, req.body.packages[pack].package ).then((idPackage) => {
-              req.body.packages[pack].package.id = idPackage;
 
+          if (req.body.packages[pack].package.id) {
+            console.log('Edit package');
+            await Mdl_Lyf_Create.UpdatePackage(req.body.idLyf, req.body.packages[pack].package);
+          } else {
+            console.log('New package');
+            await Mdl_Lyf_Create.SavePackage(req.body.idLyf, req.body.packages[pack].package).then((idPackage) => {
+              req.body.packages[pack].package.id = idPackage;
             }, (error) => {
 
               console.log('Catch error', error);
@@ -288,6 +280,235 @@ exports.Packages = async (req, res) => {
   );
 
 }
+
+exports.AddExtra = async (req, res) => {
+  console.log(' Saving Extra..');
+  console.log(req.body);
+
+  let constraints = {
+    idLyf: {
+      presence: {
+        message: "Falta el id del Lyf "
+      },
+    },
+    'extra.title': {
+      presence: {
+        message: "Falta el título "
+      },
+      length: {
+        minimum: 5,
+        maximum: 100,
+        message: "Título: Mínimo 5 Caracteres, Máximo 100 "
+      }
+    },
+    'extra.desc': {
+      presence: {
+        message: "Falta la descripción "
+      },
+      length: {
+        minimum: 5,
+        maximum: 400,
+        message: "Descripción: Mínimo 5 Caracteres, Máximo 400 "
+      }
+    },
+    'extra.cost': {
+      presence: {
+        message: "Falta el precio"
+      },
+      numericality: {
+        greaterThanOrEqualTo: 5,
+        lessThanOrEqualTo: 100,
+        notLessThanOrEqualTo: "Costo: Máximo $100 ",
+        notGreaterThanOrEqualTo: "Costo: Mínimo $5 ",
+
+      },
+    },
+  };
+  validate.async(req.body, constraints, {
+    fullMessages: false
+  }).then(async (success) => {
+    Mdl_Lyf_Create.AddExtra(req.body.idLyf, req.body.extra).then((idExtra) => {
+      res.json({
+        status: true,
+        id: idExtra,
+      })
+
+    }, (error) => {
+      console.log(error);
+      res.json({
+        status: false,
+        message: 'No se guardo , intenta de nuevo.',
+      })
+
+    });
+
+
+  }, (errors) => {
+    console.error(errors);
+    res.json({
+      status: true,
+      message: errors
+    })
+  });
+
+}
+
+exports.DeleteExtra = async (req, res) => {
+  console.log(' Delete extra...');
+  console.log(req.query);
+
+  let constraints = {
+    idLyf: {
+      presence: {
+        message: "Falta el id del Lyf "
+      },
+    },
+    idExtra: {
+      presence: {
+        message: "Falta el id del extra "
+      },
+    }
+
+
+  };
+
+  validate.async(req.query, constraints, {
+    fullMessages: false
+  }).then(
+    async (success) => {
+      console.log('Deleting extra ..');
+      Mdl_Lyf_Create.DeleteExtra(req.query.idLyf, req.query.idExtra).then((success) => {
+
+        res.json({
+          status: true,
+          message: success,
+        });
+
+      }, (error) => {
+
+        res.json({
+          status: false,
+          message: error,
+        });
+
+      });
+
+    }, (errors) => {
+      console.error(errors);
+      res.json({
+        status: false,
+        message: errors
+      })
+    }
+  );
+
+}
+exports.GetLyf = async (req, res) => {
+  console.log(' Geting Lyf...');
+  console.log(req.query);
+
+  let constraints = {
+    idLyf: {
+      presence: {
+        message: "Falta el id del Lyf "
+      },
+    },
+  };
+
+  validate.async(req.query, constraints, {
+    fullMessages: false
+  }).then(
+    async (success) => {
+      let progress = 16
+      // console.log('Deleting extra ..');
+      Mdl_Lyf_Create.GetGenerals(req.user.id, req.query.idLyf).then((generals) => {
+        console.log(generals);
+        Mdl_Lyf_Create.GetQuestions(req.user.id, req.query.idLyf).then((questions) => {
+          console.log(questions);
+          Mdl_Lyf_Create.GetImages(req.user.id, req.query.idLyf).then((images) => {
+            console.log(images);
+            Mdl_Lyf_Create.GetPackages(req.user.id, req.query.idLyf).then(( lyfPackages ) => {
+              console.log( lyfPackages);
+              Mdl_Lyf_Create.GetExtras(req.user.id, req.query.idLyf).then((extras) => {
+                console.log(extras);
+                res.json({
+                  status: true,
+                  progress: progress,
+                  generals: generals,
+                  questions: questions,
+                  packages: lyfPackages,
+                  extras: extras,
+                });
+
+              }, (error) => {
+                res.json({
+                  status: true,
+                  progress: progress,
+                  generals: generals,
+                });
+              });
+            }, (error) => {
+              res.json({
+                status: true,
+                progress: progress,
+                generals: generals,
+              });
+            });
+
+          }, (error) => {
+            res.json({
+              status: true,
+              progress: progress,
+              generals: generals,
+            });
+          });
+
+
+        }, (error) => {
+          res.json({
+            status: true,
+            progress: progress,
+            generals: generals,
+          });
+        });
+
+
+
+
+      }, (error) => {
+
+        res.json({
+          status: false,
+          message: error,
+        });
+
+      });
+
+      // res.json({
+      //   status: true,
+      //   lyf : lyf ,
+      //   message: success,
+      // });
+
+
+
+    }, (errors) => {
+      console.error(errors);
+      res.json({
+        status: false,
+        message: errors
+      })
+    }
+  );
+
+}
+
+
+
+
+
+
+
 
 exports.CheckPackage = (pack) => {
   console.log(pack);
@@ -354,6 +575,8 @@ exports.CheckPackage = (pack) => {
     }
   );
 }
+
+
 exports.DeletePackage = async (req, res) => {
   console.log(' Delete Package...');
   console.log(req.query);
@@ -404,9 +627,6 @@ exports.DeletePackage = async (req, res) => {
   );
 
 }
-
-
-
 
 
 exports.MoveImages = async (idLyf, tempPath, imgListTemp) => {
@@ -534,92 +754,4 @@ exports.ValidateQuestions = async (questions) => {
     );
   }
   return true;
-}
-
-
-
-exports.Lyfs = async (req, res) => {
-
-}
-
-exports.LyfsCategorie = async (req, res) => {
-  console.log(' Lyfs - Buscando Lyfs..');
-
-  let lyfs = await Mdl_Lyfs.getLyfsCategorie(null, req.query.id);
-  return res.json({
-    lyfs
-  });
-}
-
-exports.LyfSearchCategories = async (req, res) => {
-  console.log(' Lyf Searching Categories ..');
-  console.log(req.query.data);
-  if (req.query.data.categories) {
-    var constraints = {
-      min: {
-        presence: true
-      },
-      max: {
-        presence: true
-      },
-      words: {
-        presence: true
-      },
-      categories: {
-        presence: true
-      }
-    };
-    validate.async(req.query.data, constraints).then(async (success) => {
-      let lyfs = await Mdl_Lyfs.searchLyfsCategories(null, req.query.data);
-      return res.json({
-        lyfs
-      });
-    }, (error) => {
-      console.log(error);
-      return res.json([]);
-    });
-  } else {
-    var constraints = {
-      min: {
-        presence: true
-      },
-      max: {
-        presence: true
-      },
-      words: {
-        presence: true
-      },
-    };
-    validate.async(req.query.data, constraints).then(async (success) => {
-      let lyfs = await Mdl_Lyfs.searchLyfsCategories(null, req.query.data);
-      return res.json({
-        lyfs
-      });
-    }, (error) => {
-      console.log(error);
-      return res.json([]);
-    });
-  }
-
-
-
-
-
-
-
-}
-
-exports.ProfileLyfs = async (req, res) => {
-  console.log(' profile- Buscando Lyfs..');
-
-
-  let lyfs = [];
-  if (!isNaN(req.body.idLyf)) {
-
-  } else {
-    lyfs = await Mdl_Lyfs.getTopLyfs(req.user.id);
-  }
-  return res.json({
-    lyfs
-  });
 }

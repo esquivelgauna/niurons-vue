@@ -694,7 +694,7 @@
             </p>
           </small>
 
-          <div class="columns is-multiline ">
+          <div class="columns is-multiline " v-if=" this.myLyf.extras.length < 5">
             <div class="column is-4 ">
               <div class="field">
                 <label class="label">Título</label>
@@ -735,7 +735,7 @@
               <div class="field">
                 <label class="label">Costo</label>
                 <div class="control">
-                  <input class="input" type="text" placeholder="Título" v-model="extra.cost">
+                  <input class="input" type="number" min="5" max="100" placeholder="Título" v-model="extra.cost">
                 </div>
                 <div class="level is-mobile ">
                   <div class="level-left">
@@ -744,48 +744,41 @@
                 </div>
               </div>
             </div>
-
             <div class="column is-full ">
               <div class="field is-grouped is-grouped-right">
                 <p class="control">
-                  <a class="button is-success is-rounded" @click=" AddExtra() ">
+                  <a class="button is-success is-rounded" @click=" AddExtra() " :class="{'is-loading':isLoading} ">
                     <fa-i icon='plus'></fa-i> <small class=" has-margin-x-2 "> AÑADIR </small>
-
                   </a>
                 </p>
               </div>
               <hr class="has-margin-y-2">
             </div>
+          </div>
 
-            <!-- Questions and answers -->
-            <div class="column is-full ">
-              <div class="columns is-multiline ">
-
-                <div class="column is-full " v-for=" ( extra , index ) in myLyf.extras " :key="extra.desc">
-                  <div class="level is-mobile">
-                    <div class="level-lef">
-                      <p>
-                        <strong> Título: </strong> {{ extra.title }}
-                        <br>
-                        <strong> Descripción: </strong> {{ extra.desc }}
-                        <br>
-                        <strong> Costo: </strong> {{ extra.cost }}
-                      </p>
-                    </div>
-                    <div class="level-right">
-                      <button @click=" DeleteExtra (index ) ">
-                        <fa-i icon='trash'></fa-i>
-                      </button>
-                    </div>
-                  </div>
-                  <hr class="has-margin-y-2">
+          <!-- Extras  -->
+          <div class="columns is-multiline ">
+            <div class="column is-full " v-for=" ( extra , index ) in myLyf.extras " :key="index">
+              <div class="level is-mobile">
+                <div class="level-lef">
+                  <p>
+                    <strong> Título: </strong> {{ extra.title }}
+                    <br>
+                    <strong> Descripción: </strong> {{ extra.desc }}
+                    <br>
+                    <strong> Costo: </strong> {{ extra.cost }}
+                  </p>
+                </div>
+                <div class="level-right">
+                  <button class=" button is-circle is-danger is-outlined  " @click=" DeleteExtra ( index , extra.id ) ">
+                    <fa-i icon='trash'></fa-i>
+                  </button>
                 </div>
               </div>
+              <hr class="has-margin-y-2">
             </div>
-
-
-
           </div>
+
           <div class="level is-mobile ">
             <div class="level-left">
               <div class="level-item">
@@ -815,15 +808,16 @@
           <h4 class="is-size-4 has-text-primary "> !Genial, has terminado de crear tu LYF¡ </h4>
           <div class="level">
             <div class="level-item">
-
-              <button class=" button is-primary is-rounded is-medium "> Ver mi lyf </button>
+              <router-link :to="{ name: 'Lyf/View', params: { id: myLyf.generals.id } } " class=" button is-primary is-rounded is-medium  ">
+                <fa-i icon='image' class="has-margin-r-2"></fa-i> Ver mi lyf
+              </router-link>
             </div>
-
           </div>
           <p>
-            Ve a la <strong class="is-text-primary"> sección de LYF's </strong> para consultar, editar, cambiar el
-            estatus o
-            eliminar tus LYF's.
+            Ve a la
+            <router-link :to="{ name: 'Lyfs' } " class=" is-text-primary  ">
+              sección de LYF's
+            </router-link> para consultar, editar, cambiar el estatus o eliminar tus LYF's.
           </p>
         </div>
         <!-- ['Modal', 'Title', 'Icon', 'Errors'], -->
@@ -845,7 +839,7 @@
       return {
         myLyf: {
           generals: {
-            id: 12,
+            id: null,
             title: '',
             categorie: null,
             subcat: null,
@@ -890,6 +884,7 @@
         categories: this.$parent.categories,
         subCats: [],
         package: {
+          id: null,
           subtitle: '',
           cost: 5,
           time: 1,
@@ -899,7 +894,7 @@
         errors: [],
         modalError: false,
         isLoading: false,
-        Lyfprogress: 56,
+        Lyfprogress: 8,
       }
     },
     components: {
@@ -907,11 +902,12 @@
     },
     methods: {
       GetSubCategories: function (idCat) {
-        this.subcat = null;
+        this.subcategorie = null;
         for (let index in this.categories) {
           if (idCat == this.categories[index]['id']) {
             // console.log( this.categories[index]['id'] );
             this.subCats = this.categories[index]['subCats'];
+            this.subcategorie = this.categories[index]['subCats'][0].id;
             // console.log( this.categories[index]['subCats'] );
             break;
           }
@@ -985,6 +981,14 @@
 
                 } else {
                   this.myLyf.generals.id = response.body.id;
+                  this.$router.push({
+                    name: 'Lyf/Edit',
+                    params: {
+                      id: response.body.id
+                    }
+                  });
+                  // this.$route.router.go('/Lyf/Edit');
+
                 }
                 this.Lyfprogress += 16;
 
@@ -1153,6 +1157,7 @@
         }).then(
           async (success) => {
             let check;
+
             // Check Packages
             for (let pack of this.myLyf.packages.list) {
               console.log(pack);
@@ -1197,21 +1202,12 @@
         );
 
         this.isLoading = false;
-        // if (this.myLyf.packages.list.length > 0) {
-        //   this.Lyfprogress += 16;
-        // }
+
       },
-
-
-
-
 
       SaveExtras: function () {
         console.log(this.myLyf);
-
-        if (this.myLyf.extras.length > 0) {
-          this.Lyfprogress = 100;
-        }
+        this.Lyfprogress = 100;
       },
 
       CheckPackage: function (pack, name) {
@@ -1235,7 +1231,8 @@
             numericality: {
               greaterThanOrEqualTo: 5,
               lessThanOrEqualTo: 20,
-              notValid: "Costo: Mínimo $5 imagen máximo $20 "
+              notLessThanOrEqualTo: "Costo: Máximo $20 ",
+              notGreaterThanOrEqualTo: "Costo: Mínimo $5 ",
             }
           },
           time: {
@@ -1245,22 +1242,24 @@
             numericality: {
               greaterThanOrEqualTo: 1,
               lessThanOrEqualTo: 30,
-              notValid: "Entrega: Mínimo 1 días , máximo 30  "
+              notLessThanOrEqualTo: "Entrega: Máximo 30 días ",
+              notGreaterThanOrEqualTo: "Entrega: Mínimo  1 día ",
             }
           },
           revisions: {
             presence: {
-              message: "Revisiones: Agrega el numero de revisiones  "
+              message: "Revisiones: Agrega el numero de revisiones "
             },
             numericality: {
               greaterThanOrEqualTo: 1,
               lessThanOrEqualTo: 10,
-              notValid: "Revisiones: Mínimo 1 revisión , máximo 10 "
+              notLessThanOrEqualTo: "Revisiones: Máximo 10 ",
+              notGreaterThanOrEqualTo: "Revisiones: Mínimo  1 ",
             }
           },
           subtitle: {
             presence: {
-              message: "Subtitulo: Recuerda agregar el titulo  "
+              message: "Subtitulo: Recuerda agregar el titulo "
             },
             length: {
               minimum: 5,
@@ -1311,7 +1310,7 @@
         if (this.myLyf.packages.list.includes(name)) {
           if (this.myLyf.packages[name].package.id) {
 
-            this.$http.delete( 'user/Lyf/Package/Delete', {
+            this.$http.delete('user/Lyf/Package/Delete', {
               params: {
                 idLyf: this.myLyf.generals.id,
                 idPackage: this.myLyf.packages[name].package.id,
@@ -1443,22 +1442,154 @@
 
       AddExtra: function () {
         console.log(this.extra);
+        let constraints = {
+          title: {
+            presence: {
+              message: "Falta el título "
+            },
+            length: {
+              minimum: 5,
+              maximum: 100,
+              message: "Título: Mínimo 5 Caracteres, Máximo 100 "
+            }
+          },
+          desc: {
+            presence: {
+              message: "Falta la descripción "
+            },
+            length: {
+              minimum: 5,
+              maximum: 400,
+              message: "Descripción: Mínimo 5 Caracteres, Máximo 400 "
+            }
+          },
+          cost: {
+            presence: {
+              message: "Falta el precio"
+            },
+            numericality: {
+              greaterThanOrEqualTo: 5,
+              lessThanOrEqualTo: 100,
+              notLessThanOrEqualTo: "Costo: Máximo $100 ",
+              notGreaterThanOrEqualTo: "Costo: Mínimo $5 ",
+
+            },
+          },
+
+        };
+        validate.async(this.extra, constraints, {
+          fullMessages: false
+        }).then(
+          (success) => {
+            this.$http.post('user/Lyf/AddExtra', {
+              idLyf: this.myLyf.generals.id,
+              extra: this.extra
+            }).then(response => {
+              console.log(response.body);
+              if (response.body.status) {
+                let newExtra = _.clone(this.extra, true);
+
+                newExtra.id = response.body.id;
+
+                this.myLyf.extras.push(newExtra);
+                this.extra.title = '';
+                this.extra.desc = '';
+                this.extra.cost = 7;
+                // console.log(this.myLyf.extras);
+
+
+
+              } else {
+                alert(response.body.message);
+              }
+
+              this.isLoading = false;
+            }, err => {
+              console.log('Error:', err);
+              this.isLoading = false;
+            });
+
+
+            // console.info(success);
+          }, (errors) => {
+            this.modalError = true;
+            this.errors = errors;
+            console.error(errors);
+          }
+        );
+
         if (this.extra.title == '' || this.extra.title == '') {
 
         } else {
-          this.myLyf.extras.push(_.clone(this.extra, true));
-          this.extra.title = '';
-          this.extra.desc = '';
-          this.extra.cost = 7;
-          console.log(this.myLyf.extras);
+
         }
 
       },
 
-      DeleteExtra: function (index) {
-        this.myLyf.extras.splice(index, 1);
-        console.log(this.myLyf.extras);
+      DeleteExtra: function (index, idExtra) {
+        console.log(index, idExtra);
+        this.$http.delete('user/Lyf/Extra', {
+          params: {
+            idLyf: this.myLyf.generals.id,
+            idExtra: idExtra,
+          }
+        }).then(response => {
+          console.log(response.body);
+
+          if (response.body.status) {
+            this.myLyf.extras.splice(index, 1);
+            console.log(this.myLyf.extras);
+
+          } else {
+            alert(response.body.message);
+          }
+        }, err => {
+          alert(response.body.message);
+        });
+
+
+      },
+
+      GetLyf: function () {
+        console.log('Geting LYF ....', this.$route.params.id);
+        this.$http.get('user/Lyf', {
+          params: {
+            idLyf: this.$route.params.id,
+          }
+        }).then(response => {
+          console.log(response.body);
+
+          if (response.body.status) {
+            if (response.body.progress >= 16 ) {
+              this.myLyf.generals = response.body.generals;
+              this.categorie = this.myLyf.generals.categorie;
+              this.subcategorie = this.myLyf.generals.subcat;
+              this.myLyf.generals.tags = response.body.generals.tags.split(',');
+            }
+            if (response.body.progress >= 32 ) {
+              this.myLyf.generals = response.body.generals;
+            }
+            if (response.body.progress >= 48 ) {
+              this.myLyf.generals = response.body.generals;
+            }
+            if (response.body.progress >= 54 ) {
+              this.myLyf.generals = response.body.generals;
+            }
+            if (response.body.progress >= 70 ) {
+              this.myLyf.generals = response.body.generals;
+            }
+
+            console.log();
+
+          } else {
+            alert(response.body.message);
+          }
+        }, err => {
+          alert(response.body.message);
+        });
       }
+
+
     },
     computed: {
       ordCat: function () {
@@ -1473,6 +1604,7 @@
       categorie: function (idCat) {
         console.log
         this.myLyf.generals.categorie = idCat;
+        // this.subcategorie = null,
         this.GetSubCategories(idCat);
 
       },
@@ -1481,9 +1613,15 @@
         this.myLyf.generals.subcat = idSubcat;
 
       },
+      '$route'(to, from) {
+        console.log(to, from);
+
+      }
 
     },
-    beforeMount() {
+    mounted() {
+      console.log('Edit lyf', this.$route.params.id);
+      this.GetLyf();
       this.myLyf.packages.basic.package = _.clone(this.package, true);
       this.myLyf.packages.basic.package.type = 1;
       this.myLyf.packages.standard.package = _.clone(this.package, true);
@@ -1503,7 +1641,6 @@
     position: absolute;
     transform: translateY(400%);
     height: 0.25rem;
-
   }
 
   .relative {

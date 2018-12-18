@@ -53,9 +53,10 @@ exports.Create = async (iduser, generals) => {
         fecha_publicacion: new Date(),
         instrucciones: generals.req,
         tag: generals.tags.toString(),
+        clasificacion: 0,
         status: 'incompleto'
       },
-      show_query: true,
+      show_query: false,
     }, (err, result, inserted_id) => {
       if (err) reject(err);
       resolve(inserted_id);
@@ -82,6 +83,7 @@ exports.DeleteQuestions = async (idLyf) => {
 
   });
 }
+
 exports.SaveQuestion = async (idLyf, question) => {
   mysql.insert({
     table: 't_dat_lyf_faq',
@@ -97,8 +99,6 @@ exports.SaveQuestion = async (idLyf, question) => {
   });
 
 }
-
-
 
 
 exports.SaveImage = async (idLyf, img) => {
@@ -171,7 +171,7 @@ exports.UpdatePackage = async (idLyf, pack) => {
       conditions: {
         id_paquete: pack.id,
       },
-      limit:1,
+      limit: 1,
       show_query: false,
     }, (err, result, inserted_id) => {
       if (err) reject(err);
@@ -205,6 +205,24 @@ exports.SavePackage = async (idLyf, pack) => {
   });
 }
 
+exports.AddExtra = async (idLyf, extra) => {
+  return new Promise((resolve, reject) => {
+    mysql.insert({
+      table: 't_dat_extras',
+      details: {
+        f_id_lyf: idLyf,
+        titulo: extra.title,
+        descripcion: extra.desc,
+        costo: extra.cost,
+      },
+      show_query: true,
+    }, (err, result, inserted_id) => {
+      if (err) reject('Error al guardar.');
+      resolve(inserted_id);
+    });
+  });
+}
+
 exports.ActiveLyf = (idLyf) => {
   return new Promise((resolve, reject) => {
 
@@ -219,8 +237,26 @@ exports.ActiveLyf = (idLyf) => {
       show_query: false,
     }, (err, result, number_of_changed_rows) => {
       if (err) console.log('Error , Active Lyf ');
-      console.log(' Active Lyf', number_of_changed_rows);
+      console.log(' Lyf Activated  ');
       resolve(true);
+    });
+
+  });
+}
+
+exports.DeleteExtra = async (idLyf, idExtra) => {
+  return new Promise(async (resolve, reject) => {
+    mysql.delete({
+      table: 't_dat_extras',
+      conditions: {
+        f_id_lyf: idLyf,
+        id_extra: idExtra,
+      },
+      limit: 1,
+      show_query: false,
+    }, (err, result, number_of_changed_rows) => {
+      if (err) reject('Error al eliminaer el Extra');
+      resolve('Extra Eliminado');
     });
 
   });
@@ -255,10 +291,10 @@ exports.IncompletLyf = async (idLyf) => {
     limit: 3,
     show_query: false,
   }, (err, result) => {
-    if (err) console.log('Error , delete questions');
+    if (err) console.log('Error , Pause LYF ');
     console.log(result.length);
     if (result.length < 1) {
-      console.log('Pausing lyf ');
+      console.log(' Pausing Lyf ...');
       this.PauseLyf(idLyf);
     }
 
@@ -281,204 +317,27 @@ exports.PauseLyf = (idLyf) => {
       show_query: false,
     }, (err, result, number_of_changed_rows) => {
       if (err) console.log('Error , Pause Lyf ');
-      console.log(' Paused Lyf', number_of_changed_rows);
+      console.log(' Lyf Paused ');
       resolve(true);
     });
 
   });
 }
 
-
-
-
-exports.Lyfs = async (idLyf) => {
-  return new Promise(async (resolve, reject) => {
-    if (idLyf) {
-      mysql.select({
-        table: 't_dat_usuario',
-        conditions: {
-          email: email
-        },
-        limit: 1,
-        show_query: true
-      }, async (err, result) => {
-        if (err) reject(err);
-
-      });
-    } else {
-      mysql.select({
-        table: 't_dat_usuario',
-        conditions: {
-          email: email
-        },
-        limit: 1,
-        show_query: true
-      }, async (err, result) => {
-        if (err) reject(err);
-
-      });
-    }
-
-  });
-}
-
-exports.getLyfsCategorie = async (idLyf, idCategorie) => {
-  return new Promise(async (resolve, reject) => {
-    if (idLyf) {
-      mysql.select({
-        table: 't_dat_usuario',
-        conditions: {
-          email: email
-        },
-        limit: 1,
-        show_query: true
-      }, async (err, result) => {
-        if (err) reject(err);
-
-      });
-    } else {
-      mysql.select({
-        table: 'v_lyfs',
-        conditions: {
-          id_cat: idCategorie,
-          status: 'activo'
-        },
-        show_query: true
-      }, async (err, result) => {
-        if (err) reject(err);
-        // console.log( result );
-        resolve(result)
-
-      });
-    }
-
-  });
-}
-
-exports.searchLyfsCategories = async (idLyf, data) => {
-  return new Promise(async (resolve, reject) => {
-
-    if (data.idLyf) {
-
-    } else {
-      if (data.categories) {
-        mysql.select({
-          table: 'v_lyfs',
-          conditions: {
-            id_cat: data.categories,
-            status: 'activo',
-            'cost >=': data.min,
-            'cost <=': data.max,
-
-            or: {
-              'nickname LIKE': `%${data.words}%`,
-              'title LIKE': `%${data.words}%`,
-              'cat LIKE': `%${data.words}%`,
-              'subcat LIKE': `%${data.words}%`,
-            }
-          },
-          limit: 12,
-          show_query: true
-        }, async (err, result) => {
-          if (err) reject(err);
-          resolve(result)
-        });
-      } else {
-        mysql.select({
-          table: 'v_lyfs',
-          conditions: {
-            status: 'activo',
-            'cost >=': data.min,
-            'cost <=': data.max,
-            or: {
-              'nickname LIKE': `%${data.words}%`,
-              'title LIKE': `%${data.words}%`,
-              'cat LIKE': `%${data.words}%`,
-              'subcat LIKE': `%${data.words}%`,
-            }
-          },
-          limit: 12,
-          show_query: true
-        }, async (err, result) => {
-          if (err) reject(err);
-          resolve(result)
-        });
-      }
-    }
-
-
-  });
-}
-
-exports.getTopLyfs = (idUser) => {
-  return new Promise((resolve, reject) => {
-    mysql.native_query({
-      query: "CALL s_lyfs( 0 ," + idUser + " , TRUE )",
-      show_query: true,
-    }, async (err, result) => {
-      if (err) reject('Algo salio mal en la consulta');
-      if (result) {
-        for (let index in result[0]) {
-          // console.log(result[0][index]['id']);
-          result[0][index]['img'] = await this.getCover(result[0][index]['id']);
-        }
-        resolve(result[0]);
-      } else {
-        resolve([]);
-      }
-    });
-
-  });
-}
-exports.getCover = (idLyf) => {
-  return new Promise((resolve, reject) => {
+// Get ALL LYF
+exports.GetGenerals = async (idUser, idLyf) => {
+  return new Promise((resolve, reject) => { 
     mysql.select({
-      fields: ['url_img'],
-      table: 't_dat_lyf_galeria',
+      table: 'v_lyf_complete',
       conditions: {
-        f_id_lyf: idLyf,
-        bool_cover: 1
+        id: idLyf,
+        id_user: idUser,
       },
       limit: 1,
-      show_query: false
-    }, async (err, result) => {
-      if (err) reject('Error al traer el cover');
-      if (result[0]) {
-        // console.log( result[0]['url_img']  );
-        resolve(result[0]['url_img']);
-      } else {
-        resolve('');
-      }
-
+      show_query: true,
+    }, (err, result) => {
+      if (err) reject('Lyf no encontrado');
+      resolve(result[0])
     });
-  });
-
-}
-exports.getLyfs = async (idUser, lastIdLyf) => {
-  return new Promise(async (resolve, reject) => {
-    if (lastIdLyf) {
-
-    } else {
-      mysql.select({
-        table: 'v_lyfs',
-        fields: ['id', 'title', 'cat', 'subcat', 'status', 'img', 'date'],
-        conditions: {
-          and: {
-            id_user: idUser,
-            status: {
-              status1: 'activo',
-              status2: 'pausado',
-            }
-          }
-
-        },
-        limit: 5,
-        show_query: true
-      }, async (err, result) => {
-        if (err) reject(err);
-        resolve(result);
-      });
-    }
-
-  });
+  })
 }

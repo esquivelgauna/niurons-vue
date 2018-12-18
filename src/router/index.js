@@ -12,7 +12,9 @@ import Blog from '@/components/Blog'
 import ProfileUser from '@/components/ProfileUser'
 import Search from '@/components/Search'
 import Lyfs from '@/components/Lyfs'
-import LyfsCrear from '@/components/LyfsCrear'
+import LyfCreate from '@/components/LyfsCreate'
+import LyfEdit from '@/components/LyfEdit'
+import LyfView from '@/components/LyfView'
 
 import Logout from '@/components/Logout'
 
@@ -109,10 +111,22 @@ export default new Router({
       component: Lyfs
     },
     {
-      path: '/Lyfs/Crear/',
-      name: 'Lyfs/Crear',
-      component: LyfsCrear
+      path: '/Lyfs/:id',
+      name: 'Lyf/View',
+      component: LyfView
     },
+
+    {
+      path: '/Lyfs/Crear/',
+      name: 'Lyf/Create',
+      component: LyfCreate
+    },
+    {
+      path: '/Lyfs/Editar/:id',
+      name: 'Lyf/Edit',
+      component: LyfEdit
+    },
+
     {
       path: '/Compras',
       name: 'Purchases',

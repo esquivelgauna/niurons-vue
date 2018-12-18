@@ -19,7 +19,7 @@
       </div>
       <div class="level-right">
         <div class="level-item">
-          <router-link :to="{ name: 'Lyfs/Crear' } " class=" button is-info is-rounded  ">
+          <router-link :to="{ name: 'Lyf/Create' } " class=" button is-info is-rounded  ">
             <fa-i icon='plus-circle' class="has-margin-r-2"></fa-i>Crear Lyf
           </router-link>
         </div>
