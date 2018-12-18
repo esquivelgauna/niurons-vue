@@ -419,7 +419,7 @@ exports.GetLyf = async (req, res) => {
     fullMessages: false
   }).then(
     async (success) => {
-      let progress = 16
+      // let progress = 16
       // console.log('Deleting extra ..');
       Mdl_Lyf_Create.GetGenerals(req.user.id, req.query.idLyf).then((generals) => {
         console.log(generals);
@@ -427,15 +427,17 @@ exports.GetLyf = async (req, res) => {
           console.log(questions);
           Mdl_Lyf_Create.GetImages(req.user.id, req.query.idLyf).then((images) => {
             console.log(images);
-            Mdl_Lyf_Create.GetPackages(req.user.id, req.query.idLyf).then(( lyfPackages ) => {
-              console.log( lyfPackages);
+            Mdl_Lyf_Create.GetPackages(req.user.id, req.query.idLyf).then((lyfPackages) => {
+              console.log(lyfPackages);
+              
               Mdl_Lyf_Create.GetExtras(req.user.id, req.query.idLyf).then((extras) => {
                 console.log(extras);
                 res.json({
                   status: true,
-                  progress: progress,
+                  progress: 88,
                   generals: generals,
                   questions: questions,
+                  images: images,
                   packages: lyfPackages,
                   extras: extras,
                 });
@@ -443,38 +445,37 @@ exports.GetLyf = async (req, res) => {
               }, (error) => {
                 res.json({
                   status: true,
-                  progress: progress,
+                  progress: 72,
                   generals: generals,
+                  questions: questions,
+                  images: images,
+                  packages: lyfPackages, 
                 });
               });
             }, (error) => {
               res.json({
                 status: true,
-                progress: progress,
+                progress: 56,
                 generals: generals,
+                questions: questions,
+                images: images, 
               });
             });
-
           }, (error) => {
             res.json({
               status: true,
-              progress: progress,
+              progress: 40,
               generals: generals,
+              questions: questions, 
             });
           });
-
-
         }, (error) => {
           res.json({
             status: true,
-            progress: progress,
+            progress: 24,
             generals: generals,
           });
         });
-
-
-
-
       }, (error) => {
 
         res.json({
@@ -482,13 +483,7 @@ exports.GetLyf = async (req, res) => {
           message: error,
         });
 
-      });
-
-      // res.json({
-      //   status: true,
-      //   lyf : lyf ,
-      //   message: success,
-      // });
+      }); 
 
 
 
