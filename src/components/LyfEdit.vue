@@ -1,7 +1,14 @@
 <template>
-  <div class="container ">
+  <div class="container animated fadeIn">
     <div class="columns is-mobile is-centered has-margin-y-4">
-      <div class="column is-8-desktop is-10-tablet is-11-mobile  is-rounded has-shadow has-padding-3   ">
+
+      <div class="column is-full has-text-centered animated fadeIn " :class=" { 'has-none ':Lyfprogress > 0   } ">
+        <h4 class="is-size-4 has-text-primary ">
+          <fa-i icon='circle-notch' class="fa-spin fa-5x "></fa-i>
+        </h4>
+      </div>
+
+      <div class="column is-8-desktop is-10-tablet is-11-mobile  is-rounded has-shadow has-padding-3 " :class=" { 'has-none ':Lyfprogress < 1   } ">
         <div>
           <div class=" relative ">
             <progress class="progress is-primary" :value="Lyfprogress" max="100" id="lyf-progress"> </progress>
@@ -42,8 +49,9 @@
           </ul>
 
         </div>
+
         <!-- Generals -->
-        <div :class=" { 'has-none ':Lyfprogress > 8 } " class=" animated fadeIn ">
+        <div :class=" { 'has-none ':Lyfprogress > 16 || Lyfprogress < 1 } " class=" animated fadeIn ">
           <h4 class="is-size-4 has-text-primary "> Datos generales del Lyf </h4>
           <div class="columns is-multiline is-mobile">
             <div class="column is-full ">
@@ -894,7 +902,7 @@
         errors: [],
         modalError: false,
         isLoading: false,
-        Lyfprogress: 8,
+        Lyfprogress: 0,
       }
     },
     components: {
@@ -1221,7 +1229,7 @@
             length: {
               minimum: 10,
               maximum: 200,
-              message: "Descripción: Mínimo 10 caracteres , máximo 5 "
+              message: "Descripción: Mínimo 10 caracteres , máximo 200 "
             }
           },
           cost: {
@@ -1560,23 +1568,52 @@
           console.log(response.body);
 
           if (response.body.status) {
-            if (response.body.progress >= 16 ) {
+            this.Lyfprogress = response.body.progress;
+            if (response.body.progress >= 24) {
               this.myLyf.generals = response.body.generals;
               this.categorie = this.myLyf.generals.categorie;
               this.subcategorie = this.myLyf.generals.subcat;
               this.myLyf.generals.tags = response.body.generals.tags.split(',');
             }
-            if (response.body.progress >= 32 ) {
-              this.myLyf.generals = response.body.generals;
+            if (response.body.progress >= 40) {
+              this.myLyf.questions = response.body.questions;
             }
-            if (response.body.progress >= 48 ) {
-              this.myLyf.generals = response.body.generals;
+            if (response.body.progress >= 56) {
+              for (let index in response.body.images) {
+                response.body.images[index].status = false;
+              }
+              this.myLyf.images.up = response.body.images;
             }
-            if (response.body.progress >= 54 ) {
-              this.myLyf.generals = response.body.generals;
+            // Packages
+            if (response.body.progress >= 72) {
+              for (let index in response.body.packages) {
+                switch (response.body.packages[index].type) {
+                  case 1:
+                    this.myLyf.packages.type = 1;
+                    this.myLyf.packages.basic.condition = true;
+                    this.myLyf.packages.basic.package = response.body.packages[index];
+                    this.myLyf.packages.list.push('basic');
+                    break;
+                  case 2:
+                    this.myLyf.packages.type = 2;
+                    this.myLyf.packages.standard.condition = true;
+                    this.myLyf.packages.standard.package = response.body.packages[index];
+                    this.myLyf.packages.list.push('standard');
+                    break;
+                  case 3:
+                    this.myLyf.packages.type = 3;
+                    this.myLyf.packages.premium.condition = true;
+                    this.myLyf.packages.premium.package = response.body.packages[index];
+                    this.myLyf.packages.list.push('premium');
+                    break;
+                }
+              }
+
+              // this.myLyf.images = response.body.generals;
             }
-            if (response.body.progress >= 70 ) {
-              this.myLyf.generals = response.body.generals;
+            // extras
+            if (response.body.progress >= 75) {
+              this.myLyf.extras = response.body.extras;
             }
 
             console.log();

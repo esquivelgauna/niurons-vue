@@ -120,9 +120,6 @@ exports.searchLyfsCategories = async (idLyf, data) => {
   });
 }
 
-
-
-
 exports.getTopLyfs = (idUser) => {
   return new Promise((resolve, reject) => {
     mysql.native_query({
@@ -195,4 +192,136 @@ exports.getLyfs = async (idUser, lastIdLyf) => {
     }
 
   });
+}
+
+
+// GET LYF
+exports.GetLyf = async (idLyf) => {
+  return new Promise(async (resolve, reject) => {
+    let Lyf = {};
+    Lyf.generals = await this.GetGenerals(idLyf).then(generals => {
+      return generals
+    }).catch()
+
+    
+    resolve(Lyf)
+  })
+}
+
+exports.GetGenerals = async (idLyf) => {
+  return new Promise((resolve, reject) => {
+    mysql.select({
+      table: 'v_lyf_complete',
+      conditions: {
+        id: idLyf,
+      },
+      limit: 1,
+      show_query: true,
+    }, (err, result) => {
+      if (err) reject('Lyf no encontrado');
+      resolve(result[0])
+    });
+  })
+}
+
+exports.GetQuestions = async (idLyf) => {
+  return new Promise((resolve, reject) => {
+    mysql.select({
+      table: 'v_lyf_faqs',
+      conditions: {
+        id_lyf: idLyf,
+      },
+      limit: 5,
+      show_query: true,
+    }, (err, result) => {
+      if (err) reject('Error en las preguntas');
+      console.log(result);
+      if (result) {
+        if (result.length > 0) {
+          resolve(result)
+        } else {
+          reject('Lyf sin pregutnas');
+        }
+      } else {
+        reject('Lyf sin pregutnas');
+      }
+
+
+    });
+  })
+}
+
+exports.GetImages = async (idLyf) => {
+  return new Promise((resolve, reject) => {
+    mysql.select({
+      table: 'v_lyf_images',
+      conditions: {
+        id_lyf: idLyf,
+      },
+      show_query: true,
+    }, (err, result) => {
+      if (err) reject('Lyf no encontrado');
+      if (result) {
+        if (result.length > 0) {
+          resolve(result)
+        } else {
+          reject('Lyf sin imagenes ');
+        }
+
+      } else {
+        reject('Lyf sin imagenes ');
+      }
+    });
+  })
+}
+
+
+exports.GetPackages = async (idLyf) => {
+  return new Promise((resolve, reject) => {
+    mysql.select({
+      table: 'v_lyf_packages',
+      conditions: {
+        id_lyf: idLyf,
+      },
+      limit: 3,
+      show_query: true,
+    }, (err, result) => {
+      if (err) reject('Lyf no encontrado');
+      // console.log();
+      if (result) {
+        if (result.length > 0) {
+          resolve(result)
+        } else {
+          reject('Lyf sin paquetes');
+        }
+      } else {
+        reject('Lyf sin paquetes');
+      }
+    });
+  })
+}
+
+
+exports.GetExtras = async (idLyf) => {
+  return new Promise((resolve, reject) => {
+    mysql.select({
+      table: 'v_lyf_extras',
+      conditions: {
+        id_lyf: idLyf,
+      },
+      limit: 5,
+      show_query: true,
+    }, (err, result) => {
+      if (result) {
+        if (result.length > 0) {
+          resolve(result)
+        } else {
+          reject('Lyf sin extras');
+        }
+      } else {
+        reject('Lyf sin extras');
+      }
+
+    });
+  })
 }

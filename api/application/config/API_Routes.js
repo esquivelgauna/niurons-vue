@@ -5,12 +5,15 @@ const Lyfs = require('../controllers/Ctr_Lyfs')
 const Profile = require('../controllers/Ctr_Profile')
 const router = express.Router()
 //////////////////*/*/**/ *////// GET //////////////////*/*/**/ */
-router.get('/', landing.Landing)
-router.get('/Categories', landing.Categories)
-router.get('/Lyfs/Categorie', Lyfs.LyfsCategorie)
-router.get('/Lyfs/Search/Categories', Lyfs.LyfSearchCategories)
-router.get('/Profile', Profile.GetProfile )
+router.get('/', landing.Landing);
+router.get('/Categories', landing.Categories);
+router.get('/Lyfs/Categorie', Lyfs.LyfsCategorie);
+router.get('/Lyfs/Search/Categories', Lyfs.LyfSearchCategories);
+router.get('/Profile', Profile.GetProfile );
 
+router.get('/Lyf', Lyfs.GetLyf );
+router.get('/User/Id', Profile.GetUser );
+router.get('/User/Nickname', Profile.GetUser );
 
 
 router.post('/Login', Login.Login)

@@ -6,7 +6,9 @@
 
     <div class="column ">
       <div class="columns ">
+
         <div class="column is-4 ">
+
           <div class="level is-marginless">
             <div class="level-item">
               <img :src=" $host + Profile.imagen_perfil" alt="" class=" img-150 is-circle niu-profile-image has-border ">
@@ -115,24 +117,7 @@
         condition: false,
       }
     },
-    methods: {
-      getProfile: function () {
-        this.$http.get('Profile', {
-          params: {
-            nickanme: this.$route.params.nickname
-          }
-        }).then(response => {
-          console.log('Profile:', response.body.profile);
-          if (response.body.profile) {
-            this.Profile = response.body.profile;
-          }
-
-
-        }, response => {
-          console.log('Error:', response);
-        });
-      },
-    },
+    
     beforeMount() {
       this.getProfile();
     },

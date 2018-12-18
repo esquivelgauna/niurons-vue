@@ -101,24 +101,42 @@ exports.SaveQuestion = async (idLyf, question) => {
 }
 
 
-exports.SaveImage = async (idLyf, img) => {
-  return new Promise((resolve, reject) => {
+exports.SaveImage = async (idLyf, img, cover) => {
+  return new Promise(async (resolve, reject) => {
     mysql.insert({
       table: 't_dat_lyf_galeria',
       details: {
         f_id_lyf: idLyf,
         url_img: img,
+        bool_cover: cover,
       },
-      show_query: true,
+      show_query: false,
     }, (err, result, inserted_id) => {
       if (err) console.error('Error , Save Image');
-      console.log(' Save Image', inserted_id);
+      // console.log(' Save Image', inserted_id);
       resolve({
         id: inserted_id,
         url: img,
         status: false,
       })
     });
+  })
+}
+
+exports.GetRowsImages = async (idLyf) => {
+  return new Promise((resolve, reject) => {
+    mysql.native_query({
+        query: `SELECT COUNT(*) FROM t_dat_lyf_galeria WHERE f_id_lyf = ${idLyf} AND bool_cover = 1 `
+      },
+      (err, result) => {
+        console.log('GetRowsImages ', result)
+        if (err) reject('Error , Geting Image');
+        if (result[0]['COUNT(*)'] > 0) {
+          resolve(true);
+        } else {
+          reject(false);
+        }
+      });
   })
 }
 
@@ -134,7 +152,7 @@ exports.GetImage = async (idLyf, idImage) => {
       show_query: true,
     }, (err, result) => {
       if (err) console.error('Error , Geting Image');
-      console.log(' Get Image', result[0]);
+      // console.log(' Get Image', result[0]);
       resolve(result[0])
     });
   })
@@ -151,6 +169,9 @@ exports.DeleteImage = async (idLyf, idImage) => {
   }, (err, result) => {
     if (err) console.error('Error , Delete Image ');
     console.log(' DeleteImage');
+    this.GetRowsImages(idLyf).then((succes) => {}, (error) => {
+      this.PauseLyf(idLyf)
+    })
   });
 }
 
@@ -326,7 +347,7 @@ exports.PauseLyf = (idLyf) => {
 
 // Get ALL LYF
 exports.GetGenerals = async (idUser, idLyf) => {
-  return new Promise((resolve, reject) => { 
+  return new Promise((resolve, reject) => {
     mysql.select({
       table: 'v_lyf_complete',
       conditions: {
@@ -338,6 +359,108 @@ exports.GetGenerals = async (idUser, idLyf) => {
     }, (err, result) => {
       if (err) reject('Lyf no encontrado');
       resolve(result[0])
+    });
+  })
+}
+
+exports.GetQuestions = async (idLyf) => {
+  return new Promise((resolve, reject) => {
+    mysql.select({
+      table: 'v_lyf_faqs',
+      conditions: {
+        id_lyf: idLyf,
+      },
+      limit: 5,
+      show_query: true,
+    }, (err, result) => {
+      if (err) reject('Error en las preguntas');
+      console.log(result);
+      if (result) {
+        if (result.length > 0) {
+          resolve(result)
+        } else {
+          reject('Lyf sin pregutnas');
+        }
+      } else {
+        reject('Lyf sin pregutnas');
+      }
+
+
+    });
+  })
+}
+
+exports.GetImages = async (idLyf) => {
+  return new Promise((resolve, reject) => {
+    mysql.select({
+      table: 'v_lyf_images',
+      conditions: {
+        id_lyf: idLyf,
+      },
+      show_query: true,
+    }, (err, result) => {
+      if (err) reject('Lyf no encontrado');
+      if (result) {
+        if (result.length > 0) {
+          resolve(result)
+        } else {
+          reject('Lyf sin imagenes ');
+        }
+
+      } else {
+        reject('Lyf sin imagenes ');
+      }
+    });
+  })
+}
+
+
+exports.GetPackages = async (idLyf) => {
+  return new Promise((resolve, reject) => {
+    mysql.select({
+      table: 'v_lyf_packages',
+      conditions: {
+        id_lyf: idLyf,
+      },
+      limit: 3,
+      show_query: true,
+    }, (err, result) => {
+      if (err) reject('Lyf no encontrado');
+      // console.log();
+      if (result) {
+        if (result.length > 0) {
+          resolve(result)
+        } else {
+          reject('Lyf sin paquetes');
+        }
+      } else {
+        reject('Lyf sin paquetes');
+      }
+    });
+  })
+}
+
+
+exports.GetExtras = async (idLyf) => {
+  return new Promise((resolve, reject) => {
+    mysql.select({
+      table: 'v_lyf_extras',
+      conditions: {
+        id_lyf: idLyf,
+      },
+      limit: 5,
+      show_query: true,
+    }, (err, result) => {
+      if (result) {
+        if (result.length > 0) {
+          resolve(result)
+        } else {
+          reject('Lyf sin extras');
+        }
+      } else {
+        reject('Lyf sin extras');
+      }
+
     });
   })
 }

@@ -79,9 +79,6 @@ exports.LyfSearchCategories = async (req, res) => {
 
 
 }
-
-
-
 exports.ProfileLyfs = async (req, res) => {
   console.log(' profile- Buscando Lyfs..');
 
@@ -96,3 +93,50 @@ exports.ProfileLyfs = async (req, res) => {
     lyfs
   });
 }
+ 
+
+exports.GetLyf = async (req, res) => {
+  console.log(' LYF - Buscando Lyf.....');
+  console.log(req.query);
+  let constraints = {
+    idLyf: {
+      presence: {
+        message: "Falta el id del Lyf "
+      },
+    },
+  };
+
+  validate.async(req.query, constraints, {
+    fullMessages: false
+  }).then(
+    async (success) => {
+
+      console.log('Geting LYF ....' , req.query.idLyf );
+      await Mdl_Lyfs.GetLyf(req.query.idLyf ).then(( lyf ) => {
+
+        res.json({
+          status: true,
+          lyf: lyf ,
+        });
+
+      }, (error) => {
+
+        res.json({
+          status: false,
+          message: 'Lyf no ecnontrado',
+        });
+
+      });
+
+    }, (errors) => {
+      console.error(errors);
+      res.json({
+        status: false,
+        message: errors
+      })
+    }
+  );
+
+}
+
+

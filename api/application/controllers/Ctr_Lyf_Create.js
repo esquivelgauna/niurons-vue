@@ -422,19 +422,19 @@ exports.GetLyf = async (req, res) => {
       // let progress = 16
       // console.log('Deleting extra ..');
       Mdl_Lyf_Create.GetGenerals(req.user.id, req.query.idLyf).then((generals) => {
-        console.log(generals);
-        Mdl_Lyf_Create.GetQuestions(req.user.id, req.query.idLyf).then((questions) => {
-          console.log(questions);
-          Mdl_Lyf_Create.GetImages(req.user.id, req.query.idLyf).then((images) => {
+        // console.log(generals);
+        Mdl_Lyf_Create.GetQuestions(req.query.idLyf).then((questions) => {
+          // console.log(questions);
+          Mdl_Lyf_Create.GetImages(req.query.idLyf).then((images) => {
             console.log(images);
-            Mdl_Lyf_Create.GetPackages(req.user.id, req.query.idLyf).then((lyfPackages) => {
+            Mdl_Lyf_Create.GetPackages(req.query.idLyf).then((lyfPackages) => {
               console.log(lyfPackages);
-              
-              Mdl_Lyf_Create.GetExtras(req.user.id, req.query.idLyf).then((extras) => {
+
+              Mdl_Lyf_Create.GetExtras(req.query.idLyf).then((extras) => {
                 console.log(extras);
                 res.json({
                   status: true,
-                  progress: 88,
+                  progress: 75,
                   generals: generals,
                   questions: questions,
                   images: images,
@@ -449,7 +449,7 @@ exports.GetLyf = async (req, res) => {
                   generals: generals,
                   questions: questions,
                   images: images,
-                  packages: lyfPackages, 
+                  packages: lyfPackages,
                 });
               });
             }, (error) => {
@@ -458,18 +458,21 @@ exports.GetLyf = async (req, res) => {
                 progress: 56,
                 generals: generals,
                 questions: questions,
-                images: images, 
+                images: images,
               });
             });
           }, (error) => {
+            console.log(error);
             res.json({
               status: true,
               progress: 40,
               generals: generals,
-              questions: questions, 
+              questions: questions,
             });
           });
         }, (error) => {
+          console.log(error);
+
           res.json({
             status: true,
             progress: 24,
@@ -477,16 +480,13 @@ exports.GetLyf = async (req, res) => {
           });
         });
       }, (error) => {
+        console.log(error);
 
         res.json({
           status: false,
           message: error,
         });
-
-      }); 
-
-
-
+      });
     }, (errors) => {
       console.error(errors);
       res.json({
@@ -497,12 +497,6 @@ exports.GetLyf = async (req, res) => {
   );
 
 }
-
-
-
-
-
-
 
 
 exports.CheckPackage = (pack) => {
@@ -639,28 +633,30 @@ exports.MoveImages = async (idLyf, tempPath, imgListTemp) => {
 
   let imgList = [];
   //Read aaray images
+  var firstimage;
+  await Mdl_Lyf_Create.GetRowsImages(idLyf).then().catch((noRows) => {
+    firstimage = true
+  })
   for (let index in imgListTemp) {
-
-
+    // console.log(index);
     //Set name image
     let nameImage = 'lyf-' + idLyf + '-' + uuid.v1() + '.png';
-
     //Resise image max 1000 X 1000
-
     await sharp(imgListTemp[index]).resize(1000, 1000).max().toFile(lyfPath + '/' + nameImage).then(async (Image) => {
       // console.log(Image)
       // Do Thumb 200 X 200
       await sharp(lyfPath + '/' + nameImage).resize(200, 200).max().toFile(pathImagesThumb + '/' + nameImage).then(async (Image) => {
-        console.log(' Do Thumb ');
-        imgList.push(await Mdl_Lyf_Create.SaveImage(idLyf, nameImage));
+        // console.log(' Do Thumb ');
+        if (firstimage && index == 0) {
+          imgList.push(await Mdl_Lyf_Create.SaveImage(idLyf, nameImage, 1));
+        } else {
+          imgList.push(await Mdl_Lyf_Create.SaveImage(idLyf, nameImage, 0));
+        }
       });
-      console.log('Imagen redimensionada');
+      // console.log('Imagen redimensionada');
     });
-
     // Delete Temp images
     await fs.unlinkSync(imgListTemp[index]);
-
-
   }
   return imgList;
 
@@ -695,9 +691,9 @@ exports.DeleteImage = async (req, res) => {
         // console.log('Deleting image:', Image);
         // console.log(pathImages + '/' + Image['url_img'])
         // Delete Image 
-        await fs.unlinkSync(path.join(pathImages, `lyf-${req.body.idLyf}`, Image['url_img']));
+        fs.unlinkSync(path.join(pathImages, `lyf-${req.body.idLyf}`, Image['url_img']));
         // Delete Thumb
-        await fs.unlinkSync(pathImagesThumb + '/' + Image['url_img']);
+        fs.unlinkSync(pathImagesThumb + '/' + Image['url_img']);
         res.json({
           status: true,
           message: 'Imagen eliminada con exito',
