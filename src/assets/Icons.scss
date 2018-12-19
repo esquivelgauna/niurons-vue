@@ -17,6 +17,7 @@
 .niu-xxs {
 	zoom: .1 !important;
 }
+
 .niu-bg-white {
 	background-color: white;
 	border-radius: 50%;
@@ -41,6 +42,9 @@
 @media (max-width: 575px) {
 	.niu-icon {
 		zoom: .6;
+	}
+	.niu-xxs-mobile {
+		zoom: .1 !important;
 	}
 }
 

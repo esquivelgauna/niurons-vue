@@ -1,88 +1,104 @@
 .img-300 {
-    max-height: 300px !important;
-    width: 100%;
-    object-position: center;
-    object-fit: cover;
+  max-height: 300px !important;
+  width: 100%;
+  object-position: center;
+  object-fit: cover;
 }
+
 .img-200 {
-    max-height: 200px !important;
-    width: 100%;
-    object-position: center;
-    object-fit: cover;
+  height: 200px !important;
+  width: 100%;
+  object-position: center;
+  object-fit: cover;
 }
+
+.img-w-200 {
+  height: 200px !important;
+  width: 100%;
+  background-repeat: no-repeat;
+  object-position: center;
+  object-fit: cover;
+}
+
 .img-150 {
-    max-height: 150px !important;
-    width: 150px !important; 
-    object-position: center;
-    object-fit: cover;
+  max-height: 150px !important;
+  width: 150px !important;
+  object-position: center;
+  object-fit: cover;
 }
 
 .img-w-100 {
-    height: 100px !important;
-    width: 100% !important;
-    object-position: center;
-    object-fit: cover;
+  height: 100px !important;
+  width: 100% !important;
+  object-position: center;
+  object-fit: cover;
 }
 
 .img-100 {
-    height: 100px !important;
-    width: 100px !important;
-    object-position: center;
-    object-fit: cover;
+  height: 100px !important;
+  width: 100px !important;
+  object-position: center;
+  object-fit: cover;
 }
 
 .img-50 {
-    height: 50px !important;
-    // width: 100%;
-    object-position: center;
-    object-fit: cover;
+  height: 50px !important;
+  // width: 100%;
+  object-position: center;
+  object-fit: cover;
 }
+
 .img-40 {
-    width: 40px !important;
-    height: 40px !important;
-    object-position: center;
-    object-fit: cover;
+  width: 40px !important;
+  height: 40px !important;
+  object-position: center;
+  object-fit: cover;
 }
 
 .img-25 {
-    width: 25px !important;
-    height: 25px !important;
-    object-position: center;
-    object-fit: cover;
+  width: 25px !important;
+  height: 25px !important;
+  object-position: center;
+  object-fit: cover;
 }
+
 .img-20 {
-    width: 20px !important;
-    height: 20px !important;
-    object-position: center;
-    object-fit: cover;
+  width: 20px !important;
+  height: 20px !important;
+  object-position: center;
+  object-fit: cover;
 }
+
 .img-10 {
-    width: 10px !important;
-    height: 10px !important;
-    object-position: center;
-    object-fit: cover;
+  width: 10px !important;
+  height: 10px !important;
+  object-position: center;
+  object-fit: cover;
 }
+
 .img-2x {
-    width:  100% !important;
-    height: 3rem !important;
-    object-position: center;
-    object-fit: contain;
+  width: 100% !important;
+  height: 3rem !important;
+  object-position: center;
+  object-fit: contain;
 }
+
 .img-xl {
-    width:  100% !important;
-    height: 60vh !important;
-    object-position: center;
-    object-fit: contain;
+  width: 100% !important;
+  height: 60vh !important;
+  object-position: center;
+  object-fit: contain;
 }
 
 .img-h {
-    max-height: 100% !important;
-    object-position: center;
-    object-fit: cover;
+  max-height: 100% !important;
+  object-position: center;
+  object-fit: cover;
 }
-.is-img-150{
-    width: 150px;
-    height: 150px;
-    object-position: center;
-    object-fit: cover;
+
+.is-img-150 {
+  width: 150px;
+  height: 150px;
+  object-position: center;
+  object-fit: cover;
 }

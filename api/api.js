@@ -18,7 +18,6 @@ const API_User = require('./application/config/API_User');
 app.use(express.json()); // to support JSON-encoded bodies
 app.use(morgan('dev'));
 app.use((req, res, next) => {
-
   res.append('Access-Control-Allow-Origin', '*');
   res.append('Access-Control-Allow-Methods', '*');
   res.append('Access-Control-Allow-Headers', 'Content-Type, authorization');

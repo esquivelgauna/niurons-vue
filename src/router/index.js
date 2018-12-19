@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Resource from 'vue-resource' 
+import Resource from 'vue-resource'
 
 import Profile from '@/components/Profile'
 import Configuration from '@/components/Configuration'
@@ -32,6 +32,9 @@ import Sale from '@/components/Sale'
 import Finances from '@/components/Finances'
 //Trabajos
 import Works from '@/components/Works'
+import {
+  LyfSearchCategories
+} from '../../api/application/controllers/Ctr_Lyfs';
 
 Vue.use(Resource)
 Vue.use(Router)
@@ -46,12 +49,18 @@ export default new Router({
     {
       path: '/Categorias/',
       name: 'Categories',
-      component: Categories
+      component: LyfSearchCategories
     },
     {
       path: '/Categorias/:cat',
       name: 'Categorie',
-      component: Categorie
+      component: Categorie,
+      // children: [{
+      //   path: '/:subCat',
+      //   name: 'SubCategorie',
+      //   component: SubCategorie
+      // }, ]
+
     },
     {
       path: '/Categorias/:cat/:subCat',
@@ -74,7 +83,7 @@ export default new Router({
       component: Search
     },
 
-    
+
     {
       path: '/Perfil/',
       name: 'Profile',

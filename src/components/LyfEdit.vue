@@ -838,10 +838,7 @@
   </div>
 </template>
 <script>
-  import modal_error from '@/components/modals/modal_lyf_error.vue'
-  import {
-    error
-  } from 'util';
+  import modal_error from '@/components/modals/modal_lyf_error.vue' 
   export default {
     data() {
       return {

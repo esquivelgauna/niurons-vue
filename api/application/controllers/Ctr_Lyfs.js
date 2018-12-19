@@ -79,6 +79,78 @@ exports.LyfSearchCategories = async (req, res) => {
 
 
 }
+exports.LyfSearchSubcategories = async (req, res) => {
+  console.log(' Lyf Searching Subcategories ..');
+  console.log(req.query.search);
+  let constraints = {
+    idSubcat: {
+      presence: {
+        message: "ID: Recurda agregar el ID "
+      }
+    },
+    min: {
+      presence: {
+        message: "Costo mínimo : Recurda agregar el precio "
+      },
+      numericality: {
+        greaterThanOrEqualTo: 5,
+        lessThanOrEqualTo: 200,
+        notLessThanOrEqualTo: "Costo mínimo: Máximo $200 ",
+        notGreaterThanOrEqualTo: "Costo mínimo: Mínimo $5 ",
+      }
+    },
+    min: {
+      presence: {
+        message: "Costo maximo : Recurda agregar el precio "
+      },
+      numericality: {
+        greaterThanOrEqualTo: 5,
+        lessThanOrEqualTo: 20,
+        notLessThanOrEqualTo: "Costo maximo: Máximo $200 ",
+        notGreaterThanOrEqualTo: "Costo maximo: Mínimo $5 ",
+      }
+    },
+    time: {
+      presence: {
+        message: "Entrega: Recuerda agregar el tiempo de entrega "
+      },
+      numericality: {
+        greaterThanOrEqualTo: 1,
+        lessThanOrEqualTo: 30,
+        notLessThanOrEqualTo: "Entrega: Máximo 30 días ",
+        notGreaterThanOrEqualTo: "Entrega: Mínimo  1 día ",
+      }
+    },
+    order: {
+      presence: {
+        message: "Subtitulo: Recuerda agregar el titulo "
+      },
+      inclusion: {
+        within: {
+          "top": "top",
+          "best": "best",
+        },
+        message: "^Orden no soportado:  %{value}"
+      }
+    },
+
+  };
+  validate.async(req.query.search, constraints).then(async (success) => {
+    // let lyfs = await Mdl_Lyfs.searchLyfsCategories(null, req.query.data);
+    res.json({
+      status: true,
+      message: success
+    })
+  }, (error) => {
+    res.json({
+      status: false,
+      message: errors
+    })
+  });
+}
+
+
+
 exports.ProfileLyfs = async (req, res) => {
   console.log(' profile- Buscando Lyfs..');
 
@@ -93,7 +165,7 @@ exports.ProfileLyfs = async (req, res) => {
     lyfs
   });
 }
- 
+
 
 exports.GetLyf = async (req, res) => {
   console.log(' LYF - Buscando Lyf.....');
@@ -111,12 +183,12 @@ exports.GetLyf = async (req, res) => {
   }).then(
     async (success) => {
 
-      console.log('Geting LYF ....' , req.query.idLyf );
-      await Mdl_Lyfs.GetLyf(req.query.idLyf ).then(( lyf ) => {
+      console.log('Geting LYF ....', req.query.idLyf);
+      await Mdl_Lyfs.GetLyf(req.query.idLyf).then((lyf) => {
 
         res.json({
           status: true,
-          lyf: lyf ,
+          lyf: lyf,
         });
 
       }, (error) => {
@@ -138,5 +210,3 @@ exports.GetLyf = async (req, res) => {
   );
 
 }
-
-
