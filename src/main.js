@@ -14,6 +14,7 @@ library.add(fas);
 Vue.component('fa-i', FontAwesomeIcon);
 Vue.use(Buefy, {  defaultIconPack: 'fas'} ); 
 
+Vue.prototype.$host = 'http://localhost:3000';
 Vue.http.options.root = 'http://localhost:3000/api/' ;
 Vue.config.productionTip = false;
 Vue.http.options.credentials = false;
@@ -27,8 +28,8 @@ Vue.http.interceptors.push(function(request  , next ) {
   }
   // next();
 });
-Vue.prototype.$host = 'http://localhost:3000';
-/* eslint-disable */ 
+
+//  
 new Vue({
   el: '#app',
   router,

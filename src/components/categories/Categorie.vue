@@ -1,99 +1,71 @@
 <template>
-  <div class="container ">
-    <div class="column is-full ">
-      <h3> Categoria: {{ $route.params.alias }} </h3>
-      <p>
-        <strong>Descripcion: </strong>
-        Lorem ipsum dolor sit amet,
-        consectetur adipisicing elit. Aspernatur, amet ex! Quos perspiciatis
-        inventore nisi. Ipsum deleniti sint doloribus obcaecati, fugiat nulla
-        minima reprehenderit quidem incidunt! Illo in molestias iure.
-      </p>
-
+  <div class=" container is-widescreen-mobile ">
+    <div class=" has-text-centered has-text-white has-background-primary " v-bind:style="{ 'background-image': 'url(' + $host + '/imgcat/'+ categorie+'/banner.png' + ')' }"
+      id="categorie-image">
+      <h3 class=" is-size-3 "> Categoría: {{ alias }} </h3>
     </div>
+    <!-- <img :src="  " alt=""> -->
 
-    <div class="column ">
+    <hr class=" has-margin-y-2 ">
+    <div class="columns is-mobile ">
+      <div class="column is-4  is-3-tablet is-3-desktop ">
+        <ul v-for=" (cat, index ) in orderCats " :key="index" class="columns is-multiline">
+          <li class=" column is-full">
+            <a class=" has-text-primary is-text   is-fullwidth is-outlined " @click=" ChangeCat( cat.id ) ">
+              <div class="level">
+                <div class="level-left">
 
-      <hr class=" ">
-      <div class="columns ">
-        <div class="column is-4  is-3-tablet is-3-desktop ">
-          <div class="field">
-            <label class=" is-size-3 " for="cat_search"><strong> Busqueda </strong> </label>
-            <div class="control">
-              <input class="input" type="text" placeholder="¿ Qué buscas ?" id="cat_search">
-            </div>
-          </div>
+                  <div class="level-item">
+                    <i :class=" ' niu-xs niu-icon service_' + cat.url "></i>
+                  </div>
 
-          <div class="field is-horizontal">
-            <div class="field-label is-normal">
-              <label class="label">Min</label>
-            </div>
-            <div class="field-body">
-              <div class="field">
-                <p class="control">
-                  <input class="input" type="number" placeholder="0">
-                </p>
+                  <div class="level-item">
+                    <h5 class=" is-size-5 "> {{ cat.alias }} </h5>
+                  </div>
+
+                </div>
+
+                <div class="level-rigth ">
+                  <div class="level-item">
+                    <button class=" button is-small is-primary is-rounded "> <fa-i icon='caret-down' :class=" { 'caret-down':selectCat != cat.id  }  " > </fa-i></button>
+                    
+                  </div>
+                </div>
+
+              </div>
+            </a>
+
+            <hr class="has-margin-y-1">
+            <div class="columns columns is-multiline " :class=" { 'has-none':selectCat != cat.id } ">
+              <div class="column is-full animated flipInX " v-for=" (subcat,index) in cat.subCats" :key="index">
+                {{ subcat.alias }}
+
               </div>
             </div>
-          </div>
 
-          <div class="field is-horizontal">
-            <div class="field-label is-normal">
-              <label class="label">Max</label>
-            </div>
-            <div class="field-body">
-              <div class="field">
-                <p class="control">
-                  <input class="input" type="number" placeholder="999">
-                </p>
+          </li>
+        </ul>
+      </div>
+      <div class="column is-8">
+        <h3 class=" is-size-3 "> Subcategorías </h3>
+
+        <div class="columns is-multiline is-variable is-2 ">
+          <div class="column is-narrow is-6-tablet is-4-desktop is-12-mobile has-text-centered  " v-for=" (subcat,index) in orderedSubCat "
+            :key=" index ">
+            <!-- {{ subcat }} -->
+            <div class=" has-text-centered  subcat-name ">
+              <img :src=" $host + '/imgcat/'+ categorie+'/' + subcat.url +'.png'  " alt="">
+              <div class="container has-padding-x-2">
+                <h4 class="is-size-6 has-text-white "> {{ subcat.alias }} </h4>
               </div>
-            </div>
-          </div>
 
-          <h4 class="  is-size-4 "> Subcategorías </h4>
-          <section class=" column ">
-            <div v-for=" subCat in orderedSubCat  " :key=" subCat.url ">
-              <b-checkbox :native-value="subCat.url " v-model="checkboxGroup">
-                {{subCat.alias}}
-              </b-checkbox>
             </div>
 
-            <p class="content">
-              <b>Selection:</b>
-              {{ checkboxGroup }}
-            </p>
-          </section>
-
-          <div class="field is-grouped">
-            <div class="control">
-              <button class="button is-text is-hidden" @click=" checkboxGroup =[]">Limpiar</button>
-            </div>
-            <div class="control">
-              <button class="button is-success" @click=" SearchLyfs() " >Buscar</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="column is-6  is-9-tablet is-9-desktop " v-if=" condition ">
-          <h3 class=" is-size-3 ">Lifs </h3>
-          <div class="columns is-multiline ">
-            <div class="column is-3 has-shadow " v-for=" Lyf in Lyfs " :key=" Lyf.idLyf ">
-              <niu-lyf v-bind:Lyf="Lyf">
-              </niu-lyf>
-            </div>
-
-          </div>
-
-        </div>
-        <div v-else>
-          <div v-if=" condition == false && noLyfs == true ">
-            <h3>No se encontraron Lyfs , crea uno Pulsando aqui </h3>
-          </div>
-          <div v-else>
-            Cargando.....
           </div>
         </div>
       </div>
+
+
     </div>
   </div>
 </template>
@@ -107,6 +79,9 @@
     },
     data() {
       return {
+        selectCat: 0,
+        categorie: null,
+        alias: null,
         Data: {},
         Lyfs: [],
         noLyfs: false,
@@ -123,13 +98,22 @@
           //   console.log(this.$route.params);
           // console.log(this.$parent.categories[index]['url'])
           if (this.$route.params.cat == this.$parent.categories[index]['url']) {
-            // console.log( this.$parent.categories[index] );
+            console.log(this.$parent.categories[index]);
+            this.alias = this.$parent.categories[index].alias;
+            this.categorie = this.$parent.categories[index].url;
             this.idCat = this.$parent.categories[index]['id']
             this.subCategories = this.$parent.categories[index]['subCats'];
             break;
           }
         }
-        this.GetLyfs();
+      },
+      ChangeCat: function ( idCat ) {
+        if( this.selectCat == idCat ){
+          this.selectCat = 0 ; 
+        }else{
+          this.selectCat = idCat ; 
+        }
+        
       },
       GetLyfs: function () {
         this.$http.get('Lyfs/Categorie', {
@@ -172,25 +156,18 @@
     computed: {
       orderedSubCat: function () {
         return _.sortBy(this.subCategories, 'alias');
+      },
+      orderCats: function () {
+        return _.sortBy(this.$parent.categories, 'alias');
       }
     },
-    beforeMount() {
-      this.GetSubCategories();
-
-    },
     mounted() {
-      this.GetLyfs();
+      this.GetSubCategories();
+      // this.GetLyfs();
     },
     watch: {
       '$route'(to, from) {
-        this.Lyfs = [];
-        this.condition = false;
-        this.noLyfs = false;
-        // this.Data.Lyfs = [];
         this.GetSubCategories();
-
-        console.log(this.$route.params);
-
       }
     }
 
@@ -200,6 +177,22 @@
 </script>
 
 <style>
- 
+  #categorie-image {
+    /* background-color: white; */
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .subcat-name {
+    position: relative;
+  }
+
+  .subcat-name>.container {
+    position: absolute;
+    bottom: 50px;
+    width: 100%;
+  }
 
 </style>

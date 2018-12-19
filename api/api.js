@@ -45,10 +45,15 @@ io.sockets.on('connection', (socket) => {
 });
 
 //Public 
+app.use('/imgcat', express.static(path.join(__dirname, 'public/img/categorias')));
 app.use('/thumbs', express.static(path.join(__dirname, 'uploads/img/thumbs')));
+
 app.use('/static', express.static(path.join(__dirname, '../dist/static')));
 app.use('/assets', express.static(path.join(__dirname, '../src/assets')));
 app.use('/imgLyf', express.static(path.join(__dirname, '../src/assets/img/uploads/imglyf')));
+
+
+
 
 app.set('views', path.join(__dirname, 'application/views'));
 app.set('view engine', 'ejs');
@@ -68,7 +73,7 @@ app.use('/api/user', jwt({
 }), API_User);
 
 app.use((req, res, next) => {
-    res.sendFile(mipa);
+  res.sendFile(mipa);
 });
 
 server.listen(process.env.api_port, function (err) {

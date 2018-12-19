@@ -115,6 +115,11 @@ export default new Router({
       name: 'Lyf/View',
       component: LyfView
     },
+    {
+      path: '/Lyfs/Comprar/:id',
+      name: 'Lyf/Buy',
+      component: LyfView
+    },
 
     {
       path: '/Lyfs/Crear/',

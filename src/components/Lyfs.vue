@@ -52,7 +52,7 @@
         <template slot-scope="props">
 
           <b-table-column field="img" label=" ">
-            <img :src=" $host + '/assets/img/uploads/imglyf/thumb/' + props.row.img " alt="" class="img-25">
+            <img :src=" $host + '/thumbs/' + props.row.img " alt="" class="img-25">
 
           </b-table-column>
 

@@ -3,12 +3,17 @@
 
     <div class="level">
       <div class="level-item">
-        <img :src=" $host + '/assets/img/uploads/imglyf/thumb/'  + Lyf.img " alt="" class=" img-w-100 ">
+        <router-link :to="{ name: 'Lyf/Buy', params: { id: Lyf.id }}" class=" has-text-grey is-text  ">
+          <div v-if="Lyf.img != ''">
+            <img :src=" $host + '/thumbs/'  + Lyf.img " alt="" class=" img-w-100 ">
+          </div>
+          <div v-else >
+            <img :src=" $host + '/thumbs/default.png' " alt="" class=" img-w-100 ">
+          </div>
+        </router-link>
       </div>
     </div>
-
     <router-link :to="{ name: 'ProfileUser', params: { nickname: Lyf.nickname }}" class=" has-text-grey is-text  ">
-
       <div class="level">
         <div class="level-left">
           <div class="level-item">
@@ -24,7 +29,6 @@
       </div>
 
     </router-link>
-
     <p>
       {{Lyf.title }}
     </p>
@@ -44,7 +48,7 @@
       </div>
       <div class="level-rigth">
         <div class="level-item">
-         Comprar $ {{ Lyf.cost }}
+          Comprar $ {{ Lyf.cost }}
         </div>
       </div>
     </div>

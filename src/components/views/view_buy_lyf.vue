@@ -57,17 +57,11 @@
         </div>
 
         <div class=" columns is-multiline ">
-          <div class="column is-full animated fadeIn " :class=" { 'has-none':tab != 0  }" >
-            Descripción dolor sit amet consectetur
-             adipisicing elit. Iure omnis doloremque dolore esse 
-             earum rerum minus? Pariatur possimus neque delectus,
-              minus eligendi officia, hic non, quos cumque molestias esse nostrum!
+          <div class="column is-full animated fadeIn " :class=" { 'has-none':tab != 0  }" v-html=" Lyf.generals.description ">
+
           </div>
-          <div class="column is-full animated fadeIn "  :class=" { 'has-none':tab != 1  }" >
-            Requerimientos sit amet consectetur
-             adipisicing elit. Iure omnis doloremque dolore esse 
-             earum rerum minus? Pariatur possimus neque delectus,
-              minus eligendi officia, hic non, quos cumque molestias esse nostrum!
+          <div class="column is-full animated fadeIn " :class=" { 'has-none':tab != 1  }" v-html=" Lyf.generals.req ">
+
           </div>
         </div>
 
@@ -80,9 +74,9 @@
         <h5 class=" is-size-5 has-text-primary has-margin-b-3 "> Preguntas frecuentes </h5>
         <b-collapse class="panel" :open.sync="isOpen">
           <div slot="trigger" class="panel-heading ">
-                <strong class=" is-size-6  "> ¿Como queda al final?</strong>
-            </div>
- 
+            <strong class=" is-size-6  "> ¿Como queda al final?</strong>
+          </div>
+
           <div class="panel-block">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. <br />
             Nulla accumsan, metus ultrices eleifend gravida, nulla nunc varius lectus, nec rutrum justo nibh eu lectus.
